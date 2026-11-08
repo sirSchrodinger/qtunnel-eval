@@ -1,0 +1,55 @@
+{
+ "model": "claude-haiku-5-5",
+ "task": "t5_resonance_energy",
+ "trial": 2,
+ "backend": "claude-cli",
+ "date": "2026-11-08 20:52:06",
+ "seconds": 137.4,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nA symmetric double-barrier resonant-tunnelling structure. The effective mass is 0.067 m0 in every region (contacts, barriers and well). Both barriers have height V0 = 0.30 eV and width 2.0 nm. They are separated by a quantum well of width 5.0 nm. The potential is 0 in the well and in the contacts. As the electron energy E (measured from the band edge of the contacts) increases from 0, the transmission probability T(E) shows its first (lowest-energy) peak. Find the energy of that peak, in eV (key \"E_res_eV\"), to 3 significant figures.\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "**Approach:** Use the transfer matrix for the symmetric structure. With the barrier matrix P (width b = 2 nm, κ) and well matrix W (width 5 nm, k), the full matrix N = PWP has equal diagonal elements m = n₁₁ = n₂₂. The transmission is\n\nT = 1/D, with D = u² + m², where u = X/(2k).\n\nHere X = k²n₁₂ − n₂₁, and the explicit forms are\n\n- m = C₂ cos θ + g S₂ sin θ\n- u = −g S₂ cos θ + sin θ (A − hB)\n\nwith θ = 5k, g = (κ² − k²)/(2kκ), h = (κ²/k² + k²/κ²)/2, A = cosh²(2κ), B = sinh²(2κ), S₂ = sinh(4κ), C₂ = cosh(4κ).\n\nHere k = √(E/c) and κ = √((0.3 − E)/c), with c = 0.0380998/0.067 = 0.568653 eV nm².\n\n**Evaluating D(E):**\n\n| E (eV) | D |\n|---|---|\n| 0.060 | 25.5 |\n| 0.080 | 1.73 |\n| 0.086 | 1.0007 |\n| 0.087 | 1.0084 |\n| 0.090 | 1.196 |\n| 0.100 | 2.96 |\n\nD ≥ 1 always, and T = 1 exactly at a resonance, so the first peak is the minimum of D with D = 1. A quadratic fit through E = 0.086, 0.087 and 0.090 gives a minimum at E ≈ 0.0862 eV, where D ≈ 1.000. The lower-energy region has no other minimum, so this is the first resonance.\n\nANSWER: {\"E_res_eV\": 0.0862}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 334,
+  "cache_read_input_tokens": 603,
+  "output_tokens": 32117,
+  "output_tokens_details": {
+   "thinking_tokens": 31506
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 334,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 32117,
+    "cache_read_input_tokens": 603,
+    "cache_creation_input_tokens": 334,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 334
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.016131529999999998
+ },
+ "grade": {
+  "ok": true,
+  "value": 0.0862,
+  "label": "correct"
+ },
+ "grade_firstpass": {
+  "ok": false,
+  "value": 0.0862,
+  "label": "wrong: other"
+ }
+}

@@ -1,0 +1,51 @@
+{
+ "model": "claude-fable-5-1",
+ "task": "t1_thin_barrier_exact",
+ "trial": 2,
+ "backend": "claude-cli",
+ "effort": "low",
+ "date": "2026-11-08 21:43:14",
+ "seconds": 6.2,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nAn electron (free-electron mass m0 everywhere) with energy E = 0.40 eV is incident on a rectangular potential barrier of height V0 = 1.00 eV and width a = 0.25 nm. The potential is 0 on both sides of the barrier. Find the exact quantum-mechanical transmission probability T. Do not use a thick-barrier approximation. Report T as a dimensionless number between 0 and 1 (key \"T\").\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "T = 1 / [1 + V0² sinh²(κa) / (4E(V0−E))]\n\nκ = sqrt((V0−E)/0.0380998) = sqrt(0.60/0.0380998) = sqrt(15.748) = 3.9684 nm⁻¹\nκa = 0.99210\nsinh(0.99210) = (e^0.9921 − e^−0.9921)/2 = (2.6969 − 0.37080)/2 = 1.16305\nsinh² = 1.35269\nV0²/(4E(V0−E)) = 1/(4·0.4·0.6) = 1.041667\nFactor: 1.041667 × 1.35269 = 1.40905\nT = 1/2.40905 = 0.4151\n\nANSWER: {\"T\": 0.415}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 704,
+  "cache_read_input_tokens": 0,
+  "output_tokens": 262,
+  "output_tokens_details": {
+   "thinking_tokens": 0
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 704,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 262,
+    "cache_read_input_tokens": 0,
+    "cache_creation_input_tokens": 704,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 704
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.0272
+ },
+ "grade": {
+  "ok": true,
+  "value": 0.415,
+  "label": "correct"
+ }
+}

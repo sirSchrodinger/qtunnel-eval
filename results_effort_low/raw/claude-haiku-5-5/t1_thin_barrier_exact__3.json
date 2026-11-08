@@ -1,0 +1,51 @@
+{
+ "model": "claude-haiku-5-5",
+ "task": "t1_thin_barrier_exact",
+ "trial": 3,
+ "backend": "claude-cli",
+ "effort": "low",
+ "date": "2026-11-08 21:27:15",
+ "seconds": 15.3,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nAn electron (free-electron mass m0 everywhere) with energy E = 0.40 eV is incident on a rectangular potential barrier of height V0 = 1.00 eV and width a = 0.25 nm. The potential is 0 on both sides of the barrier. Find the exact quantum-mechanical transmission probability T. Do not use a thick-barrier approximation. Report T as a dimensionless number between 0 and 1 (key \"T\").\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "**Approach:** For a rectangular barrier with E < V0, the exact transmission probability is\n\nT = 1 / [1 + V0² sinh²(κa) / (4E(V0 − E))], with κ = √(2m0(V0 − E))/ħ.\n\n**Step 1: Decay constant.**\nκ² = (V0 − E)/(ħ²/2m0) = 0.60 / 0.0380998 nm⁻² ≈ 15.7481 nm⁻²\nκ ≈ 3.96840 nm⁻¹\n\n**Step 2: Dimensionless barrier argument.**\nκa = 3.96840 × 0.25 ≈ 0.99210\n\n**Step 3: Hyperbolic sine.**\nsinh(0.99210) ≈ 1.16291, so sinh² ≈ 1.35235\n\n**Step 4: Prefactor.**\nV0² = 1.00, and 4E(V0 − E) = 4 × 0.40 × 0.60 = 0.96\nRatio: 1.35235 / 0.96 ≈ 1.40870\n\n**Step 5: Transmission.**\nT = 1 / (1 + 1.40870) = 1 / 2.40870 ≈ 0.4152\n\nANSWER: {\"T\": 0.4152}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 334,
+  "cache_read_input_tokens": 548,
+  "output_tokens": 1568,
+  "output_tokens_details": {
+   "thinking_tokens": 1141
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 334,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 1568,
+    "cache_read_input_tokens": 548,
+    "cache_creation_input_tokens": 334,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 334
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.00085648
+ },
+ "grade": {
+  "ok": true,
+  "value": 0.4152,
+  "label": "correct"
+ }
+}

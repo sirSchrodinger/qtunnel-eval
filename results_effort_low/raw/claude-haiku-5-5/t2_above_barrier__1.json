@@ -1,0 +1,51 @@
+{
+ "model": "claude-haiku-5-5",
+ "task": "t2_above_barrier",
+ "trial": 1,
+ "backend": "claude-cli",
+ "effort": "low",
+ "date": "2026-11-08 21:27:13",
+ "seconds": 13.8,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nAn electron (free-electron mass m0 everywhere) with energy E = 0.70 eV is incident on a rectangular potential barrier of height V0 = 0.50 eV and width a = 1.20 nm. The potential is 0 on both sides of the barrier. Find the exact quantum-mechanical transmission probability T, as a dimensionless number between 0 and 1 (key \"T\").\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "**Setup:** Since E = 0.70 eV > V0 = 0.50 eV, the electron is above the barrier, so the transmission is oscillatory.\n\n**Wavenumbers** (using ħ²/2m₀ = 0.0380998 eV nm²):\n\n- Outside the barrier: k = √(E/0.0380998) = √18.373 ≈ 4.2864 nm⁻¹\n- Inside the barrier: q = √((E−V₀)/0.0380998) = √5.2415 ≈ 2.2894 nm⁻¹\n\n**Phase:** qa = 2.2894 × 1.20 ≈ 2.7472 rad, so sin(qa) = sin(π − 2.7472) = sin(0.3944) ≈ 0.38425, and sin²(qa) ≈ 0.14765.\n\n**Exact transmission formula** for E > V₀:\n\nT = 1 / [1 + V₀² sin²(qa) / (4E(E−V₀))]\n\n- V₀² = 0.25 eV²\n- 4E(E−V₀) = 4 × 0.70 × 0.20 = 0.56 eV²\n- Denominator term: 0.25 × 0.14765 / 0.56 ≈ 0.06591\n\nSo T = 1 / 1.06591 ≈ 0.9382.\n\nANSWER: {\"T\": 0.9382}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 335,
+  "cache_read_input_tokens": 530,
+  "output_tokens": 1283,
+  "output_tokens_details": {
+   "thinking_tokens": 824
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 335,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 1283,
+    "cache_read_input_tokens": 530,
+    "cache_creation_input_tokens": 335,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 335
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.000714
+ },
+ "grade": {
+  "ok": true,
+  "value": 0.9382,
+  "label": "correct"
+ }
+}

@@ -1,0 +1,31 @@
+# qwen2-5-3b-instruct-q4_K_M-cpu | t11_resonance_width | trial 3 | default-effort
+
+- grade: **fail** (wrong: other), parsed value: 151.0
+- run date: 2026-11-08 21:44:13, seconds: 15.7, usage: output_tokens=None
+
+## Prompt sent
+
+```
+This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.
+
+A symmetric double-barrier resonant-tunnelling structure. The effective mass is 0.067 m0 in every region (contacts, barriers and well). Both barriers have height V0 = 0.30 eV and width 2.0 nm. They are separated by a quantum well of width 5.0 nm. The potential is 0 in the well and in the contacts. The transmission probability T(E) has its first (lowest-energy) resonance peak with maximum value 1. Find the full width at half maximum of that peak, i.e. the difference between the two energies, one on each side of the peak, at which T(E) = 0.5. Give it in eV (key "FWHM_eV").
+
+Reply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {"<key>": <number>}
+```
+
+## Model output (visible text; hidden reasoning is not stored)
+
+To solve this, we need to recognize that this is a problem related to transmission through a quantum barrier, and the resonance peak corresponds to barrier reflection, resulting in the lowest transmission probabilities. 
+
+The peak of the Transmission Probability (T(E) = 1), being half a transmission (T(E)=1/2), represents a reduction from the full transmission (T(E)=1).
+
+The formula to find the FWHM from the transmission probability is derived from quantum tunneling and can be simplified using the relationship of the barrier dimensions and energy. Given that we have 5.0 nm for the quantum well and each barrier height is 0.30 eV with width 2.0 nm, we can infer that the width of the effective barrier region (barriers + well) is 2.0 nm (barriers) + 5.0 nm (well) = 7.0 nm.
+
+Using the known relation for the FWHM of a resonance peak in tunneling structures, which is a function of the barrier height and transmission probability: FWHM ≈ 4.14 * (V0 / (W * e * hbar^2 / (2 m0)) where W is the length of the barriers.
+
+Substituting the given values: 2 nm for the width of each barrier, V0 for the barrier height, and hbar^2 / (2 m0) = 0.0380998 eV nm^2 from the hint;
+
+So, FWHM = 4.14 * (0.30 / (0.002 * 4.136) ≈ 4.14 * (0.30 / (0.008272) = 4.14 * 36.18 ≈ 151 eV.
+
+Converting this to the FWHM_eV as needed, we conclude:
+ANSWER: {"FWHM_eV": 151}

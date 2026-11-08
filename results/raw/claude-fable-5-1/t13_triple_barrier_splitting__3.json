@@ -1,0 +1,50 @@
+{
+ "model": "claude-fable-5-1",
+ "task": "t13_triple_barrier_splitting",
+ "trial": 3,
+ "backend": "claude-cli",
+ "date": "2026-11-08 21:26:06",
+ "seconds": 215.2,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nA symmetric triple-barrier structure. The effective mass is 0.067 m0 in every region (contacts, barriers and wells). The three barriers each have height V0 = 0.30 eV and width 1.5 nm. They are separated by two identical quantum wells, each 4.0 nm wide. The potential is 0 in the wells and in the contacts. The transmission probability T(E) has two resonance peaks below 0.20 eV, which come from the coupling of the two wells. Find the energy separation between these two lowest peaks, in meV (key \"splitting_meV\").\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "**Setup.** With m* = 0.067 m₀, ħ²/2m* = 0.5687 eV·nm². Let k = √(E/0.5687), κ = √((0.30−E)/0.5687) (nm⁻¹), well width a = 4 nm, barrier width d = b = 1.5 nm.\n\n**Resonance condition.** For a symmetric structure T = 1 when the even and odd interior solutions satisfy λ_e·λ_o = −k² at the outer edge (even/odd outside waves in quadrature). Propagating through the finite outer barrier, this fixes the logarithmic derivative μ of the resonant well solution at the inner edge of the outer barrier (instead of −κ for infinitely thick barriers). In the central barrier the even/odd solutions are cosh/sinh, so the well solution cos(k(x−b/2)+φ) has tan φ_e = −(κ/k)tanh(κb/2), tan φ_o = −(κ/k)coth(κb/2), and the peak condition is\n\nka = arctan(−μ/k) + arctan[(κ/k)·tanh or coth(κb/2)].\n\n**Even (lower) peak:** iterating, near E ≈ 0.087 eV (k ≈ 0.391, κ ≈ 0.612, tanh(κb/2) ≈ 0.429), the finite-barrier correction gives μ_e ≈ −0.572 (vs −κ = −0.612). Solving: E₁ ≈ 86.9 meV (vs ≈ 88.7 meV for infinitely thick outer barriers).\n\n**Odd (upper) peak:** near E ≈ 0.141 eV (k ≈ 0.499, κ ≈ 0.528, coth(κb/2) ≈ 2.66), μ_o ≈ −0.478 (vs −κ = −0.528). Solving: E₂ ≈ 141.3 meV (vs ≈ 145.6 meV for infinitely thick outer barriers).\n\n(For reference, an isolated 4 nm well has its level at ≈115.5 meV; the 1.5 nm central barrier splits it into the symmetric/antisymmetric pair.)\n\n**Splitting:** ΔE ≈ 141.3 − 86.9 ≈ 54 meV.\n\nANSWER: {\"splitting_meV\": 54.4}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 331,
+  "cache_read_input_tokens": 588,
+  "output_tokens": 18687,
+  "output_tokens_details": {
+   "thinking_tokens": 17898
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 331,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 18687,
+    "cache_read_input_tokens": 588,
+    "cache_creation_input_tokens": 331,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 331
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.9411369999999999
+ },
+ "grade": {
+  "ok": true,
+  "value": 54.4,
+  "label": "correct"
+ }
+}

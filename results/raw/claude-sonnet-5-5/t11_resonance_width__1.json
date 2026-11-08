@@ -1,0 +1,50 @@
+{
+ "model": "claude-sonnet-5-5",
+ "task": "t11_resonance_width",
+ "trial": 1,
+ "backend": "claude-cli",
+ "date": "2026-11-08 21:06:41",
+ "seconds": 42.7,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nA symmetric double-barrier resonant-tunnelling structure. The effective mass is 0.067 m0 in every region (contacts, barriers and well). Both barriers have height V0 = 0.30 eV and width 2.0 nm. They are separated by a quantum well of width 5.0 nm. The potential is 0 in the well and in the contacts. The transmission probability T(E) has its first (lowest-energy) resonance peak with maximum value 1. Find the full width at half maximum of that peak, i.e. the difference between the two energies, one on each side of the peak, at which T(E) = 0.5. Give it in eV (key \"FWHM_eV\").\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "The first resonance has FWHM ≈ 0.016 eV, found from the Airy-type transmission of two identical barriers with the resonance phase condition solved numerically by hand.\n\n**Setup.** With m* = 0.067 m0, ħ²/2m* = 0.568654 eV nm². Define k = √(E/0.568654) and κ = √((V0−E)/0.568654), in nm⁻¹.\n\n**Double-barrier transmission.** Let one barrier have transmission T₁ and reflection R₁ = 1 − T₁, with reflection phase θ. Then\n\nT(E) = 1 / [1 + (4R₁/T₁²) sin²(g)], where g = kL + θ and L = 5 nm.\n\nThe reflection amplitude of a single barrier at its edge is\n\nr = (k²+κ²) sinh(κb) / [(k²−κ²) sinh(κb) + 2ikκ cosh(κb)].\n\nSo θ = −φ, with φ = atan2(2kκ cosh κb, (k²−κ²) sinh κb) and b = 2 nm. The peak (T = 1) occurs where g = kL − φ = 0.\n\n**Locating the peak.** I evaluated g(E) at several energies:\n\n| E (eV) | g |\n|---|---|\n| 0.08 | −0.115 |\n| 0.09 | +0.068 |\n| 0.12 | +0.562 |\n\nInterpolating with a small curvature correction gives E₀ ≈ 0.0862 eV. The local slope is dg/dE ≈ 18.2 eV⁻¹.\n\n**Barrier data at E₀.**\n- κb = 1.226 and sinh κb = 1.557.\n- T₁ = 1/[1 + V0² sinh²(κb)/(4E(V0−E))] = 1/(1 + 2.958) = 0.2527.\n- R₁ = 0.7473.\n\n**Half-maximum condition.** T = 0.5 requires (4R₁/T₁²) sin²g = 1, so\n\nsin g = T₁/(2√R₁) = 0.2527/1.729 = 0.1461, giving |g| = 0.1467.\n\n**Width.** FWHM ≈ 2|g| / (dg/dE) = 0.2933 / 18.2 ≈ 0.0162 eV. The curvature of g(E) shifts the two half-maximum points in opposite directions, so it cancels to first order in the width.\n\nANSWER: {\"FWHM_eV\": 0.0162}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 930,
+  "cache_read_input_tokens": 0,
+  "output_tokens": 5280,
+  "output_tokens_details": {
+   "thinking_tokens": 4446
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 930,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 5280,
+    "cache_read_input_tokens": 0,
+    "cache_creation_input_tokens": 930,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 930
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.056524
+ },
+ "grade": {
+  "ok": true,
+  "value": 0.0162,
+  "label": "correct"
+ }
+}

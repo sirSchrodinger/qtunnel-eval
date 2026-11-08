@@ -1,0 +1,51 @@
+{
+ "model": "claude-haiku-5-5",
+ "task": "t7_thickness_sensitivity_decades",
+ "trial": 1,
+ "backend": "claude-cli",
+ "effort": "low",
+ "date": "2026-11-08 21:29:27",
+ "seconds": 17.9,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nA tunnel oxide is modelled as a rectangular barrier of height V0 = 3.20 eV above the contact band edge. The electron effective mass is m0 in the contacts and 0.42 m0 inside the barrier. An electron with energy E = 0.10 eV above the contact band edge is incident on the barrier. Using the exact transmission probability T(a) for barrier thickness a, find log10[ T(1.0 nm) / T(1.2 nm) ], i.e. by how many decades T drops when the thickness increases from 1.0 nm to 1.2 nm (key \"decades\").\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "**Setup**\n\n- Outside the barrier (m₀): k² = E/(ħ²/2m₀) = 0.10/0.0380998 = 2.6247 nm⁻², so k = 1.6201 nm⁻¹.\n- Inside the barrier (0.42 m₀): the height above E is V₀ − E = 3.10 eV, so κ² = 0.42 × 3.10/0.0380998 = 34.177 nm⁻², giving κ = 5.8461 nm⁻¹.\n\n**Exact transmission with mass discontinuity**\n\nMatching ψ and ψ'/m at both interfaces gives\n\n1/T = 1 + ¼(α/β − β/α)² sinh²(κa),\n\nwhere α = k/m₀ and β = κ/(0.42 m₀).\n\n- α = 1.6201\n- β = 13.919\n- α/β = 0.11640, β/α = 8.5919\n- ¼(α/β − β/α)² = ¼(8.4755)² = 17.958\n\n**Evaluate at both thicknesses**\n\n- a = 1.0 nm: κa = 5.8461, sinh ≈ 172.94, so 1/T ≈ 5.371×10⁵.\n- a = 1.2 nm: κa = 7.0153, sinh ≈ 556.79, so 1/T ≈ 5.567×10⁶.\n\nThe ratio T(1.0)/T(1.2) ≈ 10.37. The sinh² factors give exp(2κΔa) up to corrections of order e^(−2κa), which are negligible here, so\n\nlog₁₀[T(1.0)/T(1.2)] = 2κΔa / ln 10 = 0.4κ / 2.302585 = 2.33844 / 2.302585 ≈ 1.0156\n\nT drops by about 1.02 decades.\n\nANSWER: {\"decades\": 1.0156}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 333,
+  "cache_read_input_tokens": 598,
+  "output_tokens": 3436,
+  "output_tokens_details": {
+   "thinking_tokens": 2814
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 333,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 3436,
+    "cache_read_input_tokens": 598,
+    "cache_creation_input_tokens": 333,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 333
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.0017907799999999998
+ },
+ "grade": {
+  "ok": true,
+  "value": 1.0156,
+  "label": "correct"
+ }
+}

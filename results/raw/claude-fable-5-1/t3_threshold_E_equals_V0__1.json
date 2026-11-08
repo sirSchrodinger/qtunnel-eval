@@ -1,0 +1,50 @@
+{
+ "model": "claude-fable-5-1",
+ "task": "t3_threshold_E_equals_V0",
+ "trial": 1,
+ "backend": "claude-cli",
+ "date": "2026-11-08 20:58:00",
+ "seconds": 6.3,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nAn electron (free-electron mass m0 everywhere) with energy exactly E = 0.50 eV is incident on a rectangular potential barrier of height exactly V0 = 0.50 eV and width a = 1.00 nm. The potential is 0 on both sides of the barrier. Find the exact quantum-mechanical transmission probability T, as a dimensionless number between 0 and 1 (key \"T\").\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "At E = V0, the wavefunction inside the barrier is linear (zero kinetic energy), and the transmission is\n\nT = 1 / (1 + k²a²/4), with k = sqrt(E / (ħ²/2m)).\n\nk² = 0.50 / 0.0380998 = 13.1234 nm⁻², so k²a²/4 = 3.28085.\n\nT = 1 / 4.28085 = 0.23360\n\nANSWER: {\"T\": 0.2336}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 865,
+  "cache_read_input_tokens": 0,
+  "output_tokens": 158,
+  "output_tokens_details": {
+   "thinking_tokens": 0
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 865,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 158,
+    "cache_read_input_tokens": 0,
+    "cache_creation_input_tokens": 865,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 865
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.02522
+ },
+ "grade": {
+  "ok": true,
+  "value": 0.2336,
+  "label": "correct"
+ }
+}

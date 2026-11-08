@@ -1,0 +1,50 @@
+{
+ "model": "claude-haiku-5-5",
+ "task": "t4_effective_mass_interface",
+ "trial": 3,
+ "backend": "claude-cli",
+ "date": "2026-11-08 20:49:53",
+ "seconds": 34.8,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nA GaAs / AlGaAs / GaAs heterostructure. The electron effective mass is 0.067 m0 in the GaAs contacts and 0.092 m0 in the AlGaAs barrier. The barrier height is V0 = 0.30 eV above the GaAs band edge and the barrier width is a = 3.0 nm. An electron with energy E = 0.10 eV above the GaAs band edge is incident from the left GaAs contact. Use the envelope-function matching conditions that are appropriate at a heterointerface with position-dependent effective mass. Find the exact transmission probability T, as a dimensionless number between 0 and 1 (key \"T\").\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "**Approach:** Use the BenDaniel–Duke conditions, where ψ and (1/m)ψ′ are continuous at each interface, and treat the barrier with a transfer matrix.\n\n**Wavevectors** (with ħ²/2m₀ = 0.0380998 eV nm²):\n\n- Outside (GaAs), k² = E·m_c/0.0380998 = 0.175851 nm⁻², so k ≈ 0.41934 nm⁻¹.\n- Barrier (AlGaAs), κ² = (V₀−E)·m_b/0.0380998 = 0.482939 nm⁻², so κ ≈ 0.69494 nm⁻¹.\n- Barrier phase: κa ≈ 2.08481, so sinh(κa) ≈ 3.95940 and sinh²(κa) ≈ 15.6768.\n\n**Transfer matrix:** Inside the barrier, in the (ψ, ψ′/m_b) representation,\n\nM = [[cosh κa, (m_b/κ) sinh κa], [(κ/m_b) sinh κa, cosh κa]], with det M = 1.\n\nMatching to plane waves outside (q = k/m_c) gives\n\nT = 1 / [1 + sinh²(κa) · F],  F = 1 + (q²m_b/κ − κ/m_b)² / (4q²).\n\n**Numbers:**\n\n- q = k/m_c ≈ 6.2589 and q² ≈ 39.173.\n- q²m_b/κ ≈ 5.1860 and κ/m_b ≈ 7.5537, so the difference is −2.3677 and its square is 5.6058.\n- 4q² ≈ 156.69, so F = 1 + 5.6058/156.69 ≈ 1.03577.\n- sinh²(κa)·F ≈ 15.6768 × 1.03577 ≈ 16.2376.\n\nT = 1/17.2376 ≈ 0.0580\n\n**Check:** If m_b = m_c, the formula reduces to the standard square-barrier result T⁻¹ = 1 + V₀² sinh²(κa)/[4E(V₀−E)].\n\nANSWER: {\"T\": 0.0580}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 335,
+  "cache_read_input_tokens": 622,
+  "output_tokens": 7526,
+  "output_tokens_details": {
+   "thinking_tokens": 6790
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 335,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 7526,
+    "cache_read_input_tokens": 622,
+    "cache_creation_input_tokens": 335,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 335
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.00383642
+ },
+ "grade": {
+  "ok": true,
+  "value": 0.058,
+  "label": "correct"
+ }
+}

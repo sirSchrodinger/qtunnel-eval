@@ -1,0 +1,51 @@
+{
+ "model": "claude-fable-5-1",
+ "task": "t6_asymmetric_resonance_peak",
+ "trial": 3,
+ "backend": "claude-cli",
+ "effort": "low",
+ "date": "2026-11-08 21:44:34",
+ "seconds": 24.4,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nAn asymmetric double-barrier resonant-tunnelling structure. The effective mass is 0.067 m0 in every region (contacts, barriers and well). Both barriers have height V0 = 0.30 eV. The left barrier is 2.0 nm wide, the right barrier is 3.0 nm wide, and they are separated by a quantum well of width 5.0 nm. The potential is 0 in the well and in the contacts. The transmission probability T(E) has its first (lowest-energy) resonance peak at an energy below 0.15 eV. Find the maximum value of T(E) at that peak, as a dimensionless number between 0 and 1 (key \"T_peak\").\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "**Approach**\n\nAt the resonance, the exact (lossless, coherent) peak transmission of a double-barrier structure is\n\nT_peak = T_L T_R / (1 − √(R_L R_R))²,\n\nwhere T_L, T_R are single-barrier transmissions evaluated at the resonance energy.\n\n**Resonance energy:** With ħ²/2m* = 0.0380998/0.067 = 0.5687 eV nm², the lowest quasi-bound level of the 5 nm well (even state, k tan(ka/2) = κ) gives E₁ ≈ 0.090 eV, with κ = √((V₀−E)/0.5687) ≈ 0.608 nm⁻¹.\n\n**Single-barrier transmissions:** T = [1 + V₀² sinh²(κd)/(4E(V₀−E))]⁻¹, with V₀²/(4E(V₀−E)) ≈ 1.19.\n\n- Left (2.0 nm): κd = 1.22, sinh² ≈ 2.37 → T_L ≈ 0.262, R_L ≈ 0.738\n- Right (3.0 nm): κd = 1.82, sinh² ≈ 9.11 → T_R ≈ 0.084, R_R ≈ 0.916\n\n**Peak:** √(R_L R_R) ≈ 0.822, (1 − 0.822)² ≈ 0.0316, T_L T_R ≈ 0.0220\n\nT_peak ≈ 0.0220/0.0316 ≈ 0.70\n\nANSWER: {\"T_peak\": 0.70}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 330,
+  "cache_read_input_tokens": 623,
+  "output_tokens": 1931,
+  "output_tokens_details": {
+   "thinking_tokens": 1402
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 330,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 1931,
+    "cache_read_input_tokens": 623,
+    "cache_creation_input_tokens": 330,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 330
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.10332575
+ },
+ "grade": {
+  "ok": true,
+  "value": 0.7,
+  "label": "correct"
+ }
+}

@@ -1,0 +1,51 @@
+{
+ "model": "claude-haiku-5-5",
+ "task": "t4_effective_mass_interface",
+ "trial": 3,
+ "backend": "claude-cli",
+ "effort": "low",
+ "date": "2026-11-08 21:27:55",
+ "seconds": 26.7,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nA GaAs / AlGaAs / GaAs heterostructure. The electron effective mass is 0.067 m0 in the GaAs contacts and 0.092 m0 in the AlGaAs barrier. The barrier height is V0 = 0.30 eV above the GaAs band edge and the barrier width is a = 3.0 nm. An electron with energy E = 0.10 eV above the GaAs band edge is incident from the left GaAs contact. Use the envelope-function matching conditions that are appropriate at a heterointerface with position-dependent effective mass. Find the exact transmission probability T, as a dimensionless number between 0 and 1 (key \"T\").\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "**Setup.** With position-dependent mass, the envelope-function (BenDaniel–Duke) conditions require ψ and (1/m)dψ/dx to be continuous at each interface. Write k₁ for the GaAs wavevector, ν = k₁/m₁, κ for the barrier decay constant, and C = cosh κa, S = sinh κa.\n\n**Transfer matrix.** Across the barrier, the vector (ψ, ψ′/m₂) transforms with matrix [[C, (m₂/κ)S], [(κ/m₂)S, C]]. Applying the outside plane-wave forms on both sides and solving gives\n\n- Right-side amplitude: t e^{ika} = 2iν/D\n- D = 2iνC − S(β − αν²), with α = m₂/κ and β = κ/m₂ (note αβ = 1)\n\nso the transmission (same mass and wavevector on both sides) is\n\nT = 4ν² / [S²(β − αν²)² + 4ν²C²].\n\n**Numbers.**\n\n- k₁² = 0.067 × 0.10 / 0.0380998 = 0.175835 nm⁻², so k₁ = 0.41932 nm⁻¹\n- ν = k₁/0.067 = 6.2585 nm⁻¹, so ν² = 39.170\n- κ² = 0.092 × 0.20 / 0.0380998 = 0.482931 nm⁻², so κ = 0.694935 nm⁻¹\n- β = κ/0.092 = 7.5536; α = 0.092/κ = 0.13239; αν² = 5.1858\n- β − αν² = 2.3678\n- κa = 2.08481, so C = 4.08369 and S = 3.95937 (check: C² − S² ≈ 1)\n- S²(β − αν²)² ≈ 87.89\n- 4ν²C² ≈ 2612.9\n- 4ν² ≈ 156.68\n\nT = 156.68 / (87.89 + 2612.9) ≈ 156.68 / 2700.8 ≈ 0.0580\n\nANSWER: {\"T\": 0.0580}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 334,
+  "cache_read_input_tokens": 622,
+  "output_tokens": 4694,
+  "output_tokens_details": {
+   "thinking_tokens": 3985
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 334,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 4694,
+    "cache_read_input_tokens": 622,
+    "cache_creation_input_tokens": 334,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 334
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.0024202200000000003
+ },
+ "grade": {
+  "ok": true,
+  "value": 0.058,
+  "label": "correct"
+ }
+}

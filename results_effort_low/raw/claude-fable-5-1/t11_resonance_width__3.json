@@ -1,0 +1,51 @@
+{
+ "model": "claude-fable-5-1",
+ "task": "t11_resonance_width",
+ "trial": 3,
+ "backend": "claude-cli",
+ "effort": "low",
+ "date": "2026-11-08 21:46:35",
+ "seconds": 34.9,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nA symmetric double-barrier resonant-tunnelling structure. The effective mass is 0.067 m0 in every region (contacts, barriers and well). Both barriers have height V0 = 0.30 eV and width 2.0 nm. They are separated by a quantum well of width 5.0 nm. The potential is 0 in the well and in the contacts. The transmission probability T(E) has its first (lowest-energy) resonance peak with maximum value 1. Find the full width at half maximum of that peak, i.e. the difference between the two energies, one on each side of the peak, at which T(E) = 0.5. Give it in eV (key \"FWHM_eV\").\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "**Setup:** ħ²/2m* = 0.0380998/0.067 = 0.5687 eV·nm².\n\n**Resonance energy:** approximately the quasi-bound even state of the 5 nm well: k tan(ka/2) = κ with k = √(E/0.5687), κ = √((0.30−E)/0.5687). Solving gives E₀ ≈ 0.0896 eV (k ≈ 0.397 nm⁻¹, κ ≈ 0.608 nm⁻¹).\n\n**Single-barrier transmission at E₀:** κb = 1.217, sinh²(κb) = 2.370,\nT_b = [1 + V₀² sinh²(κb)/(4E(V₀−E))]⁻¹ = 1/(1+2.829) ≈ 0.261, R_b ≈ 0.739.\n\n**Fabry–Pérot width:** T(E) = [1 + (4R_b/T_b²) sin²φ]⁻¹, so half-maximum at Δφ = T_b/(2√R_b) ≈ 0.152. Round-trip phase derivative with penetration depth: dφ/dE ≈ (a + 2/κ)·dk/dE = 8.29 nm × 2.215 nm⁻¹eV⁻¹ ≈ 18.4 eV⁻¹.\n\nFWHM = 2Δφ/(dφ/dE) ≈ 0.304/18.4 ≈ 0.0165 eV.\n\nANSWER: {\"FWHM_eV\": 0.0165}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 330,
+  "cache_read_input_tokens": 618,
+  "output_tokens": 2683,
+  "output_tokens_details": {
+   "thinking_tokens": 2165
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 330,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 2683,
+    "cache_read_input_tokens": 618,
+    "cache_creation_input_tokens": 330,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 330
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.14092449999999998
+ },
+ "grade": {
+  "ok": true,
+  "value": 0.0165,
+  "label": "correct"
+ }
+}

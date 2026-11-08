@@ -1,0 +1,50 @@
+{
+ "model": "claude-haiku-5-5",
+ "task": "t4_effective_mass_interface",
+ "trial": 2,
+ "backend": "claude-cli",
+ "date": "2026-11-08 20:49:51",
+ "seconds": 34.1,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nA GaAs / AlGaAs / GaAs heterostructure. The electron effective mass is 0.067 m0 in the GaAs contacts and 0.092 m0 in the AlGaAs barrier. The barrier height is V0 = 0.30 eV above the GaAs band edge and the barrier width is a = 3.0 nm. An electron with energy E = 0.10 eV above the GaAs band edge is incident from the left GaAs contact. Use the envelope-function matching conditions that are appropriate at a heterointerface with position-dependent effective mass. Find the exact transmission probability T, as a dimensionless number between 0 and 1 (key \"T\").\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "**Setup.** With position-dependent mass, the envelope-function conditions are continuity of ψ and of (1/m)dψ/dx (BenDaniel–Duke). Writing the wavevectors as k = √(m_w E)/√0.0380998 and κ = √(m_b(V0−E))/√0.0380998:\n\n- Well (outside): k² = 0.067·0.10/0.0380998 → k ≈ 0.41935 nm⁻¹\n- Barrier: κ² = 0.092·0.20/0.0380998 → κ ≈ 0.69494 nm⁻¹\n- κa ≈ 2.08482, so C = cosh κa ≈ 4.08375 and S = sinh κa ≈ 3.95941\n\n**Transfer matrix.** Using the barrier matrix in the variables (ψ, ψ'/m), with u = m_b/κ, v = κ/m_b, and g = k/m_w, matching to incident/reflected/transmitted waves gives\n\nT = 1 / [ C² + S² (v − u g²)² / (4g²) ].\n\nChecking this against the equal-mass limit recovers the standard result 1/[1 + V0² S²/(4E(V0−E))].\n\n**Numbers.**\n- g = k/m_w ≈ 6.2589 nm⁻¹\n- (v − u g²)/(2g) = (κ²m_w² − m_b²k²)/(2kκ m_b m_w) ≈ 0.18912\n- Its square ≈ 0.035767\n- S² ≈ 15.677, so the second term ≈ 0.5607\n- C² ≈ 16.677\n\nDenominator ≈ 16.677 + 0.561 ≈ 17.238, so T ≈ 1/17.238 ≈ 0.0580.\n\nANSWER: {\"T\": 0.0580}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 334,
+  "cache_read_input_tokens": 622,
+  "output_tokens": 6910,
+  "output_tokens_details": {
+   "thinking_tokens": 6297
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 334,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 6910,
+    "cache_read_input_tokens": 622,
+    "cache_creation_input_tokens": 334,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 334
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.0035282200000000003
+ },
+ "grade": {
+  "ok": true,
+  "value": 0.058,
+  "label": "correct"
+ }
+}

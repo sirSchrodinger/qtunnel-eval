@@ -1,0 +1,50 @@
+{
+ "model": "claude-opus-5-5",
+ "task": "t6_asymmetric_resonance_peak",
+ "trial": 2,
+ "backend": "claude-cli",
+ "date": "2026-11-08 20:57:09",
+ "seconds": 57.1,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nAn asymmetric double-barrier resonant-tunnelling structure. The effective mass is 0.067 m0 in every region (contacts, barriers and well). Both barriers have height V0 = 0.30 eV. The left barrier is 2.0 nm wide, the right barrier is 3.0 nm wide, and they are separated by a quantum well of width 5.0 nm. The potential is 0 in the well and in the contacts. The transmission probability T(E) has its first (lowest-energy) resonance peak at an energy below 0.15 eV. Find the maximum value of T(E) at that peak, as a dimensionless number between 0 and 1 (key \"T_peak\").\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "**Approach:** The first resonance sits where the round-trip phase inside the well is a multiple of 2π. The effective mass is the same everywhere, so the contacts and the well have the same wavevector *k*. That means the exact coherent peak value can be written in terms of the single-barrier transmissions T₁ and T₂, evaluated at the resonance energy.\n\n**Parameters:** ħ²/2m* = 0.0380998/0.067 = 0.568654 eV nm².\n\nThis gives κ₀² = 0.3/0.568654 = 0.527561 nm⁻², with k² + κ² = κ₀² in the barriers.\n\n**Resonance condition (finite barriers):**\n\nThe reflection phase of a barrier of width d, seen from inside the well, is\n\nφ = −π/2 + arctan[α tanh(κd)], with α = (k² − κ²)/(2kκ).\n\nThe lowest resonance therefore satisfies\n\nf(k) = 2kL − π + arctan(α tanh 2κ) + arctan(α tanh 3κ) = 0, with L = 5 nm.\n\n- A first estimate from the infinitely thick-barrier well gives k = 0.39702 nm⁻¹, where f = +0.0799.\n- At k = 0.390 nm⁻¹, f = −0.0343.\n- Linear interpolation gives k ≈ 0.39211 nm⁻¹.\n- So E_res ≈ 0.0874 eV, which is below 0.15 eV as required, and κ ≈ 0.61140 nm⁻¹.\n\n**Single-barrier transmissions at E_res:**\n\nUse T = [1 + (k² + κ²)² sinh²(κd)/(4k²κ²)]⁻¹, where (k² + κ²)²/(4k²κ²) = 1.21066.\n\n- Left barrier (2 nm): sinh(1.2228) = 1.55115, so T₁ = 0.25557 and R₁ = 0.74443.\n- Right barrier (3 nm): sinh(1.8342) = 3.05022, so T₂ = 0.08154 and R₂ = 0.91846.\n\n**Peak transmission:**\n\nT_peak = T₁T₂ / (1 − √(R₁R₂))²\n\n- √(R₁R₂) = √0.68373 = 0.82688.\n- (1 − 0.82688)² = 0.029969.\n- T₁T₂ = 0.020839.\n- T_peak = 0.020839/0.029969 ≈ 0.695.\n\nThe peak is below 1 because the two barriers have unequal transmissions.\n\nANSWER: {\"T_peak\": 0.695}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 308,
+  "cache_read_input_tokens": 623,
+  "output_tokens": 5864,
+  "output_tokens_details": {
+   "thinking_tokens": 4987
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 308,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 5864,
+    "cache_read_input_tokens": 623,
+    "cache_creation_input_tokens": 308,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 308
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.1198766
+ },
+ "grade": {
+  "ok": true,
+  "value": 0.695,
+  "label": "correct"
+ }
+}

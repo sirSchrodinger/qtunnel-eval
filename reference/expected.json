@@ -1,0 +1,81 @@
+{
+  "t1_thin_barrier_exact": {
+    "ref": 0.41510483650057595,
+    "wrong": {
+      "thick_barrier_approximation": 0.5279668588566437,
+      "exp_only_no_prefactor": 0.13749136949391766
+    }
+  },
+  "t2_above_barrier": {
+    "ref": 0.9387692794069116,
+    "wrong": {
+      "classical_full_transmission": 1.0
+    }
+  },
+  "t3_threshold_E_equals_V0": {
+    "ref": 0.23359817883111206,
+    "wrong": {
+      "missing_factor_4": 0.07080437439104653,
+      "missing_factor_2": 0.13224520946006058
+    }
+  },
+  "t4_effective_mass_interface": {
+    "ref": 0.05801230159947194,
+    "wrong": {
+      "psi_prime_continuous_instead_of_psi_prime_over_m": 0.0475537506404242,
+      "same_mass_everywhere": 0.09691488516845244
+    }
+  },
+  "t5_resonance_energy": {
+    "ref": 0.08623837734698064,
+    "wrong": {
+      "infinite_well_E1": 0.22449561969924636
+    }
+  },
+  "t6_asymmetric_resonance_peak": {
+    "ref": 0.695347966341801,
+    "wrong": {
+      "unit_peak_symmetric_rule": 1.0
+    }
+  },
+  "t7_thickness_sensitivity_decades": {
+    "ref": 1.0155255087404365,
+    "wrong": {
+      "ignores_barrier_effective_mass": 1.566980820251267,
+      "effective_mass_in_denominator_of_kappa": 2.417903898911171
+    }
+  },
+  "t8_stm_barrier_error_factor": {
+    "ref": 0.49025171130795514,
+    "wrong": {
+      "inverted_ratio": 2.039768504493486
+    }
+  },
+  "t9_thick_barrier_validity": {
+    "ref": 0.19047009235343507,
+    "wrong": {
+      "kappa_a_equals_1": 0.15937340054099366,
+      "kappa_a_equals_2": 0.31874680108198733
+    }
+  },
+  "t10_sloped_barrier": {
+    "ref": 0.03240310664923016,
+    "wrong": {
+      "wkb_no_prefactor": 0.010736808516110821
+    }
+  },
+  "t11_resonance_width": {
+    "ref": 0.016405969997848754,
+    "wrong": {
+      "asymmetric_halfwidth_only": 0.008202984998924377
+    }
+  },
+  "t12_five_layer_stack": {
+    "ref": 0.03686161900947529,
+    "wrong": {}
+  },
+  "t13_triple_barrier_splitting": {
+    "ref": 54.46921485959442,
+    "wrong": {}
+  }
+}

@@ -1,0 +1,51 @@
+{
+ "model": "claude-haiku-5-5",
+ "task": "t5_resonance_energy",
+ "trial": 3,
+ "backend": "claude-cli",
+ "effort": "low",
+ "date": "2026-11-08 21:28:38",
+ "seconds": 41.1,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nA symmetric double-barrier resonant-tunnelling structure. The effective mass is 0.067 m0 in every region (contacts, barriers and well). Both barriers have height V0 = 0.30 eV and width 2.0 nm. They are separated by a quantum well of width 5.0 nm. The potential is 0 in the well and in the contacts. As the electron energy E (measured from the band edge of the contacts) increases from 0, the transmission probability T(E) shows its first (lowest-energy) peak. Find the energy of that peak, in eV (key \"E_res_eV\"), to 3 significant figures.\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "**Approach.** Model the first resonance as the even quasi-bound state of the well. Take the well centred on x=0 with edges at ±2.5 nm, and use an outgoing-wave condition in the outer contact. Propagating through a barrier of width b=2 nm gives a log-derivative match at the well edge.\n\n**Setup.** Let ħ²/2m = 0.568653 eV nm² (from 0.0380998/0.067). Define\n- k² = E/0.568653 (well),\n- κ² = (V0−E)/0.568653 (barrier),\n- K0² = κ²+k² = V0/0.568653 = 0.527633 nm⁻².\n\n**Matching condition.** The even-state condition in the well is k tan(kL/2) = F, with L = 5 nm. The barrier-side function is\n\nF = κ[(κ²+k²) sinh(2κb)cosh(2κb) − i kκ] / [κ²cosh²(2κb) + k² sinh²(2κb)].\n\nThe imaginary part of F is the resonance width. I dropped it and used the real part, which is the standard approximation for locating the peak. Because these barriers are thin, the resonance is broad, so this introduces some uncertainty in the last digit.\n\nReal-part condition:\n\nk tan(kL/2) = κ K0² sinh(2κb)cosh(2κb) / [κ²cosh²(2κb) + k² sinh²(2κb)]\n\n**Numerical root.** Evaluating f(E) = LHS − RHS:\n\n| E (eV) | LHS | RHS | f |\n|---|---|---|---|\n| 0.080 | 0.511 | 0.570 | −0.059 |\n| 0.085 | 0.560 | 0.565 | −0.004 |\n| 0.100 | 0.728 | 0.549 | +0.179 |\n\nLinear interpolation between 0.080 and 0.085 gives a root at E ≈ 0.0854 eV.\n\nFor comparison, an infinite well of width 5 nm would have its ground state at 0.2245 eV, so the finite barriers pull the first resonance well below that value. The estimate is consistent with this.\n\nANSWER: {\"E_res_eV\": 0.0854}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 335,
+  "cache_read_input_tokens": 603,
+  "output_tokens": 7891,
+  "output_tokens_details": {
+   "thinking_tokens": 7159
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 335,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 7891,
+    "cache_read_input_tokens": 603,
+    "cache_creation_input_tokens": 335,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 335
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.00401873
+ },
+ "grade": {
+  "ok": true,
+  "value": 0.0854,
+  "label": "correct"
+ }
+}

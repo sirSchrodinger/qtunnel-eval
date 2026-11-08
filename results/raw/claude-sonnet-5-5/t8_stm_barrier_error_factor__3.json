@@ -1,0 +1,50 @@
+{
+ "model": "claude-sonnet-5-5",
+ "task": "t8_stm_barrier_error_factor",
+ "trial": 3,
+ "backend": "claude-cli",
+ "date": "2026-11-08 20:55:12",
+ "seconds": 11.0,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nIn a scanning tunnelling microscope the current through a vacuum gap of width d = 1.00 nm is proportional to exp(-2 kappa d), with kappa = sqrt(2 m0 phi) / hbar, where phi is the effective barrier height. A calculation assumes phi = 4.50 eV, but the true value is phi = 4.80 eV. All other quantities are the same. Find the ratio I_true / I_calculated at d = 1.00 nm (key \"ratio\").\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "kappa = sqrt(phi / 0.0380998) nm^-1 (since ħ²/2m0 = 0.0380998 eV nm², κ² = φ/0.0380998).\n\nFor φ=4.50: 4.5/0.0380998 = 118.1103; sqrt = 10.8678 (10.8678² = 118.108; 10.86792² ≈ 118.1105). So κ1 ≈ 10.8679.\n\nFor φ=4.80: 4.8/0.0380998 = 125.9843; sqrt = 11.2243 (11.2243² = 125.9843; check: 11.2243² = 125.98 → 11.2243*11.2243 = 125.9844). So κ2 ≈ 11.2243.\n\nDifference: 0.3564. Let me refine more precisely.\n\nκ1: 118.1103 → 10.8679² = 118.1114 (10.8679²: 10.8679*10.8679 = 118.1112). Slightly high by ~0.0009, so κ1 = 10.8679 − 0.00004 = 10.86786.\n\nκ2: 11.2243² = 125.98411+... compute: 11.2243² = 125.9845 (11.2243*11.2243: 11²=121, 2*11*0.2243=4.9346, 0.2243²=0.05031; total 125.98491). Target 125.9843 (4.8/0.0380998: 0.0380998*126 = 4.80058, so 126 − 0.00058/0.0381 = 126 − 0.01522 = 125.98478). Target 125.98478 → κ2 ≈ 11.2243 − (0.00013)/(22.45) ≈ 11.22429.\n\nRecheck κ1 target: 0.0380998*118.11 = 4.49998; remainder 0.00002/0.0381=0.0005 → 118.1105. 10.8679² = 118.1112 (10.8679²: 118 + ... 10.8679*10.8679: 10²=100, 2*10*0.8679=17.358, 0.8679²=0.75325; total 118.11125). Diff −0.00075 → κ1 = 10.8679 − 0.000035 = 10.867865.\n\nΔκ = 11.22429 − 10.867865 = 0.356425.\nExponent = −2Δκ·d = −0.71285.\nexp(−0.71285) = e^−0.7 · e^−0.01285 = 0.496585 × 0.987232 = 0.49024.\n\nRatio ≈ 0.490\n\nANSWER: {\"ratio\": 0.490}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 312,
+  "cache_read_input_tokens": 563,
+  "output_tokens": 847,
+  "output_tokens_details": {
+   "thinking_tokens": 0
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 312,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 847,
+    "cache_read_input_tokens": 563,
+    "cache_creation_input_tokens": 312,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 312
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.009834599999999999
+ },
+ "grade": {
+  "ok": true,
+  "value": 0.49,
+  "label": "correct"
+ }
+}

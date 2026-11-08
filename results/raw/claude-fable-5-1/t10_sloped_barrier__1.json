@@ -1,0 +1,50 @@
+{
+ "model": "claude-fable-5-1",
+ "task": "t10_sloped_barrier",
+ "trial": 1,
+ "backend": "claude-cli",
+ "date": "2026-11-08 21:11:31",
+ "seconds": 199.3,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nAn electron (effective mass 0.067 m0 in every region) with energy E = 0.15 eV is incident on a barrier whose top is not flat. The potential is 0 for x < 0 and for x > 3.0 nm. For 0 <= x <= 3.0 nm it falls linearly from 0.80 eV at x = 0 to 0.20 eV at x = 3.0 nm, V(x) = 0.80 eV - (0.20 eV/nm) x. The potential jumps at x = 0 and at x = 3.0 nm. Find the exact quantum-mechanical transmission probability T, as a dimensionless number between 0 and 1 (key \"T\"). Do not use the WKB approximation.\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "**Setup.** With ħ²/2m* = 0.0380998/0.067 = 0.56865 eV·nm², the barrier-region equation ψ'' = (V−E)ψ/(ħ²/2m*) becomes the Airy equation in the variable z = β(3.25 nm − x), β = (0.2/0.56865)^{1/3} = 0.70587 nm⁻¹, so ψ = c₁Ai(z) + c₂Bi(z) (E lies below the barrier everywhere, z > 0 throughout).\n\nEndpoints: z₀ = z(0) = 2.2941, z₁ = z(3 nm) = 0.17647. Outside, k = √(0.15/0.56865) = 0.51360 nm⁻¹, κ = k/β = 0.72760.\n\n**Airy values** (Taylor series about 0, checked against Wronskian 1/π):\n- Ai(z₁)=0.30966, Ai'(z₁)=−0.25376, Bi(z₁)=0.69464, Bi'(z₁)=0.45869\n- Ai(z₀)=0.022041, Ai'(z₀)=−0.035472, Bi(z₀)=4.8456, Bi'(z₀)=6.6437\n\n**Matching** ψ = e^{ikx}+re^{-ikx} (x<0), ψ = t e^{ikx} (x>3 nm) gives\n\n2/t·e^{−ikL} = π{ [Bi'₁Ai₀ − Ai'₁Bi₀ − Bi₁Ai'₀ + Ai₁Bi'₀] + i[κ(Bi₁Ai₀ − Ai₁Bi₀) + κ⁻¹(Bi'₁Ai'₀ − Ai'₁Bi'₀)] }\n\nReal part = 3.3217, imaginary part = 1.2141, so |…|² = 12.508 and\n\nT = 4/(π²·12.508) ≈ 0.0324.\n\nANSWER: {\"T\": 0.0324}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 792,
+  "cache_read_input_tokens": 0,
+  "output_tokens": 18515,
+  "output_tokens_details": {
+   "thinking_tokens": 17832
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 792,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 18515,
+    "cache_read_input_tokens": 0,
+    "cache_creation_input_tokens": 792,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 792
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.94161
+ },
+ "grade": {
+  "ok": true,
+  "value": 0.0324,
+  "label": "correct"
+ }
+}

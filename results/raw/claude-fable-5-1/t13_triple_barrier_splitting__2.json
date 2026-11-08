@@ -1,0 +1,50 @@
+{
+ "model": "claude-fable-5-1",
+ "task": "t13_triple_barrier_splitting",
+ "trial": 2,
+ "backend": "claude-cli",
+ "date": "2026-11-08 21:24:58",
+ "seconds": 167.1,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nA symmetric triple-barrier structure. The effective mass is 0.067 m0 in every region (contacts, barriers and wells). The three barriers each have height V0 = 0.30 eV and width 1.5 nm. They are separated by two identical quantum wells, each 4.0 nm wide. The potential is 0 in the wells and in the contacts. The transmission probability T(E) has two resonance peaks below 0.20 eV, which come from the coupling of the two wells. Find the energy separation between these two lowest peaks, in meV (key \"splitting_meV\").\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "**Setup.** With m* = 0.067 m₀, ħ²/2m* = 0.56865 eV·nm², so k = √(E/0.56865) in the wells/contacts and κ = √((0.30−E)/0.56865) in the barriers.\n\nThe structure is symmetric about the centre of the middle barrier, so I split the problem into even (cosh κx in the central barrier) and odd (sinh κx) solutions, propagate the logarithmic derivative through the 4 nm well and the 1.5 nm outer barrier, and use the exact transmission condition for a symmetric 1D potential: T = cos²(δ_e − δ_o) = 1, i.e. the two outer logarithmic derivatives must satisfy L_e·L_o = −k².\n\n**Zeroth-order (bound states of the double well):**\n- symmetric (bonding) state: E ≈ 0.0887 eV\n- antisymmetric (antibonding) state: E ≈ 0.1457 eV\n(single isolated well: 0.1155 eV; the coupling through the 1.5 nm central barrier splits it by ≈ 57 meV).\n\n**Exact T = 1 condition with finite 1.5 nm outer barriers** (both peaks shift down because E < V₀/2):\n- Lower peak: E₁ ≈ 0.0868 eV\n- Upper peak: E₂ ≈ 0.1413 eV\n\n**Splitting:** E₂ − E₁ ≈ 141.3 − 86.8 ≈ 54.5 meV.\n\nANSWER: {\"splitting_meV\": 54.5}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 331,
+  "cache_read_input_tokens": 588,
+  "output_tokens": 14274,
+  "output_tokens_details": {
+   "thinking_tokens": 13742
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 331,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 14274,
+    "cache_read_input_tokens": 588,
+    "cache_creation_input_tokens": 331,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 331
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.720487
+ },
+ "grade": {
+  "ok": true,
+  "value": 54.5,
+  "label": "correct"
+ }
+}

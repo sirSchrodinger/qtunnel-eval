@@ -1,0 +1,51 @@
+{
+ "model": "claude-fable-5-1",
+ "task": "t11_resonance_width",
+ "trial": 2,
+ "backend": "claude-cli",
+ "effort": "low",
+ "date": "2026-11-08 21:46:32",
+ "seconds": 58.1,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nA symmetric double-barrier resonant-tunnelling structure. The effective mass is 0.067 m0 in every region (contacts, barriers and well). Both barriers have height V0 = 0.30 eV and width 2.0 nm. They are separated by a quantum well of width 5.0 nm. The potential is 0 in the well and in the contacts. The transmission probability T(E) has its first (lowest-energy) resonance peak with maximum value 1. Find the full width at half maximum of that peak, i.e. the difference between the two energies, one on each side of the peak, at which T(E) = 0.5. Give it in eV (key \"FWHM_eV\").\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "**Setup.** With m* = 0.067 m₀, ħ²/2m* = 0.5687 eV·nm². In the well k = √(E/0.5687), in the barriers κ = √((0.30−E)/0.5687).\n\n**Resonance.** For two identical barriers the exact transmission is\nT = T_b² / (1 + R_b² − 2R_b cos θ), with round‑trip phase θ = 2kw + 2φ_r, where φ_r = −arg[(k²−κ²)sinh κb + 2ikκ cosh κb] is the reflection phase of a finite barrier seen from the well. Solving θ(E) = 0 gives the first resonance at E₀ ≈ 0.0862 eV (slightly below the thick‑barrier estimate 0.0897 eV because of barrier finiteness). Numerically dθ/dE ≈ 36.2 rad/eV (equivalent to an effective cavity length ≈ 8 nm ≈ w + 2/κ).\n\n**Single‑barrier transmission at E₀:** κb ≈ 1.226, sinh²(κb) ≈ 2.43, so\nT_b = [1 + V₀² sinh²κb / (4E(V₀−E))]⁻¹ ≈ 0.252, R_b ≈ 0.748.\n\n**Half maximum:** T = ½ requires cos θ = (1 + R_b² − 2T_b²)/(2R_b) ≈ 0.9575 → θ_½ ≈ ±0.293 rad, i.e. Δθ ≈ 0.585 rad.\n\n**FWHM:** Γ = Δθ / (dθ/dE) ≈ 0.585/36.2 ≈ 0.016 eV.\n\nANSWER: {\"FWHM_eV\": 0.0162}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 333,
+  "cache_read_input_tokens": 618,
+  "output_tokens": 4591,
+  "output_tokens_details": {
+   "thinking_tokens": 3986
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 333,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 4591,
+    "cache_read_input_tokens": 618,
+    "cache_creation_input_tokens": 333,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 333
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.23638449999999997
+ },
+ "grade": {
+  "ok": true,
+  "value": 0.0162,
+  "label": "correct"
+ }
+}

@@ -1,0 +1,51 @@
+{
+ "model": "claude-opus-5-5",
+ "task": "t11_resonance_width",
+ "trial": 3,
+ "backend": "claude-cli",
+ "effort": "low",
+ "date": "2026-11-08 21:42:39",
+ "seconds": 27.4,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nA symmetric double-barrier resonant-tunnelling structure. The effective mass is 0.067 m0 in every region (contacts, barriers and well). Both barriers have height V0 = 0.30 eV and width 2.0 nm. They are separated by a quantum well of width 5.0 nm. The potential is 0 in the well and in the contacts. The transmission probability T(E) has its first (lowest-energy) resonance peak with maximum value 1. Find the full width at half maximum of that peak, i.e. the difference between the two energies, one on each side of the peak, at which T(E) = 0.5. Give it in eV (key \"FWHM_eV\").\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "**Approach.** I treat the structure as a Fabry–Pérot cavity: a well enclosed by two identical barriers. I find the resonance energy from the bound state of the finite well, then the single-barrier transmission at that energy. The phase width of the peak is then converted to an energy width.\n\n**1. Constants.** ħ²/2m = 0.0380998 / 0.067 = 0.56865 eV nm².\n\n**2. Resonance energy.** Use the even bound state of a finite well of width 5 nm and depth 0.30 eV:\n\nk tan(ka/2) = κ\n\n- Solving gives E_r ≈ 0.0896 eV.\n- At that energy, k ≈ 0.3969 nm⁻¹ and κ ≈ 0.6083 nm⁻¹.\n- This treats the 2 nm barriers as thick; their finite width shifts E_r slightly, which I neglect.\n\n**3. Single-barrier transmission.** For one rectangular barrier of width b = 2 nm:\n\nT₁ = [1 + (k²+κ²)² sinh²(κb) / (4k²κ²)]⁻¹\n\n- κb = 1.2165, so sinh² = 2.370.\n- (k²+κ²)² / (4k²κ²) = 1.1936.\n- Therefore T₁ ≈ 0.261 and R = 0.739.\n\n**4. Double-barrier Airy form.**\n\nT = T₁² / [(1−R)² + 4R sin²φ]\n\n- T = ½ when sin δφ = (1−R)/(2√R) = 0.1519, giving δφ = 0.1525.\n- The phase varies with energy as dφ/dE = L_eff / (ħv), where L_eff includes the penetration depth into each barrier.\n- L_eff = a + 2/κ = 5 + 3.288 = 8.288 nm.\n- ħv = 2(ħ²/2m)k = 0.4514 eV nm.\n\n**5. Width.**\n\nFWHM = 2 δφ ħv / L_eff = 2 × 0.1525 × 0.4514 / 8.288 ≈ 0.0166 eV\n\nThis is an approximate estimate, not an exact transfer-matrix result. The main uncertainty comes from the effective-length approximation, which matters because T₁ ≈ 0.26 is not small.\n\nANSWER: {\"FWHM_eV\": 0.0166}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 309,
+  "cache_read_input_tokens": 618,
+  "output_tokens": 2429,
+  "output_tokens_details": {
+   "thinking_tokens": 1631
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 309,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 2429,
+    "cache_read_input_tokens": 618,
+    "cache_creation_input_tokens": 309,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 309
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.05118360000000001
+ },
+ "grade": {
+  "ok": true,
+  "value": 0.0166,
+  "label": "correct"
+ }
+}

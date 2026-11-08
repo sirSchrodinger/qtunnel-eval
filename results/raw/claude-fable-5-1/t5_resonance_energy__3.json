@@ -1,0 +1,55 @@
+{
+ "model": "claude-fable-5-1",
+ "task": "t5_resonance_energy",
+ "trial": 3,
+ "backend": "claude-cli",
+ "date": "2026-11-08 20:59:27",
+ "seconds": 66.8,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nA symmetric double-barrier resonant-tunnelling structure. The effective mass is 0.067 m0 in every region (contacts, barriers and well). Both barriers have height V0 = 0.30 eV and width 2.0 nm. They are separated by a quantum well of width 5.0 nm. The potential is 0 in the well and in the contacts. As the electron energy E (measured from the band edge of the contacts) increases from 0, the transmission probability T(E) shows its first (lowest-energy) peak. Find the energy of that peak, in eV (key \"E_res_eV\"), to 3 significant figures.\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "**Setup.** With ħ²/2m* = 0.0380998/0.067 = 0.56865 eV·nm², define k = √(E/0.56865) in the well and κ = √((V₀−E)/0.56865) in the barriers.\n\nFor a symmetric double barrier the transmission is T = |t|⁴ / |1 − r² e^{2ikL}|², so T = 1 exactly when the round-trip phase closes: kL + arg(r) = nπ, where r is the single-barrier reflection amplitude,\n\nr = (k²+κ²) sinh(κb) / [(k²−κ²) sinh(κb) + 2ikκ cosh(κb)].\n\nThis gives the resonance condition (n = 0, lowest state):\n\nkL = π − arctan[ 2kκ coth(κb) / (κ² − k²) ],\n\nwhich reduces to the finite-well bound-state condition tan(kL/2) = κ/k as b → ∞ (that would give ≈ 0.0897 eV; finite 2 nm barriers lower it).\n\n**Solving numerically** (L = 5 nm, b = 2 nm, V₀ = 0.30 eV):\n\n- E = 0.0800 eV: LHS − RHS = −0.113\n- E = 0.0863 eV: k = 0.38957 nm⁻¹, κ = 0.61302 nm⁻¹, κb = 1.2261, coth(κb) = 1.1885, ratio = 2.5337 → RHS = 1.9467, LHS = kL = 1.9478 → difference +0.0011\n- E = 0.0897 eV: difference +0.062\n\nInterpolating (slope ≈ 18 rad/eV) the root is E ≈ 0.0863 − 0.0011/18 ≈ 0.0862 eV.\n\nANSWER: {\"E_res_eV\": 0.0862}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 331,
+  "cache_read_input_tokens": 603,
+  "output_tokens": 5627,
+  "output_tokens_details": {
+   "thinking_tokens": 5009
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 331,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 5627,
+    "cache_read_input_tokens": 603,
+    "cache_creation_input_tokens": 331,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 331
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.28814075
+ },
+ "grade": {
+  "ok": true,
+  "value": 0.0862,
+  "label": "correct"
+ },
+ "grade_firstpass": {
+  "ok": false,
+  "value": 0.0862,
+  "label": "wrong: other"
+ }
+}

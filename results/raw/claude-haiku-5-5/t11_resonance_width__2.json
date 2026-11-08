@@ -1,0 +1,50 @@
+{
+ "model": "claude-haiku-5-5",
+ "task": "t11_resonance_width",
+ "trial": 2,
+ "backend": "claude-cli",
+ "date": "2026-11-08 21:06:59",
+ "seconds": 206.4,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nA symmetric double-barrier resonant-tunnelling structure. The effective mass is 0.067 m0 in every region (contacts, barriers and well). Both barriers have height V0 = 0.30 eV and width 2.0 nm. They are separated by a quantum well of width 5.0 nm. The potential is 0 in the well and in the contacts. The transmission probability T(E) has its first (lowest-energy) resonance peak with maximum value 1. Find the full width at half maximum of that peak, i.e. the difference between the two energies, one on each side of the peak, at which T(E) = 0.5. Give it in eV (key \"FWHM_eV\").\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "**Approach.** The mass is uniform, so ψ and ψ′ are continuous at every interface. I used the transfer matrix N = P_b·P_w·P_b for the full structure, with barrier propagation in the evanescent form and well propagation in the oscillatory form. With outer wavevector k = K (the contacts have the same mass and zero potential), the transmission is\n\nT = 4K² / (R² + I²), where R = K²n₁₂ − n₂₁ and I = K(n₁₁+n₂₂).\n\nWriting κ = √((V₀−E)/α), K = √(E/α), with α = ħ²/2m = 0.568652 eV·nm², and θ = κb:\n\n- R = C·sinh2θ·(K²/κ − κ) + S·[2K cosh²θ − sinh²θ (K³/κ² + κ²/K)]\n- I = 2K cosh2θ·C + K sinh2θ·(κ/K − K/κ)·S\n\nwhere C = cos(Kw) and S = sin(Kw). I checked that the formula gives T = 1 for free propagation.\n\n**Resonance.** Evaluating T(E) numerically near the lowest resonance, the minimum of (R²+I²)/(4K²) is about 1 at E_r ≈ 0.086 eV. This confirms the peak value T = 1.\n\n**Half-maximum points.** Define g(E) = 1/T = (R²+I²)/(4K²). The half-maximum condition is g = 2. The computed values are:\n\n| E (eV) | g |\n|---|---|\n| 0.078 | 2.352 |\n| 0.079 | 2.009 |\n| 0.080 | 1.729 |\n| 0.092 | 1.434 |\n| 0.094 | 1.743 |\n| 0.096 | 2.109 |\n\n- Lower side: g(0.079) = 2.0092 and g′ ≈ −307 eV⁻¹, so E₋ ≈ 0.07903 eV.\n- Upper side: a cubic fit through the upper points gives E₊ ≈ 0.09543 eV.\n\nThe line shape is asymmetric about E_r because the I-term varies with energy, so the two half-points are not equidistant from the minimum.\n\n**Result.** FWHM = E₊ − E₋ ≈ 0.09543 − 0.07903 ≈ 0.0164 eV.\n\nANSWER: {\"FWHM_eV\": 0.0164}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 950,
+  "cache_read_input_tokens": 0,
+  "output_tokens": 50249,
+  "output_tokens_details": {
+   "thinking_tokens": 49438
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 950,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 50249,
+    "cache_read_input_tokens": 0,
+    "cache_creation_input_tokens": 950,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 950
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.0253147
+ },
+ "grade": {
+  "ok": true,
+  "value": 0.0164,
+  "label": "correct"
+ }
+}

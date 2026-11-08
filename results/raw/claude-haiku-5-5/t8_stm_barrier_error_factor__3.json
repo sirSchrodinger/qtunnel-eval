@@ -1,0 +1,50 @@
+{
+ "model": "claude-haiku-5-5",
+ "task": "t8_stm_barrier_error_factor",
+ "trial": 3,
+ "backend": "claude-cli",
+ "date": "2026-11-08 20:53:05",
+ "seconds": 9.1,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nIn a scanning tunnelling microscope the current through a vacuum gap of width d = 1.00 nm is proportional to exp(-2 kappa d), with kappa = sqrt(2 m0 phi) / hbar, where phi is the effective barrier height. A calculation assumes phi = 4.50 eV, but the true value is phi = 4.80 eV. All other quantities are the same. Find the ratio I_true / I_calculated at d = 1.00 nm (key \"ratio\").\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "**Setting up the ratio**\n\nSince the current scales as exp(-2κd) and only φ changes, the ratio depends only on the difference in κ:\n\nI_true / I_calc = exp[-2d(κ_true − κ_calc)]\n\nUsing κ = sqrt(φ · 2m₀/ħ²) with 2m₀/ħ² = 1/(0.0380998 eV nm²) = 26.2469 eV⁻¹ nm⁻²:\n\n- κ_calc = sqrt(4.50 × 26.2469) = sqrt(118.111) ≈ 10.8679 nm⁻¹\n- κ_true = sqrt(4.80 × 26.2469) = sqrt(125.985) ≈ 11.2243 nm⁻¹\n\nThe difference is Δκ ≈ 0.35641 nm⁻¹.\n\n**Exponent**\n\n2dΔκ = 2 × 1.00 nm × 0.35641 nm⁻¹ ≈ 0.71282\n\n**Result**\n\nI_true / I_calc = exp(−0.71282) ≈ 0.4903\n\nSo the true current is about half the calculated value, because the higher barrier suppresses tunnelling.\n\nANSWER: {\"ratio\": 0.4903}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 332,
+  "cache_read_input_tokens": 563,
+  "output_tokens": 1421,
+  "output_tokens_details": {
+   "thinking_tokens": 1006
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 332,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 1421,
+    "cache_read_input_tokens": 563,
+    "cache_creation_input_tokens": 332,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 332
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.0007827299999999999
+ },
+ "grade": {
+  "ok": true,
+  "value": 0.4903,
+  "label": "correct"
+ }
+}

@@ -1,0 +1,50 @@
+{
+ "model": "claude-fable-5-1",
+ "task": "t6_asymmetric_resonance_peak",
+ "trial": 2,
+ "backend": "claude-cli",
+ "date": "2026-11-08 20:59:39",
+ "seconds": 42.5,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nAn asymmetric double-barrier resonant-tunnelling structure. The effective mass is 0.067 m0 in every region (contacts, barriers and well). Both barriers have height V0 = 0.30 eV. The left barrier is 2.0 nm wide, the right barrier is 3.0 nm wide, and they are separated by a quantum well of width 5.0 nm. The potential is 0 in the well and in the contacts. The transmission probability T(E) has its first (lowest-energy) resonance peak at an energy below 0.15 eV. Find the maximum value of T(E) at that peak, as a dimensionless number between 0 and 1 (key \"T_peak\").\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "**Setup.** With $\\hbar^2/2m^* = 0.0380998/0.067 = 0.5687$ eV·nm², the lowest quasi‑bound level of the 5 nm, 0.30 eV well is found from $k\\tan(ka/2)=\\kappa$, giving $E_1 \\approx 0.09$ eV ($k\\approx0.40$ nm⁻¹, $\\kappa=\\sqrt{(V_0-E)/0.5687}\\approx0.606$ nm⁻¹). This is the first resonance (below 0.15 eV).\n\n**Single-barrier transmissions at that energy**, $T_i=\\left[1+\\frac{(k^2+\\kappa^2)^2}{4k^2\\kappa^2}\\sinh^2(\\kappa d_i)\\right]^{-1}$:\n\n- Left (2 nm): $\\kappa d\\approx1.21$, $\\sinh^2\\approx2.35$ → $T_L\\approx0.265$\n- Right (3 nm): $\\kappa d\\approx1.82$, $\\sinh^2\\approx9.0$ → $T_R\\approx0.086$\n\n**Peak transmission** (Fabry–Pérot maximum when the round‑trip phase is a multiple of $2\\pi$):\n\n$$T_{\\text{peak}}=\\frac{T_LT_R}{\\left(1-\\sqrt{R_LR_R}\\right)^2}\n=\\frac{0.265\\times0.086}{(1-\\sqrt{0.735\\times0.914})^2}\\approx\\frac{0.0228}{0.0326}\\approx0.70$$\n\n(The Breit–Wigner estimate $4T_LT_R/(T_L+T_R)^2\\approx0.73$ is slightly higher because $T_L$ is not very small; the exact Fabry–Pérot form gives ≈0.70.)\n\nANSWER: {\"T_peak\": 0.70}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 331,
+  "cache_read_input_tokens": 623,
+  "output_tokens": 3414,
+  "output_tokens_details": {
+   "thinking_tokens": 2778
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 331,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 3414,
+    "cache_read_input_tokens": 623,
+    "cache_creation_input_tokens": 331,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 331
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.17749575
+ },
+ "grade": {
+  "ok": true,
+  "value": 0.7,
+  "label": "correct"
+ }
+}

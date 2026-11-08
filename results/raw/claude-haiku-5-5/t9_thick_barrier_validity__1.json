@@ -1,0 +1,50 @@
+{
+ "model": "claude-haiku-5-5",
+ "task": "t9_thick_barrier_validity",
+ "trial": 1,
+ "backend": "claude-cli",
+ "date": "2026-11-08 20:53:18",
+ "seconds": 14.4,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nAn electron (free-electron mass m0) with energy E = 0.50 eV is incident on a rectangular barrier of height V0 = 2.00 eV and width a. The potential is 0 on both sides. The common thick-barrier approximation is T_approx = 16 (E/V0) (1 - E/V0) exp(-2 kappa a), with kappa = sqrt(2 m0 (V0 - E)) / hbar. Find the smallest width a, in nm (key \"a_nm\"), such that T_approx agrees with the exact transmission probability T within 10 percent, |T_approx / T - 1| <= 0.10, for that width and for every larger width.\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "**Setup.** Since E = 0.50 eV < V0 = 2.00 eV, the exact transmission is\n\nT = 1 / [1 + V0² sinh²(κa) / (4E(V0 − E))]\n\nWith V0² = 4 and 4E(V0 − E) = 3, the ratio is 4/3, so T = 1/[1 + (4/3)sinh²(κa)].\n\n**Simplify.** Using sinh²x = (e^{2x} − 2 + e^{−2x})/4 with x = κa, the denominator becomes (1/3)(e^{2κa} + 1 + e^{−2κa}), so\n\nT = 3 / (1 + 2cosh 2κa).\n\nThe approximation's prefactor is 16(E/V0)(1 − E/V0) = 16(0.25)(0.75) = 3, so T_approx = 3e^{−2κa}.\n\n**Ratio.** Let u = e^{−2κa}. Then\n\nT_approx / T = u(1 + u⁻¹ + u) ... more directly, T_approx/T = e^{−2κa}(1 + e^{2κa} + e^{−2κa}) = 1 + u + u².\n\nThe condition |T_approx/T − 1| ≤ 0.10 becomes u + u² ≤ 0.10. Since u decreases monotonically with a, this holds for all widths beyond the threshold.\n\n**Threshold.** Solving u + u² = 0.1 gives u = (√1.4 − 1)/2 ≈ 0.091608. Then\n\n2κa = −ln u = ln(5(1 + √1.4)) ≈ 2.390237.\n\n**Wavevector.** 2m0/ħ² = 1/0.0380998 ≈ 26.2469 eV⁻¹nm⁻², so κ² = 26.2469 × 1.5 ≈ 39.3703 nm⁻², giving κ ≈ 6.27457 nm⁻¹ and 2κ ≈ 12.54915 nm⁻¹.\n\n**Width.** a = 2.390237 / 12.54915 ≈ 0.19047 nm.\n\nANSWER: {\"a_nm\": 0.1905}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 953,
+  "cache_read_input_tokens": 0,
+  "output_tokens": 3024,
+  "output_tokens_details": {
+   "thinking_tokens": 2299
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 953,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 3024,
+    "cache_read_input_tokens": 0,
+    "cache_creation_input_tokens": 953,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 953
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.0017028
+ },
+ "grade": {
+  "ok": true,
+  "value": 0.1905,
+  "label": "correct"
+ }
+}

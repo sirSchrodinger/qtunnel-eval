@@ -1,0 +1,50 @@
+{
+ "model": "claude-haiku-5-5",
+ "task": "t11_resonance_width",
+ "trial": 1,
+ "backend": "claude-cli",
+ "date": "2026-11-08 21:04:30",
+ "seconds": 133.3,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nA symmetric double-barrier resonant-tunnelling structure. The effective mass is 0.067 m0 in every region (contacts, barriers and well). Both barriers have height V0 = 0.30 eV and width 2.0 nm. They are separated by a quantum well of width 5.0 nm. The potential is 0 in the well and in the contacts. The transmission probability T(E) has its first (lowest-energy) resonance peak with maximum value 1. Find the full width at half maximum of that peak, i.e. the difference between the two energies, one on each side of the peak, at which T(E) = 0.5. Give it in eV (key \"FWHM_eV\").\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "**Approach:** For a symmetric double barrier with the same mass everywhere, the transmission can be written exactly as\n\nT(E) = (1−R)² / (1 − 2R cosΦ + R²), with R = |r|²,\n\nwhere r is the single-barrier reflection amplitude (referenced to the barrier centres) and Φ = 2kw + 2φ₀(E). Here w = 5 nm is the well width, and φ₀ = −π/2 − arctan(α tanh κb), with α = (κ²−k²)/(2kκ), b = 2 nm, k = √(E/c), κ = √((V₀−E)/c), and c = 0.0380998/0.067 = 0.568653 eV·nm².\n\n**Resonance energy:** Φ = 0 gives 10k − π − 2 arctan(α tanh κb) = 0. Solving iteratively gives k ≈ 0.38941 nm⁻¹, so E₀ ≈ 0.0862 eV.\n\n**Half-maximum points:** T = 1/2 requires sin(Φ_h/2) = (1−R)/(2√R). At E₀, |t|² = 0.2525 and R = 0.7475, which gives Φ_h ≈ 0.293 rad on each side.\n\n**Energy conversion:** dΦ/dE ≈ 36 eV⁻¹ near E₀, with a significant contribution from the barrier phase. Because |t|² and the curvature of k(E) vary across the peak, I solved Φ(E) = ±h(R(E)) numerically at the two half-points:\n- Upper half-point: E ≈ 0.09544 eV (ΔE ≈ 0.00920 eV)\n- Lower half-point: E ≈ 0.07903 eV (ΔE ≈ 0.00721 eV)\n\nFWHM ≈ 0.00920 + 0.00721 ≈ 0.0164 eV. The estimate is hand-computed, so expect roughly ±1–2% uncertainty.\n\nANSWER: {\"FWHM_eV\": 0.0164}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 39833,
+  "cache_read_input_tokens": 0,
+  "output_tokens": 29063,
+  "output_tokens_details": {
+   "thinking_tokens": 28375
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 39833,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 29063,
+    "cache_read_input_tokens": 0,
+    "cache_creation_input_tokens": 39833,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 39833
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.0224983
+ },
+ "grade": {
+  "ok": true,
+  "value": 0.0164,
+  "label": "correct"
+ }
+}

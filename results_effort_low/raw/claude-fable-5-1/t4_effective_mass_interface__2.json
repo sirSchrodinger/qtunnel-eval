@@ -1,0 +1,51 @@
+{
+ "model": "claude-fable-5-1",
+ "task": "t4_effective_mass_interface",
+ "trial": 2,
+ "backend": "claude-cli",
+ "effort": "low",
+ "date": "2026-11-08 21:43:40",
+ "seconds": 9.1,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nA GaAs / AlGaAs / GaAs heterostructure. The electron effective mass is 0.067 m0 in the GaAs contacts and 0.092 m0 in the AlGaAs barrier. The barrier height is V0 = 0.30 eV above the GaAs band edge and the barrier width is a = 3.0 nm. An electron with energy E = 0.10 eV above the GaAs band edge is incident from the left GaAs contact. Use the envelope-function matching conditions that are appropriate at a heterointerface with position-dependent effective mass. Find the exact transmission probability T, as a dimensionless number between 0 and 1 (key \"T\").\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "Rectangular barrier with BenDaniel–Duke matching (ψ and (1/m)ψ' continuous).\n\nk = sqrt(E·m_w/(ħ²/2m0)) = sqrt(0.10·0.067/0.0380998) = sqrt(0.17585) = 0.41934 nm⁻¹\nκ = sqrt((V0−E)·m_b/(ħ²/2m0)) = sqrt(0.20·0.092/0.0380998) = sqrt(0.48294) = 0.69494 nm⁻¹\n\nT = [1 + (k/m_w)² + (κ/m_b)²)² / (4 (k/m_w)²(κ/m_b)²) · sinh²(κa)]⁻¹\n\nk/m_w = 6.2588, κ/m_b = 7.5537\n(k/m_w)² = 39.173, (κ/m_b)² = 57.058; sum = 96.231, sum² = 9260.4\ndenominator 4·39.173·57.058 = 8940.5 → ratio = 1.03579\nκa = 2.08482; sinh = (8.0427 − 0.12434)/2 = 3.9592; sinh² = 15.675\nT = 1/(1 + 1.03579·15.675) = 1/17.236 = 0.0580\n\nANSWER: {\"T\": 0.0580}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 332,
+  "cache_read_input_tokens": 622,
+  "output_tokens": 451,
+  "output_tokens_details": {
+   "thinking_tokens": 0
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 332,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 451,
+    "cache_read_input_tokens": 622,
+    "cache_creation_input_tokens": 332,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 332
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.0293655
+ },
+ "grade": {
+  "ok": true,
+  "value": 0.058,
+  "label": "correct"
+ }
+}

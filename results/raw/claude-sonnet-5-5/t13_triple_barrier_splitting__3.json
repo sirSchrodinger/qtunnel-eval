@@ -1,0 +1,50 @@
+{
+ "model": "claude-sonnet-5-5",
+ "task": "t13_triple_barrier_splitting",
+ "trial": 3,
+ "backend": "claude-cli",
+ "date": "2026-11-08 21:19:38",
+ "seconds": 122.5,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nA symmetric triple-barrier structure. The effective mass is 0.067 m0 in every region (contacts, barriers and wells). The three barriers each have height V0 = 0.30 eV and width 1.5 nm. They are separated by two identical quantum wells, each 4.0 nm wide. The potential is 0 in the wells and in the contacts. The transmission probability T(E) has two resonance peaks below 0.20 eV, which come from the coupling of the two wells. Find the energy separation between these two lowest peaks, in meV (key \"splitting_meV\").\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "The two peaks are the in-phase and out-of-phase combinations of the two well states. They are at about 86.8 meV and 141.4 meV, so the splitting is about 55 meV.\n\n**Method.** The structure is symmetric about the centre of the middle barrier, so I treated the even and odd half-structures separately.\n\n1. With ħ²/2m* = 0.0380998/0.067 = 0.5687 eV nm², the wavevectors are k = √(E/0.5687) in the wells and contacts, and κ = √((0.30−E)/0.5687) in the barriers.\n2. Start at the centre of the middle barrier with ψ = cosh κx (even) or sinh κx (odd). Propagate through the half barrier (0.75 nm), the 4 nm well, and the outer 1.5 nm barrier. At the outer edge this gives a log-derivative Λ_e or Λ_o.\n3. Matching to the outgoing contact wave gives T = sin²[arctan(Λ_e/k) − arctan(Λ_o/k)]. A peak (T = 1) occurs when this phase difference Δ equals −π/2 modulo π.\n4. I evaluated Δ(E) by hand at several energies:\n\n| E (eV) | Δ (rad) |\n|---|---|\n| 0.080 | −0.81 |\n| 0.087 | −1.589 |\n| 0.090 | −1.875 |\n| 0.100 | −2.11 |\n| 0.120 | −2.29 |\n| 0.140 | −1.633 |\n| 0.145 | −1.398 |\n\n5. Interpolating to Δ = −π/2 gives the two peaks: E₁ ≈ 86.8 meV and E₂ ≈ 141.4 meV.\n\nThe hand arithmetic limits the precision to roughly ±0.3 meV.\n\nSplitting ≈ 141.4 − 86.8 ≈ 54.6 meV.\n\nANSWER: {\"splitting_meV\": 54.6}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 313,
+  "cache_read_input_tokens": 588,
+  "output_tokens": 15638,
+  "output_tokens_details": {
+   "thinking_tokens": 14976
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 313,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 15638,
+    "cache_read_input_tokens": 588,
+    "cache_creation_input_tokens": 313,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 313
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.1577536
+ },
+ "grade": {
+  "ok": true,
+  "value": 54.6,
+  "label": "correct"
+ }
+}

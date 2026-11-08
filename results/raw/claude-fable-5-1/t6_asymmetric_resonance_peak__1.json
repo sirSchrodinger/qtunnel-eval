@@ -1,0 +1,50 @@
+{
+ "model": "claude-fable-5-1",
+ "task": "t6_asymmetric_resonance_peak",
+ "trial": 1,
+ "backend": "claude-cli",
+ "date": "2026-11-08 20:59:36",
+ "seconds": 68.6,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nAn asymmetric double-barrier resonant-tunnelling structure. The effective mass is 0.067 m0 in every region (contacts, barriers and well). Both barriers have height V0 = 0.30 eV. The left barrier is 2.0 nm wide, the right barrier is 3.0 nm wide, and they are separated by a quantum well of width 5.0 nm. The potential is 0 in the well and in the contacts. The transmission probability T(E) has its first (lowest-energy) resonance peak at an energy below 0.15 eV. Find the maximum value of T(E) at that peak, as a dimensionless number between 0 and 1 (key \"T_peak\").\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "**Setup.** With equal masses everywhere, the double barrier acts as a Fabry–Pérot cavity. At a resonance the exact peak transmission is\n\nT_peak = T_L T_R / (1 − √(R_L R_R))²,\n\nwith T_L, T_R the single‑barrier transmissions at the resonance energy.\n\n**Resonance energy.** ħ²/(2m*) = 0.0380998/0.067 = 0.5687 eV nm². The quasi‑bound ground state of the 5 nm, 0.30 eV well (including the finite‑barrier reflection phases, 2ka = φ_L + φ_R) gives E₀ ≈ 0.0875 eV (below 0.15 eV as stated). Then k ≈ 0.392 nm⁻¹, κ = √((0.3−E)/0.5687) ≈ 0.611 nm⁻¹.\n\n**Single‑barrier transmissions** T = [1 + V₀² sinh²(κd) / (4E(V₀−E))]⁻¹, with V₀²/(4E(V₀−E)) ≈ 1.210:\n\n- Left (d = 2 nm): κd ≈ 1.223, sinh² ≈ 2.405 → T_L ≈ 0.256, R_L ≈ 0.744\n- Right (d = 3 nm): κd ≈ 1.834, sinh² ≈ 9.30 → T_R ≈ 0.0816, R_R ≈ 0.918\n\n**Peak transmission.**\n√(R_L R_R) ≈ 0.8268 → (1 − 0.8268)² ≈ 0.0300;\nT_L T_R ≈ 0.02088;\nT_peak ≈ 0.02088/0.0300 ≈ 0.70.\n\n(The asymmetry of the barriers prevents T from reaching unity.)\n\nANSWER: {\"T_peak\": 0.70}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 954,
+  "cache_read_input_tokens": 0,
+  "output_tokens": 5719,
+  "output_tokens_details": {
+   "thinking_tokens": 5081
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 954,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 5719,
+    "cache_read_input_tokens": 0,
+    "cache_creation_input_tokens": 954,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 954
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.30505
+ },
+ "grade": {
+  "ok": true,
+  "value": 0.7,
+  "label": "correct"
+ }
+}

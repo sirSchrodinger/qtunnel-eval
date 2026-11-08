@@ -1,0 +1,50 @@
+{
+ "model": "claude-haiku-5-5",
+ "task": "t2_above_barrier",
+ "trial": 1,
+ "backend": "claude-cli",
+ "date": "2026-11-08 20:49:05",
+ "seconds": 9.3,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nAn electron (free-electron mass m0 everywhere) with energy E = 0.70 eV is incident on a rectangular potential barrier of height V0 = 0.50 eV and width a = 1.20 nm. The potential is 0 on both sides of the barrier. Find the exact quantum-mechanical transmission probability T, as a dimensionless number between 0 and 1 (key \"T\").\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "**Setup.** Since E = 0.70 eV > V₀ = 0.50 eV, the electron is above the barrier, so the transmission is oscillatory and given by the standard formula\n\n$$T = \\left[1 + \\frac{V_0^2\\sin^2(qa)}{4E(E-V_0)}\\right]^{-1}, \\qquad q = \\sqrt{\\frac{E-V_0}{\\hbar^2/2m_0}}.$$\n\n**Wavevector inside the barrier.**\n\n$$q^2 = \\frac{0.20}{0.0380998} = 5.2494\\ \\text{nm}^{-2}, \\qquad q = 2.29115\\ \\text{nm}^{-1}$$\n\n**Phase.**\n\n$$qa = 2.29115 \\times 1.20 = 2.74938$$\n\n$$\\sin(qa) = \\sin(\\pi - 2.74938) = \\sin(0.39221) \\approx 0.38223, \\qquad \\sin^2(qa) \\approx 0.14610$$\n\n**Prefactor.**\n\n$$\\frac{V_0^2}{4E(E-V_0)} = \\frac{0.25}{4(0.70)(0.20)} = \\frac{0.25}{0.56} = 0.44643$$\n\n**Transmission.**\n\n$$T = \\frac{1}{1 + 0.44643 \\times 0.14610} = \\frac{1}{1.06522} \\approx 0.9388$$\n\nANSWER: {\"T\": 0.9388}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 863,
+  "cache_read_input_tokens": 0,
+  "output_tokens": 1421,
+  "output_tokens_details": {
+   "thinking_tokens": 931
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 863,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 1421,
+    "cache_read_input_tokens": 0,
+    "cache_creation_input_tokens": 863,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 863
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.0008833000000000001
+ },
+ "grade": {
+  "ok": true,
+  "value": 0.9388,
+  "label": "correct"
+ }
+}

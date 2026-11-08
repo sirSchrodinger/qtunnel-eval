@@ -1,0 +1,50 @@
+{
+ "model": "claude-fable-5-1",
+ "task": "t11_resonance_width",
+ "trial": 3,
+ "backend": "claude-cli",
+ "date": "2026-11-08 21:13:20",
+ "seconds": 110.9,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nA symmetric double-barrier resonant-tunnelling structure. The effective mass is 0.067 m0 in every region (contacts, barriers and well). Both barriers have height V0 = 0.30 eV and width 2.0 nm. They are separated by a quantum well of width 5.0 nm. The potential is 0 in the well and in the contacts. The transmission probability T(E) has its first (lowest-energy) resonance peak with maximum value 1. Find the full width at half maximum of that peak, i.e. the difference between the two energies, one on each side of the peak, at which T(E) = 0.5. Give it in eV (key \"FWHM_eV\").\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "**Setup.** With ħ²/2m* = 0.0380998/0.067 = 0.56865 eV·nm², define k = √(E/0.56865), κ = √((0.30−E)/0.56865).\n\nFor a single barrier (width b = 2 nm):\n- T₁ = 4k²κ² / [4k²κ² + (k²+κ²)² sinh²(κb)]\n- reflection phase θ_r = −π/2 − arctan[(κ²−k²) tanh(κb)/(2kκ)]\n\nFor the symmetric double barrier the exact result is\nT(E) = T₁² / [T₁² + 4R₁ sin²(φ/2)], φ = 2kw + 2θ_r (w = 5 nm),\nso T = 1 at φ/2 ≡ f(E) = kw − π/2 − arctan[(κ²−k²)tanh(κb)/(2kκ)] = 0, and T = 0.5 where sin²f = T₁²/(4R₁).\n\n**Resonance.** f(E)=0 gives E₀ ≈ 0.0863 eV (compared to 0.0896 eV for an infinitely thick barrier). There T₁ ≈ 0.253, so the half-max points occur at |f| ≈ 0.146 rad; f changes at ≈ 17–19 rad/eV.\n\n**Half-maximum points** (solving sin²f(E) = T₁(E)²/(4R₁(E)) numerically, including the energy dependence of T₁):\n- lower: E₋ ≈ 0.0790 eV\n- upper: E₊ ≈ 0.0954 eV\n\nFWHM = E₊ − E₋ ≈ 0.0164 eV.\n\nANSWER: {\"FWHM_eV\": 0.0164}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 332,
+  "cache_read_input_tokens": 618,
+  "output_tokens": 10079,
+  "output_tokens_details": {
+   "thinking_tokens": 9486
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 332,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 10079,
+    "cache_read_input_tokens": 618,
+    "cache_creation_input_tokens": 332,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 332
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.5107645
+ },
+ "grade": {
+  "ok": true,
+  "value": 0.0164,
+  "label": "correct"
+ }
+}

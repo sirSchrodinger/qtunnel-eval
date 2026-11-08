@@ -1,0 +1,50 @@
+{
+ "model": "claude-fable-5-1",
+ "task": "t10_sloped_barrier",
+ "trial": 2,
+ "backend": "claude-cli",
+ "date": "2026-11-08 21:11:15",
+ "seconds": 158.2,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nAn electron (effective mass 0.067 m0 in every region) with energy E = 0.15 eV is incident on a barrier whose top is not flat. The potential is 0 for x < 0 and for x > 3.0 nm. For 0 <= x <= 3.0 nm it falls linearly from 0.80 eV at x = 0 to 0.20 eV at x = 3.0 nm, V(x) = 0.80 eV - (0.20 eV/nm) x. The potential jumps at x = 0 and at x = 3.0 nm. Find the exact quantum-mechanical transmission probability T, as a dimensionless number between 0 and 1 (key \"T\"). Do not use the WKB approximation.\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "**Setup.** With ħ²/2m* = 0.0380998/0.067 = 0.56865 eV·nm², inside the barrier the Schrödinger equation is ψ'' = 0.35171 (3.25 nm − x) ψ, which is Airy's equation in ζ = (3.25 − x)/ℓ with ℓ³ = 1/0.35171 → ℓ = 1.41668 nm. The barrier edges correspond to ζ₀ = 2.29409 (x=0) and ζ₁ = 0.17647 (x=3 nm); there is no turning point inside (barrier everywhere above E). Outside, k = √(0.15/0.56865) = 0.51360 nm⁻¹, q = kℓ = 0.72760.\n\n**Matching.** Writing ψ = a Ai(ζ)+b Bi(ζ) inside, matching ψ and ψ' at x = 3 nm to t·e^{ikx} and at x = 0 to e^{ikx}+r e^{−ikx}, and using W[Ai,Bi]=1/π gives\n\n2/(πt e^{3ik}) = (Bi'₁+iq Bi₁)(Ai₀+(i/q)Ai'₀) − (Ai'₁+iq Ai₁)(Bi₀+(i/q)Bi'₀),\n\nso T = 4/(π²|Σ|²) with Σ the right-hand side.\n\n**Airy values** (power series, checked with the Wronskian):\n- ζ₁: Ai = 0.309659, Ai' = −0.253763, Bi = 0.694634, Bi' = 0.458687\n- ζ₀: Ai = 0.022044, Ai' = −0.035467, Bi = 4.84561, Bi' = 6.64371\n\nRe Σ = Bi'₁Ai₀ − Bi₁Ai'₀ − Ai'₁Bi₀ + Ai₁Bi'₀ = 3.32167\nIm Σ = (1/q)(Bi'₁Ai'₀ − Ai'₁Bi'₀) + q(Bi₁Ai₀ − Ai₁Bi₀) = 2.29474 − 1.08062 = 1.21412\n\n|Σ|² = 12.5076, so T = 4/(π²·12.5076) ≈ 0.0324.\n\nANSWER: {\"T\": 0.0324}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 966,
+  "cache_read_input_tokens": 0,
+  "output_tokens": 14520,
+  "output_tokens_details": {
+   "thinking_tokens": 13718
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 966,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 14520,
+    "cache_read_input_tokens": 0,
+    "cache_creation_input_tokens": 966,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 966
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.74534
+ },
+ "grade": {
+  "ok": true,
+  "value": 0.0324,
+  "label": "correct"
+ }
+}

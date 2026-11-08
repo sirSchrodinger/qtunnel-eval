@@ -1,0 +1,51 @@
+{
+ "model": "claude-haiku-5-5",
+ "task": "t13_triple_barrier_splitting",
+ "trial": 3,
+ "backend": "claude-cli",
+ "effort": "low",
+ "date": "2026-11-08 21:38:26",
+ "seconds": 270.3,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nA symmetric triple-barrier structure. The effective mass is 0.067 m0 in every region (contacts, barriers and wells). The three barriers each have height V0 = 0.30 eV and width 1.5 nm. They are separated by two identical quantum wells, each 4.0 nm wide. The potential is 0 in the wells and in the contacts. The transmission probability T(E) has two resonance peaks below 0.20 eV, which come from the coupling of the two wells. Find the energy separation between these two lowest peaks, in meV (key \"splitting_meV\").\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "**Approach.** For a symmetric structure, split the wavefunction into even and odd solutions about the centre of the middle barrier. Their values at the outer barrier edge (x = L = 6.25 nm) give the transmission:\n\nT(E) = k²/|Z|², with Z = k²·e·o − e′·o′ + ik(e·o′ + o·e′)\n\nHere e, e′ are the even solution (ψ(0)=1, ψ′(0)=0) and o, o′ the odd solution (ψ(0)=0, ψ′(0)=1), all evaluated at x = L. I checked this formula against the free-space case, where it gives T = 1.\n\n**Parameters.** ħ²/(2m) = 0.568654 eV·nm² for m = 0.067 m₀, so k = √(E/0.568654) and κ = √((0.30 − E)/0.568654) (nm⁻¹). I propagated the even and odd solutions through the outer barrier (1.5 nm), the well (4 nm), and the middle barrier (1.5 nm), then minimised Φ = |Z|²/k² (which maximises T) near each resonance.\n\n**Results (hand arithmetic, roughly 3–4 significant figures):**\n\n- Lower peak (even-parity state): Φ has its minimum near E ≈ 0.0869 eV, where T ≈ 1.00 (the peak is broad, with Γ of order 10–20 meV).\n- Upper peak (odd-parity state): Φ has its minimum near E ≈ 0.1413 eV, where T ≈ 0.996.\n\n**Splitting.** E₂ − E₁ ≈ 0.1413 − 0.0869 ≈ 0.0544 eV ≈ 54.4 meV. The uncertainty is roughly ±0.5 meV from the finite-difference fits to the grid of energies.\n\nANSWER: {\"splitting_meV\": 54.4}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 335,
+  "cache_read_input_tokens": 588,
+  "output_tokens": 68839,
+  "output_tokens_details": {
+   "thinking_tokens": 68201
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 335,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 68839,
+    "cache_read_input_tokens": 588,
+    "cache_creation_input_tokens": 335,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 335
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.034492579999999995
+ },
+ "grade": {
+  "ok": true,
+  "value": 54.4,
+  "label": "correct"
+ }
+}

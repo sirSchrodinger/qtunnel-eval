@@ -1,0 +1,51 @@
+{
+ "model": "claude-opus-5-5",
+ "task": "t4_effective_mass_interface",
+ "trial": 1,
+ "backend": "claude-cli",
+ "effort": "low",
+ "date": "2026-11-08 21:40:28",
+ "seconds": 11.9,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nA GaAs / AlGaAs / GaAs heterostructure. The electron effective mass is 0.067 m0 in the GaAs contacts and 0.092 m0 in the AlGaAs barrier. The barrier height is V0 = 0.30 eV above the GaAs band edge and the barrier width is a = 3.0 nm. An electron with energy E = 0.10 eV above the GaAs band edge is incident from the left GaAs contact. Use the envelope-function matching conditions that are appropriate at a heterointerface with position-dependent effective mass. Find the exact transmission probability T, as a dimensionless number between 0 and 1 (key \"T\").\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "The interface conditions are the BenDaniel–Duke ones: ψ is continuous and (1/m)·dψ/dx is continuous, with the mass taken in each region.\n\n**Wavevectors**\n\n- In GaAs: k = √(0.067 · 0.10 / 0.0380998) = √0.175854 ≈ 0.41935 nm⁻¹.\n- In the AlGaAs barrier: κ = √(0.092 · 0.20 / 0.0380998) = √0.482942 ≈ 0.69494 nm⁻¹.\n\n**Transmission formula**\n\nWith the mass-weighted ratio r = (κ/m_b)/(k/m_w), the matching gives\n\nT = [1 + ((r + 1/r)/2)² · sinh²(κa)]⁻¹.\n\n**Mass-weighted ratio**\n\n- r = (0.69494/0.41935) · (0.067/0.092) = 1.65718 × 0.72826 ≈ 1.20686.\n- 1/r ≈ 0.82860.\n- (r + 1/r)/2 ≈ 1.01773, so its square is ≈ 1.03577.\n\n**Barrier factor**\n\n- κa = 0.69494 × 3.0 = 2.08482.\n- e^(2.08482) ≈ 8.04315 and e^(−2.08482) ≈ 0.12433.\n- sinh(κa) ≈ 3.95941, so sinh²(κa) ≈ 15.6769.\n\n**Result**\n\n- The product is 1.03577 × 15.6769 ≈ 16.2377.\n- T = 1/(1 + 16.2377) = 1/17.2377 ≈ 0.0580.\n\nANSWER: {\"T\": 0.0580}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 308,
+  "cache_read_input_tokens": 622,
+  "output_tokens": 1035,
+  "output_tokens_details": {
+   "thinking_tokens": 459
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 308,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 1035,
+    "cache_read_input_tokens": 622,
+    "cache_creation_input_tokens": 308,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 308
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.0232964
+ },
+ "grade": {
+  "ok": true,
+  "value": 0.058,
+  "label": "correct"
+ }
+}

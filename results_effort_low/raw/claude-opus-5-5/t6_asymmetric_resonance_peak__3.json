@@ -1,0 +1,51 @@
+{
+ "model": "claude-opus-5-5",
+ "task": "t6_asymmetric_resonance_peak",
+ "trial": 3,
+ "backend": "claude-cli",
+ "effort": "low",
+ "date": "2026-11-08 21:41:19",
+ "seconds": 22.1,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nAn asymmetric double-barrier resonant-tunnelling structure. The effective mass is 0.067 m0 in every region (contacts, barriers and well). Both barriers have height V0 = 0.30 eV. The left barrier is 2.0 nm wide, the right barrier is 3.0 nm wide, and they are separated by a quantum well of width 5.0 nm. The potential is 0 in the well and in the contacts. The transmission probability T(E) has its first (lowest-energy) resonance peak at an energy below 0.15 eV. Find the maximum value of T(E) at that peak, as a dimensionless number between 0 and 1 (key \"T_peak\").\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "The peak height is estimated with a Fabry–Pérot treatment of the two barriers. The resonance energy uses an isolated finite-well estimate, not a solution of the full transmission problem, so the answer is approximate (roughly ±0.03).\n\n**Constants.** ħ²/(2m) = 0.0380998/0.067 = 0.56865 eV nm².\n\n**Resonance energy.** I approximate the first resonance by the ground state of an isolated 5 nm well, 0.30 eV deep.\n- The well parameter is u₀ = (a/2)√(V₀/(ħ²/2m)) = 2.5 × 0.7263 = 1.816.\n- Solving ξ tan ξ = √(u₀² − ξ²) gives ξ ≈ 0.992.\n- So E_r = 0.56865 × (2ξ/a)² ≈ 0.0895 eV.\n- Coupling to the contacts through finite barriers would shift this slightly. That shift was not computed, so E_r is approximate.\n\n**Single-barrier transmissions at E_r.**\n- The decay constant under the barriers is κ = √((0.30 − 0.0895)/0.56865) ≈ 0.608 nm⁻¹.\n- For a rectangular barrier, T_b = [1 + V₀² sinh²(κb) / (4E(V₀ − E))]⁻¹, with V₀²/(4E(V₀ − E)) ≈ 1.194.\n- Left barrier (2 nm): κb = 1.217, sinh² = 2.372, so T_L ≈ 0.261 and R_L = 0.739.\n- Right barrier (3 nm): κb = 1.825, sinh² = 9.13, so T_R ≈ 0.084 and R_R = 0.916.\n\n**Peak transmission.** At resonance the round-trip phase in the well aligns. This model assumes those phases align exactly and does not include the energy dependence of the barrier phases. The peak is then\n\nT_peak = T_L T_R / (1 − √(R_L R_R))² = 0.02192 / (1 − 0.8228)² ≈ 0.698.\n\nAs a cross-check, the Breit–Wigner form 4T_L T_R/(T_L + T_R)² gives about 0.74. The peak is below 1 because the two barriers are asymmetric (T_L ≈ 3 T_R).\n\nANSWER: {\"T_peak\": 0.70}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 758,
+  "cache_read_input_tokens": 0,
+  "output_tokens": 2026,
+  "output_tokens_details": {
+   "thinking_tokens": 1214
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 758,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 2026,
+    "cache_read_input_tokens": 0,
+    "cache_creation_input_tokens": 758,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 758
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.046592
+ },
+ "grade": {
+  "ok": true,
+  "value": 0.7,
+  "label": "correct"
+ }
+}

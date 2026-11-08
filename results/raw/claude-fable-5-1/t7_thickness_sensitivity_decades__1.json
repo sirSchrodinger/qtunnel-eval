@@ -1,0 +1,50 @@
+{
+ "model": "claude-fable-5-1",
+ "task": "t7_thickness_sensitivity_decades",
+ "trial": 1,
+ "backend": "claude-cli",
+ "date": "2026-11-08 20:59:51",
+ "seconds": 24.2,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nA tunnel oxide is modelled as a rectangular barrier of height V0 = 3.20 eV above the contact band edge. The electron effective mass is m0 in the contacts and 0.42 m0 inside the barrier. An electron with energy E = 0.10 eV above the contact band edge is incident on the barrier. Using the exact transmission probability T(a) for barrier thickness a, find log10[ T(1.0 nm) / T(1.2 nm) ], i.e. by how many decades T drops when the thickness increases from 1.0 nm to 1.2 nm (key \"decades\").\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "**Setup (BenDaniel–Duke, exact rectangular barrier):**\n\n- Contact wavevector: k = √(E/0.0380998) = √(0.10/0.0380998) ≈ 1.620 nm⁻¹\n- Barrier decay constant: κ = √(0.42·(3.20−0.10)/0.0380998) = √(34.173) ≈ 5.846 nm⁻¹\n- Mass‑weighted velocities: α = k/m_c = 1.620, β = κ/m_b = 5.846/0.42 ≈ 13.92\n\nExact transmission:\nT(a) = [1 + (α²+β²)²/(4α²β²) · sinh²(κa)]⁻¹, with (α²+β²)²/(4α²β²) ≈ 18.96.\n\n- a = 1.0 nm: κa = 5.846, sinh² ≈ 2.989×10⁴ → T ≈ 1/(5.666×10⁵) ≈ 1.765×10⁻⁶\n- a = 1.2 nm: κa = 7.015, sinh² ≈ 3.098×10⁵ → T ≈ 1/(5.872×10⁶) ≈ 1.703×10⁻⁷\n\nRatio T(1.0)/T(1.2) ≈ 10.36 (essentially e^{2κ·0.2 nm} = e^{2.338}), so\n\nlog₁₀[T(1.0)/T(1.2)] ≈ 2.338/2.3026 ≈ 1.016\n\nANSWER: {\"decades\": 1.0155}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 930,
+  "cache_read_input_tokens": 0,
+  "output_tokens": 1860,
+  "output_tokens_details": {
+   "thinking_tokens": 1330
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 930,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 1860,
+    "cache_read_input_tokens": 0,
+    "cache_creation_input_tokens": 930,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 930
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.11162000000000001
+ },
+ "grade": {
+  "ok": true,
+  "value": 1.0155,
+  "label": "correct"
+ }
+}

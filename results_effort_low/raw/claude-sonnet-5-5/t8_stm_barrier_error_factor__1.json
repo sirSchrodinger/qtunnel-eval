@@ -1,0 +1,51 @@
+{
+ "model": "claude-sonnet-5-5",
+ "task": "t8_stm_barrier_error_factor",
+ "trial": 1,
+ "backend": "claude-cli",
+ "effort": "low",
+ "date": "2026-11-08 21:37:09",
+ "seconds": 7.8,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nIn a scanning tunnelling microscope the current through a vacuum gap of width d = 1.00 nm is proportional to exp(-2 kappa d), with kappa = sqrt(2 m0 phi) / hbar, where phi is the effective barrier height. A calculation assumes phi = 4.50 eV, but the true value is phi = 4.80 eV. All other quantities are the same. Find the ratio I_true / I_calculated at d = 1.00 nm (key \"ratio\").\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "kappa = sqrt(phi / 0.0380998) nm^-1.\n\nFor 4.50 eV: 4.50/0.0380998 = 118.1103; sqrt = 10.8678 (10.8678² = 118.1100, good). So kappa1 ≈ 10.86788.\n\nFor 4.80 eV: 4.80/0.0380998 = 125.9807; sqrt ≈ 11.2241 (11.2241² = 125.9798; need 125.9807, add 0.0009/22.45 = 0.00004) → 11.22414.\n\nCheck the first more carefully: 10.8678² = 118.10008; target 118.1103 (4.5/0.0380998: 0.0380998×118.11 = 4.49999..., computing 0.0380998×118 = 4.495776; remainder 0.004224/0.0380998 = 0.11087; so 118.11087). Then 118.11087 − 118.10008 = 0.01079; /21.7356 = 0.000496. So kappa1 = 10.86830.\n\nSecond: 4.8/0.0380998: 0.0380998×126 = 4.800575, over by 0.000575 → 126 − 0.01509 = 125.98491. 11.2241² = 125.97962; difference 0.00529/22.448 = 0.000236. So kappa2 = 11.224336.\n\nDifference = 0.356036 nm^-1. 2·Δκ·d = 0.712072.\n\nRatio = exp(−0.712072) = e^-0.7 × e^-0.012072 = 0.496585 × 0.988001 = 0.49063.\n\nBrief: the true barrier is higher, so the current is lower by exp(−2(κ_true−κ_calc)d).\n\nANSWER: {\"ratio\": 0.4906}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 313,
+  "cache_read_input_tokens": 563,
+  "output_tokens": 586,
+  "output_tokens_details": {
+   "thinking_tokens": 0
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 313,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 586,
+    "cache_read_input_tokens": 563,
+    "cache_creation_input_tokens": 313,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 313
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.0072286
+ },
+ "grade": {
+  "ok": true,
+  "value": 0.4906,
+  "label": "correct"
+ }
+}

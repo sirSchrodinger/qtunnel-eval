@@ -1,0 +1,51 @@
+{
+ "model": "claude-fable-5-1",
+ "task": "t11_resonance_width",
+ "trial": 1,
+ "backend": "claude-cli",
+ "effort": "low",
+ "date": "2026-11-08 21:46:01",
+ "seconds": 65.0,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nA symmetric double-barrier resonant-tunnelling structure. The effective mass is 0.067 m0 in every region (contacts, barriers and well). Both barriers have height V0 = 0.30 eV and width 2.0 nm. They are separated by a quantum well of width 5.0 nm. The potential is 0 in the well and in the contacts. The transmission probability T(E) has its first (lowest-energy) resonance peak with maximum value 1. Find the full width at half maximum of that peak, i.e. the difference between the two energies, one on each side of the peak, at which T(E) = 0.5. Give it in eV (key \"FWHM_eV\").\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "**Setup:** ħ²/2m* = 0.0380998/0.067 = 0.5687 eV·nm². The lowest resonance is near the quasi-bound state of the 5 nm well (k tan(kL/2) = κ_eff, with κ_eff reduced by finite-barrier leakage, e^{-2κa} ≈ 0.086). Solving self-consistently gives E₁ ≈ 0.0855 eV (k ≈ 0.388 nm⁻¹, κ ≈ 0.614 nm⁻¹).\n\n**Single-barrier transmission at E₁:** κa ≈ 1.228, T₁ = 1/[cosh²κa + ((κ²−k²)/2kκ)² sinh²κa] ≈ 0.251, R₁ ≈ 0.749.\n\n**Double-barrier line shape:** T = 1/[1 + (4R₁/T₁²) sin²(δ/2)], δ = round-trip phase deviation. Half-maximum: sin(δ/2) = T₁/(2√R₁) ≈ 0.145 → full phase width 2δ ≈ 0.581.\n\n**Phase derivative:** dφ/dE = 2L dk/dE + 2 dφ_r/dE ≈ 22.7 + 13.9 ≈ 36.6 eV⁻¹ (barrier reflection-phase term accounts for wavefunction penetration).\n\nFWHM ≈ 0.581/36.6 ≈ 0.016 eV.\n\nANSWER: {\"FWHM_eV\": 0.016}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 331,
+  "cache_read_input_tokens": 618,
+  "output_tokens": 5166,
+  "output_tokens_details": {
+   "thinking_tokens": 4638
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 331,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 5166,
+    "cache_read_input_tokens": 618,
+    "cache_creation_input_tokens": 331,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 331
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.2650945
+ },
+ "grade": {
+  "ok": true,
+  "value": 0.016,
+  "label": "correct"
+ }
+}

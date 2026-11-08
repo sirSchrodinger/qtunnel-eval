@@ -1,0 +1,23 @@
+{
+ "model": "qwen2-5-3b-instruct-q4_K_M-cpu",
+ "task": "t11_resonance_width",
+ "trial": 1,
+ "backend": "openai",
+ "date": "2026-11-08 21:43:33",
+ "seconds": 42.7,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nA symmetric double-barrier resonant-tunnelling structure. The effective mass is 0.067 m0 in every region (contacts, barriers and well). Both barriers have height V0 = 0.30 eV and width 2.0 nm. They are separated by a quantum well of width 5.0 nm. The potential is 0 in the well and in the contacts. The transmission probability T(E) has its first (lowest-energy) resonance peak with maximum value 1. Find the full width at half maximum of that peak, i.e. the difference between the two energies, one on each side of the peak, at which T(E) = 0.5. Give it in eV (key \"FWHM_eV\").\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "To solve this problem, we need to understand how the transmission probability \\( T(E) \\) in a resonant tunnelling diode (RTD) depends on the energy \\( E \\) of the incident particles. For a symmetric double-barrier RTD, the transmission probability as a function of \\( E \\) can be modeled using the transmission coefficients for each of the barriers and the quantum well.\n\nThe transmission coefficient \\( T_{i,j} \\) for a particle traversing from region \\( i \\) to region \\( j \\) can be determined by considering the difference in energies across each energy step and solving the Schrödinger equation. For a simple model of two barriers, the transmission coefficient \\( T(E) \\) has a series of peaks and valleys, with the peak at the first resonance corresponding to the simplest form of the model.\n\nFor the given problem, we can use the known result for the first transmission peak height of 1, and find the energies at which the transmission probability is half of this value. Given the symmetry and the nature of the transmission probability in such a structure, the peak width in energy corresponds to twice the barrier height but scaled by the effective mass and other geometrical parameters.\n\nThe general expression for the transmission probability in such a structure involves complex integrals which are beyond the scope of numerical evaluation here, but the relationship between the first peak width and the parameters gives us the form of the transmission peak width. For a symmetric double-barrier RTD, the first resonance's full width at half maximum \\( \\Delta E \\) can be approximately modeled as:\n\n\\[\n\\Delta E \\approx \\frac{4 V_0}{m_0 h^2} \\cdot \\frac{1}{\\sqrt{m_0/m_{eff}}}\n\\]\n\nWhere \\( V_0 = 0.30 \\, \\text{eV} \\) and \\( m_{\\text{eff}} \\approx 0.067 \\, m_0 \\) (considering the effective mass for the quantum well and barriers with \\( m_{\\text{eff}} \\approx 0.067 \\, m_0 \\)). The Planck constant \\( h \\) is \\( 4.1356676637 \\times 10^{-15} \\, \\text{eV s} \\). Substituting these values:\n\n\\[\n\\Delta E \\approx \\frac{4 \\cdot 0.30}{0.067^2} \\cdot \\frac{1}{1/\\sqrt{0.067/0.067}} = \\frac{4 \\cdot 0.30}{0.04489} \\approx 23.358 \\, \\text{eV}\n\\]\n\nHowever, considering the specific h-bar value given, the first resonance will be scaled by:\n\\[\n\\Delta E \\approx \\frac{4 \\cdot 0.30 \\, \\text{eV}}{(0.0289/2)^2} = 0.0380998 \\, \\text{eV nm}^2 \\cdot \\Delta E / h^2\n\\]\n\nSolving for the first \\( \\Delta E \\):\n\n\\[\n\\Delta E \\approx 0.0380998 \\times 23.358 \\approx 0.88856 \\, \\text{eV}\n\\]\n\nGiven the symmetry and effective mass, the full width at half maximum (FWHM) can be approximately:\n\n\\[\nFWHM \\approx 0.0380998 \\times 1.5 \\left( \\frac{0.88856 \\, \\text{eV}}{2} \\right)^2 \\approx 0.0380998 \\times 2.0536 \\times 10^3 \\approx 5.566 \\, \\text{eV}\n\\]\n\nIn conclusion, the full width at half maximum is approximately:\n\n\\[\nFWHM \\approx 1.13 \\, \\text{eV}\n\\]\n\nThus, the final result:\n\nANSWER: {\"FWHM_eV\": 1.13}",
+ "usage": {
+  "prompt_tokens": 307,
+  "prompt_tokens_details": {
+   "cached_tokens": 105
+  },
+  "completion_tokens": 904,
+  "total_tokens": 1211
+ },
+ "grade": {
+  "ok": false,
+  "value": 1.13,
+  "label": "wrong: other"
+ }
+}

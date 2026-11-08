@@ -1,0 +1,51 @@
+{
+ "model": "claude-opus-5-5",
+ "task": "t6_asymmetric_resonance_peak",
+ "trial": 2,
+ "backend": "claude-cli",
+ "effort": "low",
+ "date": "2026-11-08 21:41:14",
+ "seconds": 20.5,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nAn asymmetric double-barrier resonant-tunnelling structure. The effective mass is 0.067 m0 in every region (contacts, barriers and well). Both barriers have height V0 = 0.30 eV. The left barrier is 2.0 nm wide, the right barrier is 3.0 nm wide, and they are separated by a quantum well of width 5.0 nm. The potential is 0 in the well and in the contacts. The transmission probability T(E) has its first (lowest-energy) resonance peak at an energy below 0.15 eV. Find the maximum value of T(E) at that peak, as a dimensionless number between 0 and 1 (key \"T_peak\").\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "The peak is **T_peak ≈ 0.70**. This comes from a hand-calculated Fabry–Perot estimate, not a full transfer-matrix solution. Simpler approximations give 0.70–0.74, so the third significant figure is uncertain.\n\n**1. Resonance energy.** With m = 0.067 m₀, ħ²/2m = 0.0380998/0.067 = 0.5687 eV nm².\n\nI treat the first resonance as the even ground state of a 5 nm well with 0.30 eV walls. That state satisfies tan(k·2.5 nm) = κ/k.\n\n- At E = 0.08 eV, tan − κ/k = −0.291.\n- At E = 0.09 eV, tan − κ/k = +0.010.\n\nInterpolating gives E₁ ≈ 0.0897 eV, which is below 0.15 eV as required. There, k ≈ 0.397 nm⁻¹ and κ ≈ 0.6085 nm⁻¹.\n\n**2. Single-barrier transmissions at E₁.** Each barrier transmits\n\nT = 1 / [1 + ((k² + κ²)² / (4k²κ²)) · sinh²(κd)].\n\nThe prefactor is (k² + κ²)²/(4k²κ²) ≈ 1.19.\n\n- Left barrier (d = 2 nm): κd = 1.217, sinh² = 2.37, so T_L ≈ 0.261 and R_L ≈ 0.739.\n- Right barrier (d = 3 nm): κd = 1.826, sinh² = 9.14, so T_R ≈ 0.084 and R_R ≈ 0.916.\n\n**3. Peak transmission.** In the Fabry–Perot (coherent multiple-reflection) picture, assuming the round-trip phase condition is met exactly at the peak:\n\nT_peak = T_L·T_R / (1 − √(R_L·R_R))².\n\n- Numerator: T_L·T_R ≈ 0.0219.\n- Denominator: √(R_L·R_R) = √0.677 = 0.823, so (1 − 0.823)² = 0.0314.\n\nThis gives T_peak ≈ 0.698 ≈ 0.70.\n\nFor comparison, the leak-rate formula 4T_L·T_R/(T_L+T_R)² gives 0.737. Using only the exponential barrier factors gives 0.705.\n\nANSWER: {\"T_peak\": 0.70}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 309,
+  "cache_read_input_tokens": 623,
+  "output_tokens": 1931,
+  "output_tokens_details": {
+   "thinking_tokens": 1113
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 309,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 1931,
+    "cache_read_input_tokens": 623,
+    "cache_creation_input_tokens": 309,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 309
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.04122460000000001
+ },
+ "grade": {
+  "ok": true,
+  "value": 0.7,
+  "label": "correct"
+ }
+}

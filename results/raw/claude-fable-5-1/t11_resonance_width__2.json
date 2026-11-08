@@ -1,0 +1,50 @@
+{
+ "model": "claude-fable-5-1",
+ "task": "t11_resonance_width",
+ "trial": 2,
+ "backend": "claude-cli",
+ "date": "2026-11-08 21:12:57",
+ "seconds": 101.7,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nA symmetric double-barrier resonant-tunnelling structure. The effective mass is 0.067 m0 in every region (contacts, barriers and well). Both barriers have height V0 = 0.30 eV and width 2.0 nm. They are separated by a quantum well of width 5.0 nm. The potential is 0 in the well and in the contacts. The transmission probability T(E) has its first (lowest-energy) resonance peak with maximum value 1. Find the full width at half maximum of that peak, i.e. the difference between the two energies, one on each side of the peak, at which T(E) = 0.5. Give it in eV (key \"FWHM_eV\").\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "**Setup.** With ħ²/2m* = 0.0380998/0.067 = 0.56865 eV·nm², k = √(E/0.56865), κ = √((0.30−E)/0.56865).\n\nSingle barrier (a = 2 nm): T_b = 1/[1 + η² sinh²κa], η = (κ²+k²)/(2kκ), and the reflection phase from the well side is arg r = −π/2 − arctan(ε tanh κa), ε = (κ²−k²)/(2kκ).\n\nDouble barrier (well L = 5 nm):\nT(E) = T_b² / [(1−R_b)² + 4R_b sin²φ],  φ(E) = kL + arctan[1/(ε tanh κa)] − π.\n\n**Resonance** (φ = 0): solving gives E₁ ≈ 0.0862 eV (there T_b ≈ 0.252, R_b ≈ 0.748, and T = 1).\n\n**Half-maximum condition:** |sin φ(E)| = T_b(E)/(2√R_b(E)), solved on each side with the full energy dependence of T_b, R_b and φ:\n\n- Upper side: E₊ ≈ 0.09544 eV (sin φ ≈ 0.162, T_b ≈ 0.276)\n- Lower side: E₋ ≈ 0.07903 eV (|sin φ| ≈ 0.134, T_b ≈ 0.233)\n\nFWHM = E₊ − E₋ ≈ 0.0164 eV (slightly asymmetric about the peak because the barriers become more transparent at higher energy).\n\nANSWER: {\"FWHM_eV\": 0.0164}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 332,
+  "cache_read_input_tokens": 618,
+  "output_tokens": 9300,
+  "output_tokens_details": {
+   "thinking_tokens": 8740
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 332,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 9300,
+    "cache_read_input_tokens": 618,
+    "cache_creation_input_tokens": 332,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 332
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.47181449999999997
+ },
+ "grade": {
+  "ok": true,
+  "value": 0.0164,
+  "label": "correct"
+ }
+}

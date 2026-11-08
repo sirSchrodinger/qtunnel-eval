@@ -1,0 +1,51 @@
+{
+ "model": "claude-haiku-5-5",
+ "task": "t5_resonance_energy",
+ "trial": 2,
+ "backend": "claude-cli",
+ "effort": "low",
+ "date": "2026-11-08 21:29:09",
+ "seconds": 74.2,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nA symmetric double-barrier resonant-tunnelling structure. The effective mass is 0.067 m0 in every region (contacts, barriers and well). Both barriers have height V0 = 0.30 eV and width 2.0 nm. They are separated by a quantum well of width 5.0 nm. The potential is 0 in the well and in the contacts. As the electron energy E (measured from the band edge of the contacts) increases from 0, the transmission probability T(E) shows its first (lowest-energy) peak. Find the energy of that peak, in eV (key \"E_res_eV\"), to 3 significant figures.\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "**Approach:** Use the transfer matrix for the full structure (barrier 0–2 nm, well 2–7 nm, barrier 7–9 nm). For a symmetric structure, the transmission is T = 4k²/|k²M₁₂ − M₂₁ + ik(M₁₁+M₂₂)|². The transmission peak occurs where the real part vanishes, k²M₁₂ = M₂₁.\n\n**Parameters:** ħ²/2m = 0.0380998/0.067 = 0.56865 eV·nm², so k² + κ² = V₀/(ħ²/2m) = 0.527609 nm⁻². Here k = √(E/0.56865) in the well and κ = √((0.3 − E)/0.56865) in the barriers.\n\n**Resonance condition:** Carrying out the matrix products (with Σ = sinh 2κ, C = cosh 2κ, D = k² − κ²) gives\n\nγΣ·2CD/κ·(−1) + σ·[2k − Σ²D²/(kκ²)] = 0, with σ = sin 5k, γ = cos 5k.\n\n**Solving numerically:**\n\n- E = 0.150 eV: g ≈ +0.557\n- E = 0.165 eV: g ≈ +0.119\n- E = 0.169 eV: g ≈ −0.0022\n- E = 0.180 eV: g ≈ −0.336\n\nInterpolating, the root is at E ≈ 0.1689 eV.\n\n**Check:** The infinite-well estimate is π²ħ²/(2m·w²) ≈ 0.224 eV. The finite barriers lower the level substantially, so 0.169 eV is physically reasonable. It lies below V₀ = 0.30 eV, as expected for a quasi-bound state.\n\nE_res ≈ 0.169 eV\n\nANSWER: {\"E_res_eV\": 0.169}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 334,
+  "cache_read_input_tokens": 603,
+  "output_tokens": 15382,
+  "output_tokens_details": {
+   "thinking_tokens": 14750
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 334,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 15382,
+    "cache_read_input_tokens": 603,
+    "cache_creation_input_tokens": 334,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 334
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.007764029999999999
+ },
+ "grade": {
+  "ok": false,
+  "value": 0.169,
+  "label": "wrong: other"
+ }
+}

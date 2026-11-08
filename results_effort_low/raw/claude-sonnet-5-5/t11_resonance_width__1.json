@@ -1,0 +1,51 @@
+{
+ "model": "claude-sonnet-5-5",
+ "task": "t11_resonance_width",
+ "trial": 1,
+ "backend": "claude-cli",
+ "effort": "low",
+ "date": "2026-11-08 21:39:02",
+ "seconds": 36.0,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nA symmetric double-barrier resonant-tunnelling structure. The effective mass is 0.067 m0 in every region (contacts, barriers and well). Both barriers have height V0 = 0.30 eV and width 2.0 nm. They are separated by a quantum well of width 5.0 nm. The potential is 0 in the well and in the contacts. The transmission probability T(E) has its first (lowest-energy) resonance peak with maximum value 1. Find the full width at half maximum of that peak, i.e. the difference between the two energies, one on each side of the peak, at which T(E) = 0.5. Give it in eV (key \"FWHM_eV\").\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "The first resonance has a FWHM of about 0.0162 eV. I found it by treating the structure as two identical barriers and locating the resonance from the reflection phase.\n\n**Setup.** With m* = 0.067 m0, ħ²/2m* = 0.0380998/0.067 = 0.56865 eV nm². Inside the well k = √(E/0.56865), and inside the barriers κ = √((V0−E)/0.56865).\n\n**Resonance condition.** For a symmetric double barrier, T = T_b² / (1 + R² − 2R cos θ), where T_b and R = 1 − T_b are the single-barrier transmission and reflection, and θ = 2ka + 2φ with φ the reflection phase. The peak (T = 1) occurs at θ = 2πn.\n\nThe single-barrier reflection amplitude is r = (k²+κ²) sinh(κb) / [(k²−κ²) sinh(κb) + 2ikκ cosh(κb)].\n\nThis gives φ = −π + α, where α = atan[2kκ coth(κb) / (κ²−k²)]. The lowest resonance therefore satisfies ka + α = π.\n\nSolving numerically gives E0 ≈ 0.0863 eV. At this energy κb ≈ 1.226, T_b ≈ 0.2526 and R ≈ 0.7474.\n\n**Half-maximum condition.** T = 0.5 requires sin(Φ−π) = T_b/(2√R), where Φ = ka + α. At E0 this is 0.1461, so |Φ−π| ≈ 0.1466 rad.\n\nNear the peak, dΦ/dE ≈ 18.3 eV⁻¹. The right-hand side also rises with energy at about 1.75 eV⁻¹, because T_b increases with E.\n\nSolving on each side of the peak:\n- Upper side: E − E0 ≈ +0.00887 eV.\n- Lower side: E − E0 ≈ −0.00731 eV.\n\nFWHM ≈ 0.00887 + 0.00731 ≈ 0.0162 eV.\n\nANSWER: {\"FWHM_eV\": 0.0162}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 312,
+  "cache_read_input_tokens": 618,
+  "output_tokens": 4480,
+  "output_tokens_details": {
+   "thinking_tokens": 3760
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 312,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 4480,
+    "cache_read_input_tokens": 618,
+    "cache_creation_input_tokens": 312,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 312
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.04617559999999999
+ },
+ "grade": {
+  "ok": true,
+  "value": 0.0162,
+  "label": "correct"
+ }
+}

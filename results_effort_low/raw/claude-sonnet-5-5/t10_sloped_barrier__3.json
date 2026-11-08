@@ -1,0 +1,51 @@
+{
+ "model": "claude-sonnet-5-5",
+ "task": "t10_sloped_barrier",
+ "trial": 3,
+ "backend": "claude-cli",
+ "effort": "low",
+ "date": "2026-11-08 21:39:21",
+ "seconds": 56.5,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nAn electron (effective mass 0.067 m0 in every region) with energy E = 0.15 eV is incident on a barrier whose top is not flat. The potential is 0 for x < 0 and for x > 3.0 nm. For 0 <= x <= 3.0 nm it falls linearly from 0.80 eV at x = 0 to 0.20 eV at x = 3.0 nm, V(x) = 0.80 eV - (0.20 eV/nm) x. The potential jumps at x = 0 and at x = 3.0 nm. Find the exact quantum-mechanical transmission probability T, as a dimensionless number between 0 and 1 (key \"T\"). Do not use the WKB approximation.\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "**Method.** Inside the barrier the Schrödinger equation is exactly solvable with Airy functions. I matched ψ and ψ′ at both interfaces, since the mass is the same in every region.\n\n**Setup**\n- Outside the barrier, k² = 0.067·0.15/0.0380998 = 0.26378 nm⁻², so k = 0.5136 nm⁻¹.\n- Inside, ψ″ = c(V − E)ψ with c = 0.067/0.0380998 = 1.7585 nm⁻² eV⁻¹ and V − E = 0.65 − 0.2x eV.\n- This gives ψ″ = −β(x − 3.25)ψ with β = 0.3517 nm⁻³. Define s = β^{1/3} = 0.70588 nm⁻¹ and t = s(3.25 − x). Then ψ_tt = tψ, so ψ = A·Ai(t) + B·Bi(t).\n- The interfaces are at t₀ = 2.2941 (x = 0) and t₁ = 0.17647 (x = 3 nm).\n\n**Matching**\n1. At x = 3 nm, take the transmitted wave as e^{ikx} with unit amplitude. Using the Wronskian Ai·Bi′ − Ai′·Bi = 1/π, this fixes A and B:\n   - A = π(Bi₁′ + i q Bi₁)\n   - B = π(−Ai₁′ − i q Ai₁)\n   - where q = k/s = 0.7276.\n2. Airy values at t₁ (Maclaurin series): Ai = 0.30966, Ai′ = −0.25376, Bi = 0.69464, Bi′ = 0.45868.\n   - This gives A/π = 0.4587 + 0.5054i and B/π = 0.2538 − 0.2253i.\n3. Airy values at t₀ (series): Ai = 0.02204, Ai′ = −0.03550, Bi = 4.8458, Bi′ = 6.6440.\n4. At x = 0, the incident amplitude is I = ½[ψ(0) + iψ_t/q].\n   - ψ(0)/π = 1.2398 − 1.0806i\n   - iψ_t/(qπ) = 2.0821 + 2.2950i\n   - Their sum is 3.3219 + 1.2143i, with modulus squared 12.510.\n5. Then |I|² = (π²/4)(12.510) = 30.87, and T = 1/|I|² ≈ 0.0324.\n\nThe hand arithmetic is good to roughly 0.2 %.\n\nANSWER: {\"T\": 0.0324}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 312,
+  "cache_read_input_tokens": 635,
+  "output_tokens": 7231,
+  "output_tokens_details": {
+   "thinking_tokens": 6345
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 312,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 7231,
+    "cache_read_input_tokens": 635,
+    "cache_creation_input_tokens": 312,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 312
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.073689
+ },
+ "grade": {
+  "ok": true,
+  "value": 0.0324,
+  "label": "correct"
+ }
+}

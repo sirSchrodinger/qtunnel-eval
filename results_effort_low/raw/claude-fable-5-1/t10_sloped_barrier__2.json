@@ -1,0 +1,51 @@
+{
+ "model": "claude-fable-5-1",
+ "task": "t10_sloped_barrier",
+ "trial": 2,
+ "backend": "claude-cli",
+ "effort": "low",
+ "date": "2026-11-08 21:46:19",
+ "seconds": 95.5,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nAn electron (effective mass 0.067 m0 in every region) with energy E = 0.15 eV is incident on a barrier whose top is not flat. The potential is 0 for x < 0 and for x > 3.0 nm. For 0 <= x <= 3.0 nm it falls linearly from 0.80 eV at x = 0 to 0.20 eV at x = 3.0 nm, V(x) = 0.80 eV - (0.20 eV/nm) x. The potential jumps at x = 0 and at x = 3.0 nm. Find the exact quantum-mechanical transmission probability T, as a dimensionless number between 0 and 1 (key \"T\"). Do not use the WKB approximation.\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "**Setup.** With ħ²/2m* = 0.568654 eV·nm², the outside wavevector is k = √(0.15/0.568654) = 0.5136 nm⁻¹. Inside the barrier V−E = 0.65 − 0.2x > 0 everywhere, so the Schrödinger equation becomes the Airy equation ψ'' = zψ with z = β(3.25 nm − x), β = (F/c)^{1/3} = 0.70587 nm⁻¹, giving z₁ = 2.2941 at x = 0 and z₂ = 0.17647 at x = 3 nm. The exact solution is ψ = a·Ai(z) + b·Bi(z).\n\n**Airy values** (power series, checked against the Wronskian 1/π):\n- z₂: Ai = 0.30966, Ai' = −0.25376, Bi = 0.69464, Bi' = 0.45869\n- z₁: Ai = 0.022041, Ai' = −0.035469, Bi = 4.8456, Bi' = 6.6437\n\n**Matching.** Setting the transmitted wave to unit amplitude at x = 3 nm (ψ = 1, ψ' = ik) gives a = π[Bi'(z₂) + i(k/β)Bi(z₂)], b = −π[Ai'(z₂) + i(k/β)Ai(z₂)] with k/β = 0.7276. Propagating to x = 0 and matching to e^{ikx} + r e^{−ikx}:\n\nψ(0) + ψ'(0)/(ik) = π(3.3217 + 1.2141 i), |…|² ≈ 123.4\n\nT = 4/|ψ(0) + ψ'(0)/(ik)|² ≈ 0.0324\n\nANSWER: {\"T\": 0.0324}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 332,
+  "cache_read_input_tokens": 635,
+  "output_tokens": 8202,
+  "output_tokens_details": {
+   "thinking_tokens": 7594
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 332,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 8202,
+    "cache_read_input_tokens": 635,
+    "cache_creation_input_tokens": 332,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 332
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.41691874999999995
+ },
+ "grade": {
+  "ok": true,
+  "value": 0.0324,
+  "label": "correct"
+ }
+}

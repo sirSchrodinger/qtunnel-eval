@@ -1,0 +1,51 @@
+{
+ "model": "claude-fable-5-1",
+ "task": "t10_sloped_barrier",
+ "trial": 3,
+ "backend": "claude-cli",
+ "effort": "low",
+ "date": "2026-11-08 21:46:51",
+ "seconds": 123.8,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nAn electron (effective mass 0.067 m0 in every region) with energy E = 0.15 eV is incident on a barrier whose top is not flat. The potential is 0 for x < 0 and for x > 3.0 nm. For 0 <= x <= 3.0 nm it falls linearly from 0.80 eV at x = 0 to 0.20 eV at x = 3.0 nm, V(x) = 0.80 eV - (0.20 eV/nm) x. The potential jumps at x = 0 and at x = 3.0 nm. Find the exact quantum-mechanical transmission probability T, as a dimensionless number between 0 and 1 (key \"T\"). Do not use the WKB approximation.\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "**Setup.** Inside the barrier the Schrödinger equation is ψ'' = (2m*/ħ²)(V−E)ψ with ħ²/2m* = 0.568654 eV·nm², i.e. ψ'' = b(x₀−x)ψ with b = 0.20/0.568654 = 0.35171 nm⁻³ and turning point x₀ = 3.25 nm. With z = b^{1/3}(x₀−x), β = b^{1/3} = 0.70587 nm⁻¹, the exact solutions are Ai(z), Bi(z). Endpoints: z₁ = 3.25β = 2.2941 (x=0), z₂ = 0.25β = 0.17647 (x=3 nm). Outside, k = √(0.15/0.568654) = 0.51360 nm⁻¹.\n\n**Airy values** (power series, checked via Wronskian = 1/π):\n- z₂: Ai = 0.30966, Ai' = −0.25376, Bi = 0.69464, Bi' = 0.45869\n- z₁: Ai = 0.022041, Ai' = −0.035467, Bi = 4.8456, Bi' = 6.6437\n\n**Matching.** With κ = k/β = 0.72760, γ = 1/κ, matching ψ and ψ' at both interfaces gives\n\n2/t = π{ [Bi'(z₂)+iκBi(z₂)][Ai(z₁)+iγAi'(z₁)] − [Ai'(z₂)+iκAi(z₂)][Bi(z₁)+iγBi'(z₁)] }\n\n= π(3.3217 + 1.2141 i),\n\nso |2/t|² = π²·12.507 = 123.44 and T = |t|² = 4/123.44 ≈ 0.0324.\n\nANSWER: {\"T\": 0.0324}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 331,
+  "cache_read_input_tokens": 635,
+  "output_tokens": 10652,
+  "output_tokens_details": {
+   "thinking_tokens": 10030
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 331,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 10652,
+    "cache_read_input_tokens": 635,
+    "cache_creation_input_tokens": 331,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 331
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.5393987499999999
+ },
+ "grade": {
+  "ok": true,
+  "value": 0.0324,
+  "label": "correct"
+ }
+}

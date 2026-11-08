@@ -1,0 +1,50 @@
+{
+ "model": "claude-sonnet-5-5",
+ "task": "t7_thickness_sensitivity_decades",
+ "trial": 1,
+ "backend": "claude-cli",
+ "date": "2026-11-08 20:54:45",
+ "seconds": 13.7,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nA tunnel oxide is modelled as a rectangular barrier of height V0 = 3.20 eV above the contact band edge. The electron effective mass is m0 in the contacts and 0.42 m0 inside the barrier. An electron with energy E = 0.10 eV above the contact band edge is incident on the barrier. Using the exact transmission probability T(a) for barrier thickness a, find log10[ T(1.0 nm) / T(1.2 nm) ], i.e. by how many decades T drops when the thickness increases from 1.0 nm to 1.2 nm (key \"decades\").\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "With the BenDaniel–Duke boundary conditions (ψ and ψ′/m continuous), the exact transmission through a rectangular barrier is\n\nT = 1 / [1 + (1 + ((κ′/k′ − k′/κ′)/2)²) sinh²(κa)] = 1 / [cosh²(κa) + ((κ′/k′ − k′/κ′)/2)² sinh²(κa)]\n\nwhere k′ = k/m_c and κ′ = κ/m_b, with masses in units of m0.\n\n**Wavevectors**\n- In the contacts, k = √(0.10/0.0380998) = 1.6201 nm⁻¹ and m_c = 1, so k′ = 1.6201.\n- In the barrier, κ = √(0.42 × 3.1/0.0380998) = 5.8458 nm⁻¹ and m_b = 0.42, so κ′ = 13.919.\n\n**Prefactor**\n- κ′/k′ = 8.591 and k′/κ′ = 0.1164.\n- The half-difference is 4.2375, and its square is 17.957.\n- So 1/T = 1 + 18.957 sinh²(κa).\n\n**Thickness a = 1.0 nm**\n- κa = 5.8458, so sinh = 172.88 and sinh² = 29889.\n- 1/T = 5.666×10⁵.\n\n**Thickness a = 1.2 nm**\n- κa = 7.0150, so sinh = 556.58 and sinh² = 3.0978×10⁵.\n- 1/T = 5.8725×10⁶.\n\n**Ratio**\nT(1.0)/T(1.2) = 5.8725×10⁶ / 5.666×10⁵ = 10.364, so log10 = 1.0155.\n\nANSWER: {\"decades\": 1.0155}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 737,
+  "cache_read_input_tokens": 0,
+  "output_tokens": 1590,
+  "output_tokens_details": {
+   "thinking_tokens": 984
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 737,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 1590,
+    "cache_read_input_tokens": 0,
+    "cache_creation_input_tokens": 737,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 737
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.018852
+ },
+ "grade": {
+  "ok": true,
+  "value": 1.0155,
+  "label": "correct"
+ }
+}

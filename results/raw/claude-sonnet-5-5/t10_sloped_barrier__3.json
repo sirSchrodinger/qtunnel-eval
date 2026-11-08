@@ -1,0 +1,50 @@
+{
+ "model": "claude-sonnet-5-5",
+ "task": "t10_sloped_barrier",
+ "trial": 3,
+ "backend": "claude-cli",
+ "date": "2026-11-08 21:06:33",
+ "seconds": 57.3,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nAn electron (effective mass 0.067 m0 in every region) with energy E = 0.15 eV is incident on a barrier whose top is not flat. The potential is 0 for x < 0 and for x > 3.0 nm. For 0 <= x <= 3.0 nm it falls linearly from 0.80 eV at x = 0 to 0.20 eV at x = 3.0 nm, V(x) = 0.80 eV - (0.20 eV/nm) x. The potential jumps at x = 0 and at x = 3.0 nm. Find the exact quantum-mechanical transmission probability T, as a dimensionless number between 0 and 1 (key \"T\"). Do not use the WKB approximation.\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "The transmission is T ≈ 0.032, obtained by solving the barrier region exactly with Airy functions and matching ψ and ψ′ at both interfaces.\n\n**Setup.** With m* = 0.067 m0, ħ²/2m* = 0.0380998/0.067 = 0.56865 eV nm². The wavenumber outside the barrier is k = √(E/0.56865) = 0.5136 nm⁻¹.\n\nInside the barrier, V − E = 0.65 − 0.2x eV, which stays positive because E = 0.15 eV is below the barrier top of 0.20 eV. The Schrödinger equation becomes ψ″ = [0.2(3.25 − x)/0.56865] ψ.\n\nDefine u = β(3.25 − x) with β³ = 0.2/0.56865, so β = 0.7059 nm⁻¹. Then d²ψ/du² = uψ, and the solutions are Ai(u) and Bi(u).\n\nThe interfaces sit at u₀ = 2.2941 (x = 0) and u₁ = 0.1765 (x = 3 nm).\n\n**Airy values.** I used Taylor series for both points, and checked the u₀ values against the asymptotic forms and the Wronskian Ai·Bi′ − Ai′·Bi = 1/π.\n\n| u | Ai | Ai′ | Bi | Bi′ |\n|---|---|---|---|---|\n| u₁ = 0.1765 | 0.30966 | −0.25376 | 0.69464 | 0.45869 |\n| u₀ = 2.2941 | 0.02205 | −0.03540 | 4.8455 | 6.6437 |\n\n**Matching.**\n\n1. For x > 3 nm take ψ = e^{ik(x−3)}. At x = 3 nm this gives ψ = 1 and dψ/du = −ik/β = −iq, with q = k/β = 0.7276.\n2. In the barrier write ψ = aAi + bBi. Using the Wronskian:\n   - a = π(0.4587 + 0.5054i)\n   - b = π(0.2538 − 0.2253i)\n3. Evaluate ψ and dψ/du at u₀ (x = 0), in units of π:\n   - P = ψ(0)/π = 1.2397 − 1.0807i\n   - Q = ψ_u(0)/π = 1.6697 − 1.5148i\n4. The incident amplitude on the left is A = ½(ψ + ψ_x/ik). Since ψ_x/(ik) = iψ_u/q, this gives A = (π/2)(P + iQ/q) = (π/2)(3.3216 + 1.2141i).\n5. Then |A|² = (π²/4)(12.507) ≈ 30.86, and T = 1/|A|² ≈ 0.0324.\n\nThe hand arithmetic carries an uncertainty of roughly 0.5%.\n\nANSWER: {\"T\": 0.0324}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 773,
+  "cache_read_input_tokens": 0,
+  "output_tokens": 7560,
+  "output_tokens_details": {
+   "thinking_tokens": 6572
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 773,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 7560,
+    "cache_read_input_tokens": 0,
+    "cache_creation_input_tokens": 773,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 773
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.078696
+ },
+ "grade": {
+  "ok": true,
+  "value": 0.0324,
+  "label": "correct"
+ }
+}

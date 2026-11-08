@@ -1,0 +1,51 @@
+{
+ "model": "claude-sonnet-5-5",
+ "task": "t10_sloped_barrier",
+ "trial": 2,
+ "backend": "claude-cli",
+ "effort": "low",
+ "date": "2026-11-08 21:38:30",
+ "seconds": 58.1,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nAn electron (effective mass 0.067 m0 in every region) with energy E = 0.15 eV is incident on a barrier whose top is not flat. The potential is 0 for x < 0 and for x > 3.0 nm. For 0 <= x <= 3.0 nm it falls linearly from 0.80 eV at x = 0 to 0.20 eV at x = 3.0 nm, V(x) = 0.80 eV - (0.20 eV/nm) x. The potential jumps at x = 0 and at x = 3.0 nm. Find the exact quantum-mechanical transmission probability T, as a dimensionless number between 0 and 1 (key \"T\"). Do not use the WKB approximation.\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "The transmission comes out as T ≈ 0.0324, from an exact Airy-function solution inside the barrier matched to plane waves outside.\n\n**Setup.** With m = 0.067 m0, ħ²/2m = 0.0380998/0.067 = 0.56865 eV nm². Outside the barrier k = √(0.15/0.56865) = 0.5136 nm⁻¹.\n\nInside the barrier, V − E = 0.65 − 0.2x > 0 everywhere, so there is no classical turning point. The wave equation is ψ'' = (V − E)ψ/C with C = 0.56865 eV nm², which gives ψ = a·Ai(u) + b·Bi(u) with u = β(3.25 − x) and β³ = 0.2/0.56865, so β = 0.70588 nm⁻¹.\n\nThe barrier edges sit at u(x=0) = 2.2941 and u(x=3) = 0.17647. Define q = k/β = 0.7276.\n\n**Airy values.**\n\n| u | Ai | Ai' | Bi | Bi' |\n|---|---|---|---|---|\n| 0.17647 | 0.30966 | −0.25376 | 0.69463 | 0.45868 |\n| 2.2941 | 0.022055 | −0.035445 | 4.8459 | 6.6442 |\n\nThe Wronskian check Ai·Bi' − Ai'·Bi = 1/π is satisfied.\n\n**Matching.**\n1. On the right the wave is a pure transmitted wave, ψ = t·e^{ikx}. Setting ψ = 1 at x = 3 gives a = π(Bi'₁ + iq·Bi₁) and b = −π(Ai'₁ + iq·Ai₁).\n2. At x = 0 the incident amplitude is A = ½[ψ(0) − iψ'(0)/k]. Writing this in terms of a and b gives 2A/π = 3.3219 + 1.2143i, so |2A/π|² = 12.510.\n3. Then |A|² = (π/2)² × 12.510 = 30.87.\n4. Since k is the same on both sides, T = |t|²/|A|² = 1/30.87 ≈ 0.0324.\n\nANSWER: {\"T\": 0.0324}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 313,
+  "cache_read_input_tokens": 635,
+  "output_tokens": 7512,
+  "output_tokens_details": {
+   "thinking_tokens": 6753
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 313,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 7512,
+    "cache_read_input_tokens": 635,
+    "cache_creation_input_tokens": 313,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 313
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.076503
+ },
+ "grade": {
+  "ok": true,
+  "value": 0.0324,
+  "label": "correct"
+ }
+}

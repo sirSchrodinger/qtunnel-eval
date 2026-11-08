@@ -1,0 +1,50 @@
+{
+ "model": "claude-haiku-5-5",
+ "task": "t8_stm_barrier_error_factor",
+ "trial": 1,
+ "backend": "claude-cli",
+ "date": "2026-11-08 20:52:54",
+ "seconds": 11.1,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nIn a scanning tunnelling microscope the current through a vacuum gap of width d = 1.00 nm is proportional to exp(-2 kappa d), with kappa = sqrt(2 m0 phi) / hbar, where phi is the effective barrier height. A calculation assumes phi = 4.50 eV, but the true value is phi = 4.80 eV. All other quantities are the same. Find the ratio I_true / I_calculated at d = 1.00 nm (key \"ratio\").\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "**Setup**\n\nSince $\\hbar^2/(2m_0) = 0.0380998$ eV nm², we have $2m_0/\\hbar^2 = 1/0.0380998 = 26.2469$ eV⁻¹ nm⁻², so\n\n$$\\kappa^2 = 26.2469\\,\\phi \\quad (\\text{nm}^{-2}, \\; \\phi \\text{ in eV}).$$\n\n**Barrier decay constants**\n\n- Calculated ($\\phi = 4.50$ eV): $\\kappa^2 = 118.111$, so $\\kappa_{\\text{calc}} = 10.8679$ nm⁻¹.\n- True ($\\phi = 4.80$ eV): $\\kappa^2 = 125.985$, so $\\kappa_{\\text{true}} = 11.2243$ nm⁻¹.\n\n**Current ratio**\n\nThe prefactor is the same in both cases, so only the exponential matters:\n\n$$\\frac{I_{\\text{true}}}{I_{\\text{calc}}} = \\exp\\!\\left[-2(\\kappa_{\\text{true}} - \\kappa_{\\text{calc}})\\,d\\right] = \\exp\\!\\left[-2(0.35642)(1.00)\\right] = \\exp(-0.71284) \\approx 0.490$$\n\nThe true current is about half the calculated value, because the underestimated barrier height overstates the tunnelling current.\n\nANSWER: {\"ratio\": 0.4902}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 332,
+  "cache_read_input_tokens": 563,
+  "output_tokens": 1616,
+  "output_tokens_details": {
+   "thinking_tokens": 1134
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 332,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 1616,
+    "cache_read_input_tokens": 563,
+    "cache_creation_input_tokens": 332,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 332
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.00088023
+ },
+ "grade": {
+  "ok": true,
+  "value": 0.4902,
+  "label": "correct"
+ }
+}

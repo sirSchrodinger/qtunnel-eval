@@ -1,0 +1,51 @@
+{
+ "model": "claude-haiku-5-5",
+ "task": "t13_triple_barrier_splitting",
+ "trial": 2,
+ "backend": "claude-cli",
+ "effort": "low",
+ "date": "2026-11-08 21:38:41",
+ "seconds": 301.2,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nA symmetric triple-barrier structure. The effective mass is 0.067 m0 in every region (contacts, barriers and wells). The three barriers each have height V0 = 0.30 eV and width 1.5 nm. They are separated by two identical quantum wells, each 4.0 nm wide. The potential is 0 in the wells and in the contacts. The transmission probability T(E) has two resonance peaks below 0.20 eV, which come from the coupling of the two wells. Find the energy separation between these two lowest peaks, in meV (key \"splitting_meV\").\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "**Method.** For a symmetric structure with equal masses, the transfer matrix M from the left edge to the right edge of the stack (x = 0 to x = 12.5 nm) gives\n\nT(E) = 4 / [Y² + (X/k)²], with Y = M₁₁ + M₂₂ and X = M₂₁ − k²M₁₂,\n\nwhere k = √(E/0.568654) eV⁻¹ᐟ² in nm⁻¹ units (ħ²/2m = 0.568654 eV·nm² for m = 0.067m₀). Peaks of T are minima of G(E) = Y² + (X/k)².\n\n**Single-well check.** An isolated 4 nm well with 0.3 eV barriers has its ground state at about 0.1155 eV. The two coupled-well resonances (symmetric and antisymmetric combinations) lie on either side of this, and both fall below 0.2 eV.\n\n**Transfer-matrix evaluations.** I evaluated M at several energies (the matrices are built from the barrier cosh/sinh terms with κ = √((0.3−E)/0.568654) and the well cos/sin terms with k):\n\n| E (eV) | G(E) |\n|---|---|\n| 0.080 | 7.69 |\n| 0.087 | 4.003 |\n| 0.088 | 4.064 |\n| 0.090 | 4.395 |\n| 0.100 | 7.20 |\n| 0.115 | 7.68 |\n| 0.130 | 5.00 |\n| 0.140 | 4.015 |\n| 0.142 | 4.004 |\n| 0.150 | 4.684 |\n\n**Peak positions.** Quadratic fits around each dip give:\n- Lower peak: E₁ ≈ 0.08665 eV (T ≈ 1).\n- Upper peak: E₂ ≈ 0.14129 eV (T ≈ 1).\n\nThe two minima of G are both close to 4, consistent with T ≈ 1 at each peak.\n\n**Splitting.** ΔE = E₂ − E₁ ≈ 0.14129 − 0.08665 ≈ 0.0546 eV ≈ 54.6 meV. Hand-arithmetic and fit uncertainty is roughly ±1 meV.\n\nANSWER: {\"splitting_meV\": 54.6}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 332,
+  "cache_read_input_tokens": 588,
+  "output_tokens": 76690,
+  "output_tokens_details": {
+   "thinking_tokens": 75917
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 332,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 76690,
+    "cache_read_input_tokens": 588,
+    "cache_creation_input_tokens": 332,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 332
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.03841748
+ },
+ "grade": {
+  "ok": true,
+  "value": 54.6,
+  "label": "correct"
+ }
+}

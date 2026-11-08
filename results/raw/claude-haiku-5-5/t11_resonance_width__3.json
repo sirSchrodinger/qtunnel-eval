@@ -1,0 +1,50 @@
+{
+ "model": "claude-haiku-5-5",
+ "task": "t11_resonance_width",
+ "trial": 3,
+ "backend": "claude-cli",
+ "date": "2026-11-08 21:07:12",
+ "seconds": 188.7,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nA symmetric double-barrier resonant-tunnelling structure. The effective mass is 0.067 m0 in every region (contacts, barriers and well). Both barriers have height V0 = 0.30 eV and width 2.0 nm. They are separated by a quantum well of width 5.0 nm. The potential is 0 in the well and in the contacts. The transmission probability T(E) has its first (lowest-energy) resonance peak with maximum value 1. Find the full width at half maximum of that peak, i.e. the difference between the two energies, one on each side of the peak, at which T(E) = 0.5. Give it in eV (key \"FWHM_eV\").\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "## Approach\n\nBecause the contacts, well and barriers all have the same mass, the contact wavenumber k and the well wavenumber are equal: k = √(E/g) with g = ħ²/2m = 0.568654 eV·nm². The barrier decay constant is κ = √((V0−E)/g).\n\n**Transfer matrix.** With M = B·W·B (barrier, well, barrier), the transmission is\n\nT = 4 / (X² + Y²)\n\nwhere, with θ = kw, ρ = κ/k, H = cosh(2κb), σ = sinh(2κb):\n\n- X = 2H cos θ + σ(ρ − 1/ρ) sin θ\n- Y = σ(ρ − 1/ρ) cos θ + sin θ [ (H−1)(ρ² + ρ⁻²)/2 − (H+1) ]\n\nHere b = 2.0 nm and w = 5.0 nm.\n\n**Resonance.** Evaluating f = X² + Y² = 4/T on a grid shows the peak near E ≈ 0.087 eV, where f ≈ 4 (T ≈ 1), as expected for a symmetric structure.\n\n**Half-maximum points.** T = 0.5 corresponds to f = 8.\n\n| E (eV) | X | Y | f = 4/T |\n|---|---|---|---|\n| 0.078 | 2.957 | −0.807 | 9.395 |\n| 0.079 | 2.667 | −0.963 | 8.040 |\n| 0.080 | 2.382 | −1.112 | 6.912 |\n| 0.095 | −1.228 | −2.483 | 7.674 |\n| 0.096 | −1.426 | −2.528 | 8.425 |\n\n- Lower half-point: interpolating through the 0.078–0.080 values (quadratic) gives E₋ ≈ 0.07897 eV.\n- Upper half-point: interpolating between 0.095 and 0.096 (with a small curvature correction) gives E₊ ≈ 0.09544 eV.\n\n**FWHM** = E₊ − E₋ ≈ 0.09544 − 0.07897 ≈ 0.01647 eV.\n\nThe main uncertainty is hand-arithmetic error, which I estimate at about ±0.00002 eV.\n\nANSWER: {\"FWHM_eV\": 0.01647}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 779,
+  "cache_read_input_tokens": 0,
+  "output_tokens": 46501,
+  "output_tokens_details": {
+   "thinking_tokens": 45721
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 779,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 46501,
+    "cache_read_input_tokens": 0,
+    "cache_creation_input_tokens": 779,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 779
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.0234065
+ },
+ "grade": {
+  "ok": true,
+  "value": 0.01647,
+  "label": "correct"
+ }
+}

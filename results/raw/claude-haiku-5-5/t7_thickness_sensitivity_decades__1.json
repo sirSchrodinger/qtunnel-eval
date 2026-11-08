@@ -1,0 +1,50 @@
+{
+ "model": "claude-haiku-5-5",
+ "task": "t7_thickness_sensitivity_decades",
+ "trial": 1,
+ "backend": "claude-cli",
+ "date": "2026-11-08 20:52:26",
+ "seconds": 33.3,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nA tunnel oxide is modelled as a rectangular barrier of height V0 = 3.20 eV above the contact band edge. The electron effective mass is m0 in the contacts and 0.42 m0 inside the barrier. An electron with energy E = 0.10 eV above the contact band edge is incident on the barrier. Using the exact transmission probability T(a) for barrier thickness a, find log10[ T(1.0 nm) / T(1.2 nm) ], i.e. by how many decades T drops when the thickness increases from 1.0 nm to 1.2 nm (key \"decades\").\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "**Setup.** With the mass step, the wavefunction is continuous and ψ'/m is continuous at each interface. Let κ be the decay constant inside the barrier, with m_b = 0.42 m0:\n\nκ² = (m_b/m0)·(V0 − E)/(ħ²/2m0) = 0.42 × 3.10 / 0.0380998 ≈ 34.173 nm⁻²\n\nso κ ≈ 5.8457 nm⁻¹.\n\nSolving the transfer-matrix problem with these boundary conditions gives the exact transmission\n\nT(a) = 1 / [1 + sinh²(κa)·(4k²cosh²κa … )/(4k²)], equivalently T = 4k² / [4k² + sinh²(κa)(4k² + Δ²)],\n\nwhere k² = 2m0E/ħ² ≈ 2.6247 nm⁻² (so k ≈ 1.620 nm⁻¹) and Δ = κ/μ − k²μ/κ with μ = 0.42. Numerically, 4k² ≈ 10.499 and Δ² + 4k² ≈ 199.0, so\n\nT(a) = 1 / [1 + 18.95 sinh²(κa)].\n\n**Ratio.** For κa ≳ 5.8, sinh²(κa) ≈ e^{2κa}/4 to better than 10⁻⁶ relative accuracy, and the \"1 +\" term is negligible. The prefactor cancels in the ratio, so\n\nT(1.0)/T(1.2) ≈ e^{2κ(1.2 − 1.0)} = e^{0.4κ} = e^{2.3383}\n\nCheck: G(1.2)/G(1.0) ≈ 5.869×10⁶ / 5.664×10⁵ ≈ 10.36, consistent with e^{2.3383}.\n\nTherefore\n\nlog10[T(1.0)/T(1.2)] = 0.4κ / ln 10 = 2.3383 / 2.302585 ≈ 1.0155\n\nSo T drops by about 1.0155 decades when the thickness increases from 1.0 nm to 1.2 nm.\n\nANSWER: {\"decades\": 1.0155}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 931,
+  "cache_read_input_tokens": 0,
+  "output_tokens": 7019,
+  "output_tokens_details": {
+   "thinking_tokens": 6285
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 931,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 7019,
+    "cache_read_input_tokens": 0,
+    "cache_creation_input_tokens": 931,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 931
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.0036959000000000002
+ },
+ "grade": {
+  "ok": true,
+  "value": 1.0155,
+  "label": "correct"
+ }
+}

@@ -1,0 +1,51 @@
+{
+ "model": "claude-haiku-5-5",
+ "task": "t5_resonance_energy",
+ "trial": 1,
+ "backend": "claude-cli",
+ "effort": "low",
+ "date": "2026-11-08 21:28:49",
+ "seconds": 73.3,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nA symmetric double-barrier resonant-tunnelling structure. The effective mass is 0.067 m0 in every region (contacts, barriers and well). Both barriers have height V0 = 0.30 eV and width 2.0 nm. They are separated by a quantum well of width 5.0 nm. The potential is 0 in the well and in the contacts. As the electron energy E (measured from the band edge of the contacts) increases from 0, the transmission probability T(E) shows its first (lowest-energy) peak. Find the energy of that peak, in eV (key \"E_res_eV\"), to 3 significant figures.\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "**Approach:** Treat the symmetric structure with the even and odd eigen-channels. Each channel has a reflection phase, and T = 1 (a transmission resonance) occurs when the two phases differ by π. The first peak is the lowest-energy solution.\n\n**Setup (with ħ²/2m = 0.568654 eV nm² for m = 0.067 m₀):**\n- Well: half-width a = 2.5 nm, wavenumber k = √(E/0.568654).\n- Barriers: width b = 2 nm, decay constant κ = √((0.30 − E)/0.568654).\n- Well log-derivatives at x = a: even state L_e = −k tan(ka), odd state L_o = k cot(ka).\n- Outgoing log-derivative at x = a, obtained by propagating the outgoing wave e^{ikx} through the barrier: L_out = −κ(1−u)/(1+u), with u = e^{−2κb} e^{2iθ} and θ = arctan(k/κ).\n- Channel mismatches: G_χ = L_out − L_χ. The reflection phase of each channel is ∝ arg(G_χ*/G_χ), so the T = 1 condition becomes arg G_o − arg G_e = π/2 (mod π).\n\n**Evaluation (sample points):**\n- E = 0.085 eV: arg G_o − arg G_e − π/2 ≈ −0.158\n- E = 0.086 eV: ≈ −0.032\n- E = 0.090 eV: ≈ +0.414\n\nInterpolating between 0.086 and 0.090 gives a zero near E ≈ 0.0863 eV.\n\n**Caveat:** This is a hand-computed estimate, not an exact solution. A cruder real-part matching gave about 0.0854 eV, so the third significant figure is uncertain by roughly ±0.001 eV.\n\nANSWER: {\"E_res_eV\": 0.0863}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 335,
+  "cache_read_input_tokens": 603,
+  "output_tokens": 14795,
+  "output_tokens_details": {
+   "thinking_tokens": 14153
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 335,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 14795,
+    "cache_read_input_tokens": 603,
+    "cache_creation_input_tokens": 335,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 335
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.00747073
+ },
+ "grade": {
+  "ok": true,
+  "value": 0.0863,
+  "label": "correct"
+ }
+}

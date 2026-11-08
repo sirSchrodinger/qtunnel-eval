@@ -1,0 +1,51 @@
+{
+ "model": "claude-sonnet-5-5",
+ "task": "t11_resonance_width",
+ "trial": 2,
+ "backend": "claude-cli",
+ "effort": "low",
+ "date": "2026-11-08 21:39:02",
+ "seconds": 31.6,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nA symmetric double-barrier resonant-tunnelling structure. The effective mass is 0.067 m0 in every region (contacts, barriers and well). Both barriers have height V0 = 0.30 eV and width 2.0 nm. They are separated by a quantum well of width 5.0 nm. The potential is 0 in the well and in the contacts. The transmission probability T(E) has its first (lowest-energy) resonance peak with maximum value 1. Find the full width at half maximum of that peak, i.e. the difference between the two energies, one on each side of the peak, at which T(E) = 0.5. Give it in eV (key \"FWHM_eV\").\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "The first resonance sits near E ≈ 0.0862 eV and its FWHM is about 16 meV, from a phase-matching condition and a Fabry–Perot lineshape. The slopes were taken by finite differences, so the last digit is approximate.\n\n**Setup.** With m* = 0.067 m0, ħ²/2m* = 0.568654 eV nm². Define k = √(E/0.568654) and κ = √((V0−E)/0.568654). Let a = 5 nm be the well width and b = 2 nm the barrier width.\n\n**Single barrier.** The reflection amplitude has phase −π/2 − arctan(ε tanh κb), with ε = (κ²−k²)/(2kκ). The barrier transmission is T_b = 1/(1 + η² sinh²κb), with η = (κ²+k²)/(2kκ).\n\n**Resonance condition (lowest level).** The round-trip phase must be a multiple of 2π, which gives\n\nka = π/2 + arctan(ε tanh κb).\n\nDefine f(E) = ka − π/2 − arctan(ε tanh κb). Evaluating it:\n- f(0.08) ≈ −0.115\n- f(0.0863) ≈ +0.0012\n- f(0.09) ≈ +0.068\n\nThe root is E₀ ≈ 0.0862 eV, and the local slope is df/dE ≈ 18.1 eV⁻¹.\n\n**Lineshape.** For identical barriers, T = 1/(1 + F sin²f), with F = 4R/(1−R)² and R = 1 − T_b.\n\nAt E₀: k = 0.3896 nm⁻¹, κ = 0.6130 nm⁻¹, η² = 1.220, and sinh²κb = 2.425. This gives T_b ≈ 0.253, R ≈ 0.747, and F ≈ 46.8.\n\n**Half maximum.** T = 0.5 requires sin²f = 1/F, so sin f = 1/√F = 0.1462 and f = ±0.1467.\n\nIncluding the curvature of f(E), the offsets are ΔE₊ ≈ 8.25 meV and ΔE₋ ≈ 7.93 meV. The full width is therefore about 0.0162 eV.\n\nANSWER: {\"FWHM_eV\": 0.0162}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 313,
+  "cache_read_input_tokens": 618,
+  "output_tokens": 3759,
+  "output_tokens_details": {
+   "thinking_tokens": 2985
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 313,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 3759,
+    "cache_read_input_tokens": 618,
+    "cache_creation_input_tokens": 313,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 313
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.0389696
+ },
+ "grade": {
+  "ok": true,
+  "value": 0.0162,
+  "label": "correct"
+ }
+}

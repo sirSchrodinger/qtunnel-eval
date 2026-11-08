@@ -1,0 +1,55 @@
+{
+ "model": "claude-haiku-5-5",
+ "task": "t5_resonance_energy",
+ "trial": 1,
+ "backend": "claude-cli",
+ "date": "2026-11-08 20:50:27",
+ "seconds": 59.4,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nA symmetric double-barrier resonant-tunnelling structure. The effective mass is 0.067 m0 in every region (contacts, barriers and well). Both barriers have height V0 = 0.30 eV and width 2.0 nm. They are separated by a quantum well of width 5.0 nm. The potential is 0 in the well and in the contacts. As the electron energy E (measured from the band edge of the contacts) increases from 0, the transmission probability T(E) shows its first (lowest-energy) peak. Find the energy of that peak, in eV (key \"E_res_eV\"), to 3 significant figures.\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "**Setup.** With $\\hbar^2/(2m_0)=0.0380998$ eV nm² and $m^*=0.067\\,m_0$, the constant is $c=\\hbar^2/(2m^*)=0.568653$ eV nm². Define $k=\\sqrt{E/c}$ in the well and contacts, and $\\kappa=\\sqrt{(V_0-E)/c}$ in the barriers. Take barrier width $d=2$ nm and well width $w=5$ nm.\n\n**Transfer-matrix condition.** Write the barrier transfer matrix over width $d$ as $B=\\begin{pmatrix}\\cosh\\kappa d & \\sinh\\kappa d/\\kappa\\\\ \\kappa\\sinh\\kappa d & \\cosh\\kappa d\\end{pmatrix}$ and the well matrix as $W=\\begin{pmatrix}\\cos kw & \\sin kw/k\\\\ -k\\sin kw & \\cos kw\\end{pmatrix}$. For the symmetric structure $M=BWB$ has $m_{11}=m_{22}$. Perfect transmission ($R=0$) requires $m_{21}+k^2m_{12}=0$, which simplifies to\n\n$$F(E)\\equiv 2\\cosh(\\kappa d)\\cos(kw)+\\sinh(\\kappa d)\\sin(kw)\\,\\frac{\\kappa^2-k^2}{k\\kappa}=0.$$\n\nAs a check, for thick barriers this reduces to $kw=2\\arctan(\\kappa/k)+n\\pi$, the expected quasi-bound-state condition.\n\n**Evaluation.** The sign of $F$ at a few energies:\n\n| E (eV) | F(E) |\n|---|---|\n| 0.080 | +0.477 |\n| 0.086 | +0.0174 |\n| 0.090 | −0.264 |\n\n$F\\to$ a positive value as $E\\to0$, so the first zero is the lowest-energy resonance. Interpolating between 0.086 and 0.090 with local slope ≈ −74 eV⁻¹ gives $E\\approx 0.08624$ eV, i.e. 0.0862 eV to 3 significant figures.\n\nANSWER: {\"E_res_eV\": 0.0862}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 937,
+  "cache_read_input_tokens": 0,
+  "output_tokens": 13033,
+  "output_tokens_details": {
+   "thinking_tokens": 12278
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 937,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 13033,
+    "cache_read_input_tokens": 0,
+    "cache_creation_input_tokens": 937,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 937
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.006704099999999999
+ },
+ "grade": {
+  "ok": true,
+  "value": 0.0862,
+  "label": "correct"
+ },
+ "grade_firstpass": {
+  "ok": false,
+  "value": 0.0862,
+  "label": "wrong: other"
+ }
+}

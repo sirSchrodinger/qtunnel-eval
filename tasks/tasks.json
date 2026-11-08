@@ -1,0 +1,119 @@
+[
+  {
+    "id": "t1_thin_barrier_exact",
+    "key": "T",
+    "tol": {
+      "type": "rel",
+      "value": 0.03
+    },
+    "prompt": "An electron (free-electron mass m0 everywhere) with energy E = 0.40 eV is incident on a rectangular potential barrier of height V0 = 1.00 eV and width a = 0.25 nm. The potential is 0 on both sides of the barrier. Find the exact quantum-mechanical transmission probability T. Do not use a thick-barrier approximation. Report T as a dimensionless number between 0 and 1 (key \"T\")."
+  },
+  {
+    "id": "t2_above_barrier",
+    "key": "T",
+    "tol": {
+      "type": "rel",
+      "value": 0.03
+    },
+    "prompt": "An electron (free-electron mass m0 everywhere) with energy E = 0.70 eV is incident on a rectangular potential barrier of height V0 = 0.50 eV and width a = 1.20 nm. The potential is 0 on both sides of the barrier. Find the exact quantum-mechanical transmission probability T, as a dimensionless number between 0 and 1 (key \"T\")."
+  },
+  {
+    "id": "t3_threshold_E_equals_V0",
+    "key": "T",
+    "tol": {
+      "type": "rel",
+      "value": 0.03
+    },
+    "prompt": "An electron (free-electron mass m0 everywhere) with energy exactly E = 0.50 eV is incident on a rectangular potential barrier of height exactly V0 = 0.50 eV and width a = 1.00 nm. The potential is 0 on both sides of the barrier. Find the exact quantum-mechanical transmission probability T, as a dimensionless number between 0 and 1 (key \"T\")."
+  },
+  {
+    "id": "t4_effective_mass_interface",
+    "key": "T",
+    "tol": {
+      "type": "rel",
+      "value": 0.03
+    },
+    "prompt": "A GaAs / AlGaAs / GaAs heterostructure. The electron effective mass is 0.067 m0 in the GaAs contacts and 0.092 m0 in the AlGaAs barrier. The barrier height is V0 = 0.30 eV above the GaAs band edge and the barrier width is a = 3.0 nm. An electron with energy E = 0.10 eV above the GaAs band edge is incident from the left GaAs contact. Use the envelope-function matching conditions that are appropriate at a heterointerface with position-dependent effective mass. Find the exact transmission probability T, as a dimensionless number between 0 and 1 (key \"T\")."
+  },
+  {
+    "id": "t5_resonance_energy",
+    "key": "E_res_eV",
+    "tol": {
+      "type": "rel",
+      "value": 0.02
+    },
+    "prompt": "A symmetric double-barrier resonant-tunnelling structure. The effective mass is 0.067 m0 in every region (contacts, barriers and well). Both barriers have height V0 = 0.30 eV and width 2.0 nm. They are separated by a quantum well of width 5.0 nm. The potential is 0 in the well and in the contacts. As the electron energy E (measured from the band edge of the contacts) increases from 0, the transmission probability T(E) shows its first (lowest-energy) peak. Find the energy of that peak, in eV (key \"E_res_eV\"), to 3 significant figures."
+  },
+  {
+    "id": "t6_asymmetric_resonance_peak",
+    "key": "T_peak",
+    "tol": {
+      "type": "rel",
+      "value": 0.03
+    },
+    "prompt": "An asymmetric double-barrier resonant-tunnelling structure. The effective mass is 0.067 m0 in every region (contacts, barriers and well). Both barriers have height V0 = 0.30 eV. The left barrier is 2.0 nm wide, the right barrier is 3.0 nm wide, and they are separated by a quantum well of width 5.0 nm. The potential is 0 in the well and in the contacts. The transmission probability T(E) has its first (lowest-energy) resonance peak at an energy below 0.15 eV. Find the maximum value of T(E) at that peak, as a dimensionless number between 0 and 1 (key \"T_peak\")."
+  },
+  {
+    "id": "t7_thickness_sensitivity_decades",
+    "key": "decades",
+    "tol": {
+      "type": "abs",
+      "value": 0.05
+    },
+    "prompt": "A tunnel oxide is modelled as a rectangular barrier of height V0 = 3.20 eV above the contact band edge. The electron effective mass is m0 in the contacts and 0.42 m0 inside the barrier. An electron with energy E = 0.10 eV above the contact band edge is incident on the barrier. Using the exact transmission probability T(a) for barrier thickness a, find log10[ T(1.0 nm) / T(1.2 nm) ], i.e. by how many decades T drops when the thickness increases from 1.0 nm to 1.2 nm (key \"decades\")."
+  },
+  {
+    "id": "t8_stm_barrier_error_factor",
+    "key": "ratio",
+    "tol": {
+      "type": "rel",
+      "value": 0.03
+    },
+    "prompt": "In a scanning tunnelling microscope the current through a vacuum gap of width d = 1.00 nm is proportional to exp(-2 kappa d), with kappa = sqrt(2 m0 phi) / hbar, where phi is the effective barrier height. A calculation assumes phi = 4.50 eV, but the true value is phi = 4.80 eV. All other quantities are the same. Find the ratio I_true / I_calculated at d = 1.00 nm (key \"ratio\")."
+  },
+  {
+    "id": "t9_thick_barrier_validity",
+    "key": "a_nm",
+    "tol": {
+      "type": "rel",
+      "value": 0.03
+    },
+    "prompt": "An electron (free-electron mass m0) with energy E = 0.50 eV is incident on a rectangular barrier of height V0 = 2.00 eV and width a. The potential is 0 on both sides. The common thick-barrier approximation is T_approx = 16 (E/V0) (1 - E/V0) exp(-2 kappa a), with kappa = sqrt(2 m0 (V0 - E)) / hbar. Find the smallest width a, in nm (key \"a_nm\"), such that T_approx agrees with the exact transmission probability T within 10 percent, |T_approx / T - 1| <= 0.10, for that width and for every larger width."
+  },
+  {
+    "id": "t10_sloped_barrier",
+    "key": "T",
+    "tol": {
+      "type": "rel",
+      "value": 0.05
+    },
+    "prompt": "An electron (effective mass 0.067 m0 in every region) with energy E = 0.15 eV is incident on a barrier whose top is not flat. The potential is 0 for x < 0 and for x > 3.0 nm. For 0 <= x <= 3.0 nm it falls linearly from 0.80 eV at x = 0 to 0.20 eV at x = 3.0 nm, V(x) = 0.80 eV - (0.20 eV/nm) x. The potential jumps at x = 0 and at x = 3.0 nm. Find the exact quantum-mechanical transmission probability T, as a dimensionless number between 0 and 1 (key \"T\"). Do not use the WKB approximation."
+  },
+  {
+    "id": "t11_resonance_width",
+    "key": "FWHM_eV",
+    "tol": {
+      "type": "rel",
+      "value": 0.05
+    },
+    "prompt": "A symmetric double-barrier resonant-tunnelling structure. The effective mass is 0.067 m0 in every region (contacts, barriers and well). Both barriers have height V0 = 0.30 eV and width 2.0 nm. They are separated by a quantum well of width 5.0 nm. The potential is 0 in the well and in the contacts. The transmission probability T(E) has its first (lowest-energy) resonance peak with maximum value 1. Find the full width at half maximum of that peak, i.e. the difference between the two energies, one on each side of the peak, at which T(E) = 0.5. Give it in eV (key \"FWHM_eV\")."
+  },
+  {
+    "id": "t12_five_layer_stack",
+    "key": "T",
+    "tol": {
+      "type": "rel",
+      "value": 0.05
+    },
+    "prompt": "A heterostructure grown along x, with the electron effective mass and band-edge potential of each region listed below (potential in eV relative to the left contact band edge, thickness in nm, mass in units of m0). Left contact (semi-infinite): V = 0, m* = 0.067. Layer 1: V = 0.30, 1.5 nm, m* = 0.092. Layer 2: V = 0.00, 4.0 nm, m* = 0.067. Layer 3: V = 0.35, 2.5 nm, m* = 0.100. Layer 4: V = 0.05, 3.0 nm, m* = 0.070. Layer 5: V = 0.30, 1.5 nm, m* = 0.092. Right contact (semi-infinite): V = 0, m* = 0.067. An electron with energy E = 0.12 eV above the left contact band edge is incident from the left. Use the envelope-function matching conditions appropriate for a heterostructure with position-dependent effective mass. Find the exact transmission probability T, as a dimensionless number between 0 and 1 (key \"T\")."
+  },
+  {
+    "id": "t13_triple_barrier_splitting",
+    "key": "splitting_meV",
+    "tol": {
+      "type": "rel",
+      "value": 0.05
+    },
+    "prompt": "A symmetric triple-barrier structure. The effective mass is 0.067 m0 in every region (contacts, barriers and wells). The three barriers each have height V0 = 0.30 eV and width 1.5 nm. They are separated by two identical quantum wells, each 4.0 nm wide. The potential is 0 in the wells and in the contacts. The transmission probability T(E) has two resonance peaks below 0.20 eV, which come from the coupling of the two wells. Find the energy separation between these two lowest peaks, in meV (key \"splitting_meV\")."
+  }
+]

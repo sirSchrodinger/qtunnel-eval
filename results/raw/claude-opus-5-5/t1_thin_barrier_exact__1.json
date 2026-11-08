@@ -1,0 +1,50 @@
+{
+ "model": "claude-opus-5-5",
+ "task": "t1_thin_barrier_exact",
+ "trial": 1,
+ "backend": "claude-cli",
+ "date": "2026-11-08 20:55:22",
+ "seconds": 10.6,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nAn electron (free-electron mass m0 everywhere) with energy E = 0.40 eV is incident on a rectangular potential barrier of height V0 = 1.00 eV and width a = 0.25 nm. The potential is 0 on both sides of the barrier. Find the exact quantum-mechanical transmission probability T. Do not use a thick-barrier approximation. Report T as a dimensionless number between 0 and 1 (key \"T\").\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "The barrier is higher than the electron energy (E < V0), so the wave decays inside it. The exact transmission for a rectangular barrier is:\n\n$$T = \\left[1 + \\frac{V_0^2 \\sinh^2(\\kappa a)}{4E(V_0 - E)}\\right]^{-1}, \\qquad \\kappa = \\sqrt{\\frac{2m_0 (V_0 - E)}{\\hbar^2}}$$\n\n**Decay constant**\n\n- $\\kappa^2 = 0.60 / 0.0380998 = 15.7481\\ \\text{nm}^{-2}$\n- $\\kappa = 3.96839\\ \\text{nm}^{-1}$\n- $\\kappa a = 0.992097$\n\n**Hyperbolic sine**\n\n- $e^{0.992097} = 2.696884$ and $e^{-0.992097} = 0.370799$\n- $\\sinh(\\kappa a) = (2.696884 - 0.370799)/2 = 1.163043$\n- $\\sinh^2(\\kappa a) = 1.352669$\n\n**Prefactor**\n\n- $4E(V_0 - E) = 4 \\times 0.4 \\times 0.6 = 0.96\\ \\text{eV}^2$\n- $V_0^2 / 0.96 = 1.041667$\n\n**Result**\n\n- $1.041667 \\times 1.352669 = 1.409030$\n- $T = 1/(1 + 1.409030) = 1/2.409030 = 0.4151$\n\nANSWER: {\"T\": 0.4151}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 857,
+  "cache_read_input_tokens": 0,
+  "output_tokens": 892,
+  "output_tokens_details": {
+   "thinking_tokens": 384
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 857,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 892,
+    "cache_read_input_tokens": 0,
+    "cache_creation_input_tokens": 857,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 857
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.024704000000000004
+ },
+ "grade": {
+  "ok": true,
+  "value": 0.4151,
+  "label": "correct"
+ }
+}

@@ -1,0 +1,55 @@
+{
+ "model": "claude-haiku-5-5",
+ "task": "t7_thickness_sensitivity_decades",
+ "trial": 2,
+ "backend": "claude-cli",
+ "date": "2026-11-08 20:52:42",
+ "seconds": 36.6,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nA tunnel oxide is modelled as a rectangular barrier of height V0 = 3.20 eV above the contact band edge. The electron effective mass is m0 in the contacts and 0.42 m0 inside the barrier. An electron with energy E = 0.10 eV above the contact band edge is incident on the barrier. Using the exact transmission probability T(a) for barrier thickness a, find log10[ T(1.0 nm) / T(1.2 nm) ], i.e. by how many decades T drops when the thickness increases from 1.0 nm to 1.2 nm (key \"decades\").\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "**Setup.** Matching ψ and ψ'/m at both interfaces (BenDaniel–Duke conditions) gives the exact transmission\n\nT⁻¹ = 1 + sinh²(κa) · (u + w²/u)² / (4w²),\n\nwhere u = κ/m_b, w = k/m₀, and κ, k are the barrier and contact wavenumbers.\n\n**Wavenumbers.**\n- Contact: k² = E/(ħ²/2m₀) = 0.10/0.0380998 = 2.62467 nm⁻², so w² = 2.62467 and w = 1.62008 nm⁻¹.\n- Barrier: κ² = (V₀ − E)/[(ħ²/2m₀)(0.42)] = 3.10/0.0160019 = 193.727 nm⁻², so κ = 13.9186 nm⁻¹.\n- Then u = κ/0.42 = 33.1395 nm⁻¹.\n\n**Prefactor.** (u + w²/u)²/(4w²) = (u² + w²)²/(4u²w²) ≈ 105.1. Call this G.\n\n**Thickness dependence.** Since G·sinh²(κa) ≫ 1 for both thicknesses (GS² ≈ 3×10¹¹ at a = 1.0 nm), T ≈ 1/[G sinh²(κa)], and the prefactor cancels in the ratio:\n\nlog₁₀[T(1.0)/T(1.2)] ≈ 2κ(1.2 − 1.0 nm)/ln 10 = 2(13.9186)(0.2)/2.302585 ≈ 2.418\n\nThe correction from the \"+1\" in T⁻¹ is of order 10⁻¹¹ and is negligible.\n\nANSWER: {\"decades\": 2.418}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 335,
+  "cache_read_input_tokens": 598,
+  "output_tokens": 7953,
+  "output_tokens_details": {
+   "thinking_tokens": 7347
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 335,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 7953,
+    "cache_read_input_tokens": 598,
+    "cache_creation_input_tokens": 335,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 335
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.00404968
+ },
+ "grade": {
+  "ok": false,
+  "value": 2.418,
+  "label": "wrong method: effective_mass_in_denominator_of_kappa"
+ },
+ "grade_firstpass": {
+  "ok": false,
+  "value": 2.418,
+  "label": "wrong: other"
+ }
+}

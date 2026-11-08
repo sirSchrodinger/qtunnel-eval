@@ -1,0 +1,51 @@
+{
+ "model": "claude-haiku-5-5",
+ "task": "t1_thin_barrier_exact",
+ "trial": 2,
+ "backend": "claude-cli",
+ "effort": "low",
+ "date": "2026-11-08 21:27:12",
+ "seconds": 12.9,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nAn electron (free-electron mass m0 everywhere) with energy E = 0.40 eV is incident on a rectangular potential barrier of height V0 = 1.00 eV and width a = 0.25 nm. The potential is 0 on both sides of the barrier. Find the exact quantum-mechanical transmission probability T. Do not use a thick-barrier approximation. Report T as a dimensionless number between 0 and 1 (key \"T\").\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "**Setup**\n\nWith $\\hbar^2/(2m_0) = 0.0380998\\ \\text{eV nm}^2$, we have $2m_0/\\hbar^2 = 26.2469\\ \\text{nm}^{-2}\\,\\text{eV}^{-1}$.\n\nOutside the barrier (E = 0.40 eV), the wavenumber is $k = \\sqrt{0.40 \\times 26.2469} \\approx 3.240\\ \\text{nm}^{-1}$, but only the barrier wavenumber enters the transmission formula.\n\nInside the barrier ($V_0 - E = 0.60$ eV), the decay constant is\n\n$$\\kappa = \\sqrt{0.60 \\times 26.2469} \\approx 3.9684\\ \\text{nm}^{-1}, \\qquad \\kappa a = 0.99210.$$\n\n**Exact transmission for a rectangular barrier** (E < V₀):\n\n$$T = \\left[1 + \\frac{V_0^2 \\sinh^2(\\kappa a)}{4E(V_0 - E)}\\right]^{-1}$$\n\n**Evaluation**\n\n- $\\sinh(0.99210) \\approx 1.16304$, so $\\sinh^2(\\kappa a) \\approx 1.35256$.\n- $4E(V_0 - E) = 4(0.40)(0.60) = 0.96$ eV².\n- $\\dfrac{V_0^2 \\sinh^2(\\kappa a)}{4E(V_0-E)} = \\dfrac{1.35256}{0.96} \\approx 1.40892$.\n- $T = \\dfrac{1}{1 + 1.40892} = \\dfrac{1}{2.40892} \\approx 0.4151$.\n\n**Result:** $T \\approx 0.415$\n\nANSWER: {\"T\": 0.4151}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 335,
+  "cache_read_input_tokens": 548,
+  "output_tokens": 1457,
+  "output_tokens_details": {
+   "thinking_tokens": 855
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 335,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 1457,
+    "cache_read_input_tokens": 548,
+    "cache_creation_input_tokens": 335,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 335
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.00080118
+ },
+ "grade": {
+  "ok": true,
+  "value": 0.4151,
+  "label": "correct"
+ }
+}

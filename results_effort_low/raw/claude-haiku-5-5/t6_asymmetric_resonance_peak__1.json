@@ -1,0 +1,51 @@
+{
+ "model": "claude-haiku-5-5",
+ "task": "t6_asymmetric_resonance_peak",
+ "trial": 1,
+ "backend": "claude-cli",
+ "effort": "low",
+ "date": "2026-11-08 21:29:56",
+ "seconds": 119.0,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nAn asymmetric double-barrier resonant-tunnelling structure. The effective mass is 0.067 m0 in every region (contacts, barriers and well). Both barriers have height V0 = 0.30 eV. The left barrier is 2.0 nm wide, the right barrier is 3.0 nm wide, and they are separated by a quantum well of width 5.0 nm. The potential is 0 in the well and in the contacts. The transmission probability T(E) has its first (lowest-energy) resonance peak at an energy below 0.15 eV. Find the maximum value of T(E) at that peak, as a dimensionless number between 0 and 1 (key \"T_peak\").\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "**Approach.** With equal effective masses everywhere, the structure reduces to a product of transfer matrices (ψ, ψ') across the two barriers and the well. For incidence from the left with wavenumber k in the contacts,\n\nT = 4k² / [k²(A+D)² + (k²B − C)²],\n\nwhere M = M_b2·M_well·M_b1 = [[A, B], [C, D]]. This reduces to T = 1 for free space and to the standard single-barrier result T = 1/(1 + V²sinh²(κb)/(4E(V−E))), so it is consistent.\n\nHere ħ²/(2m) = 0.568654 eV·nm², so k = √(E/0.568654) nm⁻¹ and κ = √((0.30 − E)/0.568654) nm⁻¹.\n\n**Scan of T(E)** (evaluated by hand, so each value is good to roughly 1%):\n\n| E (eV) | T(E) |\n|---|---|\n| 0.060 | 0.0097 |\n| 0.080 | 0.193 |\n| 0.085 | 0.561 |\n| 0.0875 | 0.695 |\n| 0.090 | 0.570 |\n| 0.100 | 0.143 |\n\nThe first resonance lies at E ≈ 0.087 eV, below 0.15 eV. Minimising the denominator with a three-point parabolic fit around 0.0875 eV gives a minimum near E ≈ 0.0874 eV, where k² ≈ 0.1536 nm⁻² and the denominator is ≈ 0.885. This gives T_max ≈ 0.614/0.885 ≈ 0.69–0.70.\n\n**Cross-check.** The single-barrier transmissions at this energy are T₁ ≈ 0.25 (2 nm barrier) and T₂ ≈ 0.08 (3 nm barrier). The Breit–Wigner estimate 4T₁T₂/(T₁+T₂)² ≈ 0.73 is consistent with the direct result.\n\nT_peak ≈ 0.69\n\nANSWER: {\"T_peak\": 0.69}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 334,
+  "cache_read_input_tokens": 623,
+  "output_tokens": 29661,
+  "output_tokens_details": {
+   "thinking_tokens": 28960
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 334,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 29661,
+    "cache_read_input_tokens": 623,
+    "cache_creation_input_tokens": 334,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 334
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.01490373
+ },
+ "grade": {
+  "ok": true,
+  "value": 0.69,
+  "label": "correct"
+ }
+}

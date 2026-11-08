@@ -1,0 +1,51 @@
+{
+ "model": "claude-haiku-5-5",
+ "task": "t11_resonance_width",
+ "trial": 1,
+ "backend": "claude-cli",
+ "effort": "low",
+ "date": "2026-11-08 21:33:32",
+ "seconds": 131.7,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nA symmetric double-barrier resonant-tunnelling structure. The effective mass is 0.067 m0 in every region (contacts, barriers and well). Both barriers have height V0 = 0.30 eV and width 2.0 nm. They are separated by a quantum well of width 5.0 nm. The potential is 0 in the well and in the contacts. The transmission probability T(E) has its first (lowest-energy) resonance peak with maximum value 1. Find the full width at half maximum of that peak, i.e. the difference between the two energies, one on each side of the peak, at which T(E) = 0.5. Give it in eV (key \"FWHM_eV\").\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "**Approach:** For a symmetric double barrier, the transfer-matrix result can be written compactly. With $k$ the well/contact wavevector and $\\kappa$ the barrier decay constant, the transmission is\n\n$$T(E)=\\frac{4k^2}{F(E)^2+4k^2},\\qquad F=\\frac{k^2+\\kappa^2}{\\kappa}\\,\\sinh(\\kappa b)\\,H,$$\n\n$$H=2\\cos(kw)\\cosh(\\kappa b)+\\sin(kw)\\sinh(\\kappa b)\\,\\frac{\\kappa^2-k^2}{k\\kappa}.$$\n\nHere $b=2$ nm and $w=5$ nm. The peak has $T=1$ where $F=0$, and $T=0.5$ where $|F|=2k$.\n\n**Constants:** $\\hbar^2/(2m) = 0.0380998/0.067 = 0.568654$ eV nm², so $k^2 = 1.75829\\,E$ and $\\kappa^2 = 1.75829\\,(0.30-E)$. Note that $k^2+\\kappa^2 = 0.527486$ eV⁻¹·nm⁻² is constant.\n\n**Resonance energy:** Solving $H=0$, i.e. $\\tan(kw)=2k\\kappa\\coth(\\kappa b)/(k^2-\\kappa^2)$, gives $E_0 \\approx 0.08625$ eV.\n\n**Half-maximum points:** Evaluating $F$ and $2k$ numerically:\n\n- Lower side: at $E=0.0785$, $F-2k=+0.0622$; at $E=0.0790$, $F-2k=+0.00428$. The root is $E_L \\approx 0.079037$ eV.\n- Upper side: at $E=0.0940$, $F+2k=+0.1137$; at $E=0.0950$, $F+2k=+0.0349$. The root is $E_U \\approx 0.095441$ eV.\n\n**FWHM:**\n$$\\text{FWHM} = E_U - E_L \\approx 0.09544 - 0.07904 \\approx 0.0164\\ \\text{eV}$$\n\nEstimated numerical uncertainty is in the fourth significant figure.\n\nANSWER: {\"FWHM_eV\": 0.0164}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 777,
+  "cache_read_input_tokens": 0,
+  "output_tokens": 31026,
+  "output_tokens_details": {
+   "thinking_tokens": 30257
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 777,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 31026,
+    "cache_read_input_tokens": 0,
+    "cache_creation_input_tokens": 777,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 777
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.0156686
+ },
+ "grade": {
+  "ok": true,
+  "value": 0.0164,
+  "label": "correct"
+ }
+}

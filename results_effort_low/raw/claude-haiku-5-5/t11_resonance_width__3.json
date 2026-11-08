@@ -1,0 +1,51 @@
+{
+ "model": "claude-haiku-5-5",
+ "task": "t11_resonance_width",
+ "trial": 3,
+ "backend": "claude-cli",
+ "effort": "low",
+ "date": "2026-11-08 21:32:52",
+ "seconds": 78.5,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nA symmetric double-barrier resonant-tunnelling structure. The effective mass is 0.067 m0 in every region (contacts, barriers and well). Both barriers have height V0 = 0.30 eV and width 2.0 nm. They are separated by a quantum well of width 5.0 nm. The potential is 0 in the well and in the contacts. The transmission probability T(E) has its first (lowest-energy) resonance peak with maximum value 1. Find the full width at half maximum of that peak, i.e. the difference between the two energies, one on each side of the peak, at which T(E) = 0.5. Give it in eV (key \"FWHM_eV\").\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "**Approach:** Treat the structure as a Fabry-Pérot cavity. For identical barriers with single-barrier transmission $T_b$, reflection $R=1-T_b$ and reflection phase $\\theta$, the transmission is\n\n$$T=\\frac{T_b^2}{1-2R\\cos\\psi+R^2},\\qquad \\psi=2kw+2\\theta(E),$$\n\nwith $w=5$ nm. The FWHM is set by $1-\\cos\\delta = T_b^2/(2R)$ (half-width $\\delta$ in $\\psi$), divided by $d\\psi/dE$.\n\n**Constants:** $c=\\hbar^2/(2m)=0.0380998/0.067=0.568653$ eV nm².\n\n**Resonance energy:** Using $\\kappa=\\sqrt{(V_0-E)/c}$ and $\\theta=-\\arg D$, with $D=(k^2-\\kappa^2)\\sinh\\kappa b+2ik\\kappa\\cosh\\kappa b$, the resonance condition $g(E)\\equiv kw+\\theta=0$ gives $E_r\\approx 0.0862$ eV. Here $k\\approx0.390$ nm⁻¹ and $\\kappa\\approx0.613$ nm⁻¹.\n\n**Single-barrier quantities at $E_r$:** $\\kappa b\\approx1.226$, $\\sinh\\kappa b\\approx1.557$, so\n\n$$T_b=\\left[1+\\frac{V_0^2\\sinh^2\\kappa b}{4E(V_0-E)}\\right]^{-1}\\approx0.2526,\\qquad R\\approx0.747.$$\n\n**Half-width in phase:**\n\n$$\\cos\\delta = 1-\\frac{T_b^2}{2R}\\approx0.9573\\ \\Rightarrow\\ \\delta\\approx0.293.$$\n\n**Phase slope:** $g'(E)=w\\,dk/dE+d\\theta/dE$. Since $dk/dE=1/(\\hbar v)$ with $\\hbar v=2ck\\approx0.443$ eV·nm, the kinematic term is $\\approx11.3$ eV⁻¹. The barrier-phase term adds $\\approx6.9$ eV⁻¹, giving $g'\\approx18.2$ eV⁻¹ (from finite differences of $g$ at 0.08, 0.0863 and 0.09 eV).\n\nBecause $\\psi=2g$, the two half-points are separated by $\\Delta g=\\delta$, so\n\n$$\\text{FWHM}=\\frac{\\delta}{g'}\\approx\\frac{0.293}{18.2}\\approx0.0161\\ \\text{eV}.$$\n\nThis is an approximate hand calculation; the $T_b$ and $R$ values were evaluated at $E_r$ rather than integrated across the peak.\n\nANSWER: {\"FWHM_eV\": 0.0161}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 335,
+  "cache_read_input_tokens": 618,
+  "output_tokens": 16742,
+  "output_tokens_details": {
+   "thinking_tokens": 15776
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 335,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 16742,
+    "cache_read_input_tokens": 618,
+    "cache_creation_input_tokens": 335,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 335
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.00844438
+ },
+ "grade": {
+  "ok": true,
+  "value": 0.0161,
+  "label": "correct"
+ }
+}

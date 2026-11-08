@@ -1,0 +1,50 @@
+{
+ "model": "claude-haiku-5-5",
+ "task": "t13_triple_barrier_splitting",
+ "trial": 1,
+ "backend": "claude-cli",
+ "date": "2026-11-08 21:17:08",
+ "seconds": 219.5,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nA symmetric triple-barrier structure. The effective mass is 0.067 m0 in every region (contacts, barriers and wells). The three barriers each have height V0 = 0.30 eV and width 1.5 nm. They are separated by two identical quantum wells, each 4.0 nm wide. The potential is 0 in the wells and in the contacts. The transmission probability T(E) has two resonance peaks below 0.20 eV, which come from the coupling of the two wells. Find the energy separation between these two lowest peaks, in meV (key \"splitting_meV\").\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "**Approach**\n\nBecause the structure is mirror-symmetric, the transfer matrix M = M_B M_W M_B M_W M_B has M11 = M22 and det M = 1. Writing the transmission as T = 4k²/D with D = (c − k²b)² + k²(a+d)², and using a = d, gives\n\n1/T = 1 + G²/(4k²), where G(E) = c + k²b.\n\nSo perfect transmission (resonance) occurs at the roots of G(E) = 0. Here k² = E/(ħ²/2m) = 1.758474·E (E in eV, nm⁻²), and κ² = 1.758474·(0.30 − E) in the barriers. The single-well ground state (≈0.1155 eV) splits into a symmetric and an antisymmetric resonance.\n\n**Transfer-matrix evaluations of G(E)**\n\n| E (eV) | G(E) |\n|---|---|\n| 0.080 | +0.7196 |\n| 0.087 | −0.01427 |\n| 0.090 | −0.2495 |\n| 0.100 | −0.7496 |\n| 0.120 | −0.7779 |\n| 0.130 | −0.4790 |\n| 0.140 | −0.0611 |\n| 0.141 | −0.01347 |\n\n**Roots**\n\n- Lower resonance: a quadratic fit through the 0.080, 0.087 and 0.090 points, with slope ≈ −87 eV⁻¹ near the root, gives E₁ ≈ 0.086836 eV.\n- Upper resonance: the local slope is ≈ +47.9 eV⁻¹ near 0.141, giving E₂ ≈ 0.141281 eV.\n\n**Splitting**\n\nΔE = E₂ − E₁ ≈ 0.054446 eV ≈ 54.4 meV\n\nThe estimate is limited mainly by hand arithmetic, roughly ±0.2 meV.\n\nANSWER: {\"splitting_meV\": 54.4}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 747,
+  "cache_read_input_tokens": 0,
+  "output_tokens": 55672,
+  "output_tokens_details": {
+   "thinking_tokens": 55012
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 747,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 55672,
+    "cache_read_input_tokens": 0,
+    "cache_creation_input_tokens": 747,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 747
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.0279856
+ },
+ "grade": {
+  "ok": true,
+  "value": 54.4,
+  "label": "correct"
+ }
+}

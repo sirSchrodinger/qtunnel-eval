@@ -1,0 +1,50 @@
+{
+ "model": "claude-sonnet-5-5",
+ "task": "t8_stm_barrier_error_factor",
+ "trial": 2,
+ "backend": "claude-cli",
+ "date": "2026-11-08 20:55:10",
+ "seconds": 9.3,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nIn a scanning tunnelling microscope the current through a vacuum gap of width d = 1.00 nm is proportional to exp(-2 kappa d), with kappa = sqrt(2 m0 phi) / hbar, where phi is the effective barrier height. A calculation assumes phi = 4.50 eV, but the true value is phi = 4.80 eV. All other quantities are the same. Find the ratio I_true / I_calculated at d = 1.00 nm (key \"ratio\").\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "kappa = sqrt(phi/0.0380998) nm^-1.\n\nFor phi=4.50: 4.5/0.0380998 = 118.1103; sqrt = 10.8678 (10.8678^2 = 118.109, good).\nMore precisely: 10.8678^2 = 118.1092; need 118.1103, diff 0.0011/(2·10.8678)=0.00005 → 10.86785.\n\nFor phi=4.80: 4.8/0.0380998 = 125.9843; sqrt: 11.225^2 = 126.0006; diff -0.0163/(22.45) = -0.000726 → 11.224274.\n\nCheck 4.5/0.0380998: 0.0380998·118 = 4.495776; remainder 0.004224/0.0380998 = 0.11087 → 118.11087. Sqrt: 10.8678^2 = 118.10908 (10.8678^2: 10.8678·10.8678 = 118.1092...). Compute: 10.8678^2 = 118 + ... let's do 10.87^2 = 118.1569; minus 2·10.87·0.0022=0.047828 → 118.10907, plus 0.0022^2=0.000005 → 118.10908. Remainder 0.00179/21.7356=0.0000824 → 10.867882.\n\n4.8/0.0380998: 0.0380998·126 = 4.8005748; excess 0.0005748/0.0380998 = 0.015087 → 125.984913. Sqrt: 11.225^2 = 126.000625; diff -0.015712/22.45 = -0.0006999 → 11.2243001.\n\nΔkappa = 11.2243001 − 10.867882 = 0.356418 nm^-1.\nExponent: −2·Δkappa·d = −0.712836.\nexp(−0.712836) = e^-0.7 · e^-0.012836 = 0.496585 × 0.987246 = 0.490252.\n\nThe ratio I_true/I_calc ≈ 0.490.\n\nANSWER: {\"ratio\": 0.4903}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 313,
+  "cache_read_input_tokens": 563,
+  "output_tokens": 680,
+  "output_tokens_details": {
+   "thinking_tokens": 0
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 313,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 680,
+    "cache_read_input_tokens": 563,
+    "cache_creation_input_tokens": 313,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 313
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.0081686
+ },
+ "grade": {
+  "ok": true,
+  "value": 0.4903,
+  "label": "correct"
+ }
+}

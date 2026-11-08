@@ -1,0 +1,55 @@
+{
+ "model": "claude-haiku-5-5",
+ "task": "t5_resonance_energy",
+ "trial": 3,
+ "backend": "claude-cli",
+ "date": "2026-11-08 20:51:03",
+ "seconds": 72.2,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nA symmetric double-barrier resonant-tunnelling structure. The effective mass is 0.067 m0 in every region (contacts, barriers and well). Both barriers have height V0 = 0.30 eV and width 2.0 nm. They are separated by a quantum well of width 5.0 nm. The potential is 0 in the well and in the contacts. As the electron energy E (measured from the band edge of the contacts) increases from 0, the transmission probability T(E) shows its first (lowest-energy) peak. Find the energy of that peak, in eV (key \"E_res_eV\"), to 3 significant figures.\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "**Approach.** Because the contacts and well both have V = 0, the wavenumber k = √(2mE)/ħ is the same in the contacts and the well, and the barrier decay constant is κ = √(2m(V0 − E))/ħ. With ħ²/(2m) = 0.568653 eV nm² for m = 0.067 m0:\n\n- k² = E/0.568653, κ² = (0.30 − E)/0.568653, so k² + κ² = 0.527573 nm⁻²\n- Well half-width a = 2.5 nm, barrier width b = 2.0 nm, τ = tanh(κb)\n\n**Scattering condition.** For a symmetric structure, the even and odd channel phase shifts δ_e and δ_o satisfy T = sin²(δ_e − δ_o). Perfect transmission (T = 1) therefore requires δ_e − δ_o = π/2 (mod π), which reduces to\n\nk² + L_e L_o = 0\n\nwhere the barrier-edge log-derivatives are\n\n- L_e = κ(κτ + α)/(κ + ατ), with α = −k tan(ka) (even state, cos kx in the well)\n- L_o = κ(κτ + β)/(κ + βτ), with β = k cot(ka) (odd state, sin kx in the well)\n\n**Evaluation.**\n\n| E (eV) | g = k² + L_e L_o |\n|---|---|\n| 0.0840 | +0.0775 |\n| 0.0854 | +0.0318 |\n| 0.0864 | −0.0070 |\n\nThe root lies between 0.0854 and 0.0864, at about 0.0862 eV. The simpler real-part approximation (k tan ka = κτ(k²+κ²)/(κ²+k²τ²)) gives 0.0854 eV, but it neglects the imaginary part of the barrier reflection, so the exact condition above is the one used.\n\nThe lowest root is the first resonance: at E → 0 the function is negative, and it first crosses zero near 0.086 eV.\n\nE_res ≈ 0.0862 eV\n\nANSWER: {\"E_res_eV\": 0.0862}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 333,
+  "cache_read_input_tokens": 603,
+  "output_tokens": 16516,
+  "output_tokens_details": {
+   "thinking_tokens": 15808
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 333,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 16516,
+    "cache_read_input_tokens": 603,
+    "cache_creation_input_tokens": 333,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 333
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.008330830000000001
+ },
+ "grade": {
+  "ok": true,
+  "value": 0.0862,
+  "label": "correct"
+ },
+ "grade_firstpass": {
+  "ok": false,
+  "value": 0.0862,
+  "label": "wrong: other"
+ }
+}

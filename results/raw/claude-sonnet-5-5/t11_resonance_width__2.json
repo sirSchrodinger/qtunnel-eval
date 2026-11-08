@@ -1,0 +1,50 @@
+{
+ "model": "claude-sonnet-5-5",
+ "task": "t11_resonance_width",
+ "trial": 2,
+ "backend": "claude-cli",
+ "date": "2026-11-08 21:07:14",
+ "seconds": 41.0,
+ "prompt": "This is a closed-book numerical physics problem. No code execution or other tools are available: use your own reasoning and arithmetic. Use hbar^2/(2 m0) = 0.0380998 eV nm^2, where m0 is the free-electron mass. Electron energies are measured from the band edge of the contacts, where the potential is 0 unless stated otherwise.\n\nA symmetric double-barrier resonant-tunnelling structure. The effective mass is 0.067 m0 in every region (contacts, barriers and well). Both barriers have height V0 = 0.30 eV and width 2.0 nm. They are separated by a quantum well of width 5.0 nm. The potential is 0 in the well and in the contacts. The transmission probability T(E) has its first (lowest-energy) resonance peak with maximum value 1. Find the full width at half maximum of that peak, i.e. the difference between the two energies, one on each side of the peak, at which T(E) = 0.5. Give it in eV (key \"FWHM_eV\").\n\nReply with brief reasoning, then finish with one final line of exactly this form (JSON, a plain number, no units inside the braces): ANSWER: {\"<key>\": <number>}",
+ "output": "The first resonance has FWHM ≈ 0.0161 eV, found by treating the structure as two identical barriers separated by a Fabry–Pérot well.\n\n**Setup.** With m* = 0.067 m0, ħ²/2m* = 0.568654 eV nm². Then k = √(E/0.568654) in the well and κ = √((V0−E)/0.568654) in the barriers.\n\n**Single barrier** (width b = 2 nm). Its reflection amplitude, referenced to the barrier edge, is r = (k²+κ²) sinh(κb) / D, with D = (k²−κ²) sinh(κb) + 2ikκ cosh(κb). The reflection phase is φ = −arg D, and R = |r|².\n\n**Double barrier.** For a well of width L = 5 nm,\n\nT = 1 / [1 + (4R/(1−R)²) sin²(θ/2)], with θ = 2kL − 2 arg D.\n\nThe peaks have T = 1 at θ = 2πn.\n\n**Resonance.** The first peak satisfies kL = arg D. Solving numerically gives E₀ ≈ 0.0862 eV, where k = 0.389 nm⁻¹ and κ = 0.613 nm⁻¹. There sinh(κb) = 1.558 and cosh(κb) = 1.851, so |D|² = 0.903.\n\nThe single-barrier values at E₀ are:\n- R = 0.748\n- 1 − R = 0.2524\n\n**Half maximum.** T = 0.5 requires sin(θ/2) = (1−R)/(2√R) = 0.1460. This gives θ/2 = 0.1465, so the full phase width is Δθ = 4 × 0.1465 = 0.586.\n\n**Phase slope.** Differentiating analytically at E₀:\n- L·dk/dE = 11.29 eV⁻¹\n- −d(arg D)/dE = 6.89 eV⁻¹\n\nSo d(kL − arg D)/dE ≈ 18.18 eV⁻¹, and dθ/dE ≈ 36.35 eV⁻¹.\n\n**Width.** FWHM = 0.586 / 36.35 ≈ 0.0161 eV.\n\nANSWER: {\"FWHM_eV\": 0.0161}",
+ "usage": {
+  "input_tokens": 2,
+  "cache_creation_input_tokens": 314,
+  "cache_read_input_tokens": 618,
+  "output_tokens": 4921,
+  "output_tokens_details": {
+   "thinking_tokens": 4159
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 314,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 4921,
+    "cache_read_input_tokens": 618,
+    "cache_creation_input_tokens": 314,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 314
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null,
+  "cost_usd": 0.0505936
+ },
+ "grade": {
+  "ok": true,
+  "value": 0.0161,
+  "label": "correct"
+ }
+}
