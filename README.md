@@ -2,7 +2,7 @@
 
 **Short description.** Domain: quantum transport in nanoelectronics (tunnel oxides, resonant-tunnelling diodes, STM and molecular junctions). I tried to find a limitation of frontier models on *exact* tunnelling calculations that experts normally do with a transfer-matrix code: 13 closed-book numerical tasks, every one graded by code against an exact reference. **Key finding: I did not find the limitation.** Four Claude models (Haiku 5.5, Sonnet 5.5, Opus 5.5, Fable 5.1) answered 307 of 312 trials correctly (3 trials per task, default and low reasoning effort). The 5 misses are one Haiku slip at default effort (effective mass inverted in the decay constant) and four at low effort, three of them an exact calculation silently replaced by an approximation. A 3B open model fails 37 of 39 trials, in ways the grader is built to label. The submission is therefore (1) an honest negative result with full transcripts, (2) a reusable harness whose references are checked by two independent solvers, and (3) a lesson from my own bug: twelve out of twelve trials agreed on an answer that differed from my reference, and the models were right.
 
-**Video walkthrough (5 min max):** https://github.com/sirSchrodinger/qtunnel-eval/blob/main/video/qtunnel_walkthrough.mp4
+**Video walkthrough (5 min max):** https://sirschrodinger.github.io/qtunnel-eval/
 
 ## Domain and expertise
 Physics undergraduate (Bilkent, PHYS 420 Nanoscience term project on tunnelling in single-molecule junctions). The tasks come from the standard 1D envelope-function treatment of tunnelling (BenDaniel-Duke matching, transfer matrices, resonant tunnelling). The solver and the questions about which approximations fail were written with AI assistance, see "AI use".
